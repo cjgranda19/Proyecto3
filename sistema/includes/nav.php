@@ -53,7 +53,7 @@
 						<li><a href="lista_ordenes.php"><i class="fa-solid fa-list"></i> Lista de órdenes</a></li>
 					</ul>
 				</li>
-				<!-- <li class="principal">
+				 <li class="principal">
 					<a href="#">Inventario</a>
 					<ul>
 					<?php
@@ -63,6 +63,17 @@
 					<?php } ?>
 						<li><a href="lista_utilidad.php">Lista de Utilidades</a></li>
 					</ul>
-				</li> -->
+				</li>
+				<li class="principal">
+					<a href="#">Inventario</a>
+					<ul>
+					<?php
+						if($_SESSION['rol']==1){
+					?>
+						<li><a href="buscar_cliente">Clientes</a></li>
+					<?php } ?>
+						<li><a href="registro_cliente">Registro Cliente</a></li>
+					</ul>
+				</li>
 			</ul>
 		</nav>
