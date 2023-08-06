@@ -56,7 +56,6 @@ if(!empty($_SESSION['active'])){
 </head>
 <body>
 	<div class="padre">
-		<img src="img/fondo2.jpg" alt="fondo 1" id="fondo">
 		<div class="hijo">
 			<div class="nieto">
 				<form class="login" action="" method="post">

@@ -17,19 +17,19 @@
 			</td>
 			<td class="info_empresa">
 				<div>
-					<span class="h2">DIEGO' WAFFLES ASSOCIATION</span>
+					<span class="h2">CITAVISO FABRIC</span>
 					<p>Quito - Pichincha - Ecuador</p>
 					<p>Teléfono: +(593) 000 - 000 - 0000</p>
-					<p>Email: info@gmail.com</p>
+					<p>Email: citaviso@gmail.com</p>
 				</div>
 			</td>
 			<td class="info_factura">
 				<div class="round">
 					<span class="h3">ORDEN</span>
 					<p>No. Orden: <strong>000001</strong></p>
-					<p>Fecha: 20/01/2019</p>
-					<p>Hora: 10:30am</p>
-					<p>Vendedor: Jorge Pérez Hernández Cabrera</p>
+					<p>Fecha: 20/01/2023</p>
+					<p>Hora: 08:10am</p>
+					<p>Vendedor: Carlos Javier Granda Velasquez</p>
 				</div>
 			</td>
 		</tr>

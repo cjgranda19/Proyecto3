@@ -36,14 +36,14 @@
                     </ul>
                 </li>
                 <li class="principal">
-                    <a href="#"><i class="fa-solid fa-clipboard-list"></i> Recetas</a>
+                    <a href="#"><i class="fa-solid fa-clipboard-list"></i> Productos</a>
                     <ul>
                         <?php
                         if($_SESSION['rol'] == 1){
                             ?>
-                            <li><a href="registro_receta.php"><i class="fa-solid fa-plus"></i> Nueva Receta</a></li>
+                            <li><a href="registro_receta.php"><i class="fa-solid fa-plus"></i> Nuevo Producto</a></li>
                         <?php } ?>
-                        <li><a href="lista_recetas.php"><i class="fa-solid fa-list"></i> Lista de Recetas</a></li>
+                        <li><a href="lista_recetas.php"><i class="fa-solid fa-list"></i> Lista de Productos</a></li>
                     </ul>
                 </li>
 				<li class="principal">
