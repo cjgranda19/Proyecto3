@@ -65,14 +65,14 @@
 					</ul>
 				</li>
 				<li class="principal">
-					<a href="#">Inventario</a>
+					<a href="#">Clientes</a>
 					<ul>
 					<?php
 						if($_SESSION['rol']==1){
 					?>
-						<li><a href="buscar_cliente">Clientes</a></li>
+						<li><a href="buscar_cliente.php">Clientes</a></li>
 					<?php } ?>
-						<li><a href="registro_cliente">Registro Cliente</a></li>
+						<li><a href="registro_cliente.php">Registro Cliente</a></li>
 					</ul>
 				</li>
 			</ul>
