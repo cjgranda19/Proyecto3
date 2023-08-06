@@ -12,8 +12,6 @@
 ?>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" type="text/css" href="../css/header.css">
-
 	<header>
 		<div class="header">
 			
@@ -29,14 +27,4 @@
 		<?php include "nav.php"; ?>
 	</header>
 
-	<div class="modal">
-		<div class="bodyModal">
-			<form action="" method="post" name="form_anular_factura" id="form_anular_factura" onsubmit="event.preventDefault(); anularFactura();">
-				<h1 style="font_size: 45pt;" ><br> Anular Factura</h1>
-				<h3>¿Realmente desea anular la factura?</h3>
-				<button type="submit" class="btn_ok"> Anular</button>
-				<button href="#" class="btn_cancel" onclick="coloseModal();"> Cancelar</button>
-			</form>
-		</div>
-	</div>
 
