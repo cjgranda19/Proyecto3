@@ -11,7 +11,7 @@ if(!empty($_SESSION['active'])){
 		{
 			$alert = "Ingrese su usuario y su contraseña";
 		}else{
-            require_once(__DIR__ . "conexion.php");
+            require_once(__DIR__ . "/conexion.php");
             global $conection;
 
 			$user = mysqli_real_escape_string($conection, $_POST['usuario']);
