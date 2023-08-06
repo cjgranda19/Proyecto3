@@ -47,7 +47,7 @@ if(!empty($_SESSION['active'])){
 <html>
 <head>
 	<meta charset="utf-8">
-	<link href="css/index.css" rel="stylesheet" type="text/css">
+	
 	<title>Login</title>
 	<link rel="shortcut icon" href="img/icono.ico">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
