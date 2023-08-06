@@ -187,7 +187,7 @@
 			$por_pagina = 8;
 
 			if(empty($_GET['pagina'])){
-				$pagina = 1;
+				$pagina = 5;
 			}else{
 				$pagina = $_GET['pagina'];
 			}
