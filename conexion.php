@@ -1,7 +1,7 @@
 <?php
 
 	$host = '74.208.221.54';
-	$user = 'root';
+	$user = 'joel';
 	$password ='Pdigi2019';
 	$db = 'proyecto';
 
