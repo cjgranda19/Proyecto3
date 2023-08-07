@@ -1,9 +1,9 @@
 <?php
 
-	$host = 'citaviso.com';
-	$user = 'u900659423_citaviso';
-	$password ='Pjoel2019@';
-	$db = 'u900659423_citaviso';
+	$host = '74.208.221.54';
+	$user = 'root';
+	$password ='Pdigi2019';
+	$db = 'proyecto';
 
 	$conection = @mysqli_connect($host, $user, $password, $db);
 
