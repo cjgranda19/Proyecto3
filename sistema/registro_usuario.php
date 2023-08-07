@@ -67,16 +67,19 @@ if (!empty($_POST)) {
 			</div>
 
 			<form action="" method="post">
+
 				<label for="nombre">Nombre: </label>
-				<input type="text" name="nombre" placeholder="Nombre Apellido" onkeyup="this.value=Letras(this.value)">
+				<input type="text" name="nombre" placeholder="Nombre Apellido">
+				<div id="mensajeErrorNombre" style="color: red;"></div>
 				<label for=correo>Correo electónico: </label>
-				<input type="email" name="correo" id="correo" placeholder="texto@dominio.dominio">
+				<input type="email" name="correo" id="correo" placeholder="texto@dominio.com">
 				<div id="mensajeError" style="color: red;"></div>
 				<label for="usuario">Usuario: </label>
-				<input type="text" name="usuario" id="usuario" placeholder="usuario"
-					onkeyup="this.value=Caracteres(this.value)">
+				<input type="text" name="usuario" id="usuario" placeholder="usuario">
+				<div id="mensajeErrorUusario" style="color: red;"></div>
 				<label for="Clave">Clave</label>
 				<input type="password" name="clave" id="clave" placeholder="Clave de acceso">
+				<div id="mensajeErrorPassword" style="color: red;"></div>
 				<label for="rol">Tipo Usuario</label>
 
 				<?php
@@ -104,6 +107,8 @@ if (!empty($_POST)) {
 
 	</section>
 	<script src="js/validacion.js"></script>
+	<script src="../js/validacion.js"></script>
+
 	<?php include "includes/footer.php"; ?>
 </body>
 
