@@ -76,7 +76,7 @@ if (!empty($_POST)) {
 				<div id="mensajeError" style="color: red;"></div>
 				<label for="usuario">Usuario: </label>
 				<input type="text" name="usuario" id="usuario" placeholder="usuario">
-				<div id="mensajeErrorUusario" style="color: red;"></div>
+				<div id="mensajeErrorUsuario" style="color: red;"></div>
 				<label for="Clave">Clave</label>
 				<input type="password" name="clave" id="clave" placeholder="Clave de acceso">
 				<div id="mensajeErrorPassword" style="color: red;"></div>
