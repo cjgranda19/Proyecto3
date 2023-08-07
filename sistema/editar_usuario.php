@@ -64,7 +64,7 @@ if ($result_sql == 0) {
 		$iduser = $data['idusuario'];
 		$nombre = $data['nombre'];
 		$correo = $data['correo'];
-		$usuario = $data['idrol'];
+		$usuario = $data['usuario'];
 		$rol = $data['rol'];
 
 		if ($idrol == 1) {
@@ -197,19 +197,21 @@ if ($result_sql == 0) {
 
 				<select name="rol" id="rol" class="notItemOne">
 					<?php
-					$option = ''; // Definir la variable $option con un valor por defecto
 					if ($result_rol > 0) {
 						while ($rol = mysqli_fetch_array($query_rol)) {
-							if ($idrol == $rol["idrol"]) {
-								$option .= '<option value="' . $rol["idrol"] . '" selected>' . $rol["rol"] . '</option>';
+							$optionValue = $rol["idrol"];
+							$optionText = $rol["rol"];
+
+							if ($optionValue == $rol_usuario) {
+								echo '<option value="' . $optionValue . '" selected>' . $optionText . '</option>';
 							} else {
-								$option .= '<option value="' . $rol["idrol"] . '">' . $rol["rol"] . '</option>';
+								echo '<option value="' . $optionValue . '">' . $optionText . '</option>';
 							}
 						}
 					}
-					echo $option;
 					?>
 				</select>
+
 
 				<input type="submit" value="Actualizar usuario" class="btn_save">
 			</form>
