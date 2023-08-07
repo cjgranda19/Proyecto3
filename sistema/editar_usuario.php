@@ -181,6 +181,8 @@ if ($result_sql == 0) {
 				<label for=correo>Correo electónico: </label>
 				<input type="email" name="correo" id="correo" placeholder="Correo electónico"
 					value="<?php echo $correo; ?>">
+				<div id="mensajeError" style="color: red;"></div>
+
 				<label for="usuario">Usuario: </label>
 				<input type="text" name="usuario" id="usuario" placeholder="Usuario" value="<?php echo $usuario; ?>">
 				<label for="Clave">Clave</label>
@@ -217,6 +219,8 @@ if ($result_sql == 0) {
 			</form>
 
 	</section>
+	<script src="js/validacion.js"></script>
+
 	<?php include "includes/footer.php"; ?>
 </body>
 
