@@ -1,80 +1,54 @@
-<!doctype html>
-<html lang="es">
-	<meta charset="utf-8">
-	<title>Login</title>
-	<link rel="shortcut icon" href="img/icono.ico">
+<!DOCTYPE html>
+<html>
 <head>
-  <title>Webleb</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
 </head>
-
 <body>
-  <div class="section">
+  <div class="page">
     <div class="container">
-      <div class="row full-height justify-content-center">
-        <div class="col-12 text-center align-self-center py-5">
-          <div class="section pb-5 pt-5 pt-sm-2 text-center">
-            <h6 class="mb-0 pb-3"><span>Iniciar sesión </span><span>Información</span></h6>
-            <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" />
-            <label for="reg-log"></label>
-            <div class="card-3d-wrap mx-auto">
-              <div class="card-3d-wrapper">
-                <div class="card-front">
-                  <div class="center-wrap">
-                    <div class="section text-center">
-                      <h4 class="mb-4 pb-3">Iniciar sesion</h4>
-                      <div class="form-group">
-                        <form class="login" action="" method="post">
-
-                          <input type="text" id="name" name="usuario" class="form-style" placeholder="Usuario">
-                          <i class="input-icon uil uil-at"></i>
-                      </div>
-                      <div class="form-group mt-2">
-                        <input type="password" id="apellido" name="clave" class="form-style" placeholder="Contraseña">
-                        <i class="input-icon uil uil-lock-alt"></i>
-                      </div>
-                      <input type="submit" value="INGRESAR" class="btn mt-4" id="ingresar">
-                      </form>
-                      <p class="mb-0 mt-4 text-center"><a href="sistema/php/recuperar-contraseña.php"
-                          class="link">¿Contraseña olvidad?</a></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-back">
-                  <div class="center-wrap">
-                    <div class="section text-center">
-                      <h4 class="mb-3 pb-3">Sign Up</h4>
-                      <div class="form-group">
-                        <input type="text" class="form-style" placeholder="Full Name">
-                        <i class="input-icon uil uil-user"></i>
-                      </div>
-                      <div class="form-group mt-2">
-                        <input type="tel" class="form-style" placeholder="Phone Number">
-                        <i class="input-icon uil uil-phone"></i>
-                      </div>
-                      <div class="form-group mt-2">
-                        <input type="email" class="form-style" placeholder="Email">
-                        <i class="input-icon uil uil-at"></i>
-                      </div>
-                      <div class="form-group mt-2">
-                        <input type="password" class="form-style" placeholder="Password">
-                        <i class="input-icon uil uil-lock-alt"></i>
-                      </div>
-                      <a href="https://www.web-leb.com/code" class="btn mt-4">Register</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="left">
+        <div class="login">Login</div>
+        <div class="eula">By logging in you agree to the ridiculously long terms that you didn't bother to read</div>
+      </div>
+      <div class="right">
+        <svg viewBox="0 0 320 300">
+          <defs>
+            <linearGradient
+                            inkscape:collect="always"
+                            id="linearGradient"
+                            x1="13"
+                            y1="193.49992"
+                            x2="307"
+                            y2="193.49992"
+                            gradientUnits="userSpaceOnUse">
+              <stop
+                    style="stop-color:#ff00ff;"
+                    offset="0"
+                    id="stop876" />
+              <stop
+                    style="stop-color:#ff0000;"
+                    offset="1"
+                    id="stop878" />
+            </linearGradient>
+          </defs>
+          <path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
+        </svg>
+        <div class="form">
+          <label for="email">Email</label>
+          <input type="email" id="email">
+          <label for="password">Password</label>
+          <input type="password" id="password">
+          <input type="submit" id="submit" value="Submit">
         </div>
       </div>
     </div>
   </div>
+  
+      
 </body>
-
 </html>
