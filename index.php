@@ -60,6 +60,7 @@ if(!empty($_SESSION['active'])){
 			<div class="nieto">
 				<form class="login" action="" method="post">
 		        <h2 id="title">INICIAR SESIÓN</h2>
+				
 		        <img src="img/usuario.png" alt="usuario 1" id="usuario">
 		        <label for="name" id="labelxd">Usuario:</label>
 		        <input type="text" id="name" name="usuario">
