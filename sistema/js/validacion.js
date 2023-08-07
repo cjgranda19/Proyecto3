@@ -1,61 +1,53 @@
-    var correoInput = document.getElementById("correo");
-    var mensajeError = document.getElementById("mensajeError");
-    var botonEnviar = document.getElementById("btn_sb");
-    var inputValido = false;
+var campos = [
+    { input: document.querySelector('input[name="nombre"]'), regex: /^[A-Za-z]+\s[A-Za-z]+$/, mensajeError: document.getElementById("mensajeErrorNombre") },
+    { input: document.querySelector('input[name="correo"]'), regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, mensajeError: document.getElementById("mensajeError") },
+    { input: document.querySelector('input[name="password'), regex: }
+];
 
-    correoInput.addEventListener("input", function () {
-        var correo = correoInput.value;
-        var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+var botonEnviar = document.getElementById("btn_sb");
+var inputValido = {};
 
-        if (regex.test(correo)) {
-            var dominio = correo.split('@')[1];
-            if (dominio === 'gmail.com' || dominio === 'hotmail.com') {
-                inputValido = true;
-                mensajeError.textContent = "";
-                botonEnviar.disabled = false; // Habilitar el botón si el correo es válido
-            } else {
-                inputValido = false;
-                mensajeError.textContent = "";
-                botonEnviar.disabled = true; // Deshabilitar el botón si el dominio no es válido
-            }
-        } else {
-            inputValido = false;
-            mensajeError.textContent = "";
-            botonEnviar.disabled = true; // Deshabilitar el botón si el formato de correo no es válido
-        }
+function validarCampo(inputData) {
+    var valor = inputData.input.value;
+
+    if (inputData.regex.test(valor)) {
+        inputData.mensajeError.textContent = "";
+        inputValido[inputData.input.name] = true;
+    } else {
+        inputData.mensajeError.textContent = "Formato incorrecto.";
+        inputValido[inputData.input.name] = false;
+    }
+}
+
+function mostrarMensajeError(inputData) {
+    if (!inputValido[inputData.input.name]) {
+        inputData.mensajeError.textContent = "Por favor, ingrese un valor válido.";
+    } else {
+        inputData.mensajeError.textContent = "";
+    }
+}
+
+function validarFormulario() {
+    var formularioValido = Object.values(inputValido).every(function (valido) {
+        return valido;
     });
 
-    correoInput.addEventListener("blur", function () {
-        if (!inputValido) {
-            mensajeError.textContent = "Por favor, ingrese un correo válido.";
-        }
+    botonEnviar.disabled = !formularioValido;
+}
+
+campos.forEach(function (campo) {
+    campo.input.addEventListener("input", function () {
+        validarCampo(campo);
+        validarFormulario();
     });
 
+    campo.input.addEventListener("blur", function () {
+        mostrarMensajeError(campo);
+    });
+});
 
-		function Letras(string) {//Solo letras
-			var out = '';
-			var filtro = 'qwertyuiopñlkjhgfdsazxcvbnmMNBVCXZÑLKJHGFDSAPOIUYTREWQáéíóúÁÉÍÓÚ ';//Caracteres validos
-
-			//Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
-			for (var i = 0; i < string.length; i++)
-				if (filtro.indexOf(string.charAt(i)) != -1)
-					//Se añaden a la salida los caracteres validos
-					out += string.charAt(i);
-
-			//Retornar valor filtrado
-			return out;
-		}
-
-		function Caracteres(string) {//Solo numeros
-			var out = '';
-			var filtro = '1234567890qwertyuiopñlkjhgfdsazxcvbnm-_';//Caracteres validos
-
-			//Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
-			for (var i = 0; i < string.length; i++)
-				if (filtro.indexOf(string.charAt(i)) != -1)
-					//Se añaden a la salida los caracteres validos
-					out += string.charAt(i);
-
-			//Retornar valor filtrado
-			return out;
-		} 
+campos.forEach(function (campo) {
+    campo.input.addEventListener("blur", function () {
+        mostrarMensajeError(campo);
+    });
+});
