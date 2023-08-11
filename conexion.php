@@ -1,12 +1,13 @@
 <?php
+$host = 'citaviso.com';
+$user = 'u900659423_citaviso';
+$password = 'Pdigi2019@';
+$db = 'u900659423_citaviso';
 
-	$host = 'citaviso.com';
-	$user = 'u900659423_citaviso';
-	$password ='Pdigi2019@';
-	$db = 'u900659423_citaviso';
+$conection = @mysqli_connect($host, $user, $password, $db);
 
-	$conection = @mysqli_connect($host, $user, $password, $db);
+if (!$conection) {
+    die("Error en la conexión: " . mysqli_connect_error());
+}
 
-	if (!$conection) {
-		die("Error en la conexión");
-	}
+?>
