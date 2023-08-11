@@ -62,8 +62,9 @@ if (!empty($_SESSION['active'])) {
 
 
 					<label for="name" id="labelxd">Usuario:</label>
-					<input type="text" id="name" name="usuario">
 					<label for="name" id="labelxd2">Contraseña:</label>
+					<input type="text" id="name" name="usuario">
+					
 					<input type="password" id="apellido" name="clave">
 					<label class="alert" id="alerta">
 						<?php echo isset($alert) ? $alert : ''; ?>

@@ -33,7 +33,6 @@ if (!empty($_SESSION['active'])) {
         $usuario_id = $_SESSION['idUser'];
         $user_ip = $_SERVER['REMOTE_ADDR']; 
         if ($user_ip == '::1' || $user_ip == '127.0.0.1') {
-          // Use a placeholder value for loopback addresses
           $user_ip = 'Loopback';
       }
       

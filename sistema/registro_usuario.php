@@ -2,7 +2,7 @@
 
 session_start();
 if ($_SESSION['rol'] != 1) {
-	header("location: ../");
+	header("location: ./");
 }
 
 include "../conexion.php";
@@ -107,7 +107,6 @@ if (!empty($_POST)) {
 
 	</section>
 	<script src="js/validacion.js"></script>
-	<script src="../js/validacion.js"></script>
 
 	<?php include "includes/footer.php"; ?>
 </body>
