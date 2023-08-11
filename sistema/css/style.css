@@ -77,7 +77,7 @@ header {
 
 .header {
     color: #FFF;
-    background: #0a4661;
+    background: linear-gradient(to right, rgb(243, 37, 51), rgb(179, 0, 75));
     height: 35px;
     display: -webkit-flex;
     display: -moz-flex;
@@ -127,9 +127,9 @@ header {
     margin-left: 30px;
 }
 
+
 nav ul {
-    background: #058167;
-    /*background: #05817d;*/
+    background: linear-gradient(to right, rgb(243, 37, 51), rgb(179, 0, 75));
     list-style: none;
     display: -webkit-flex;
     display: -moz-flex;
@@ -169,9 +169,9 @@ nav ul li:hover ul {
     display: block;
 }
 
+
 nav li ul {
-    /*background: #177470;*/
-    background: #2d9872;
+    background: rgba(179, 0, 75);
     display: none;
     flex-direction: column;
     position: absolute;
@@ -183,17 +183,22 @@ nav li ul a {
     position: relative;
     padding: 10px 30px;
     border-right: initial;
+    transition: transform 0.3s ease-in-out;
 }
 
 nav li ul a:hover {
-    /*background: #2c9595;*/
-    background: #147556;
+    background: rgba(255, 156, 21);
+    transform: scale(1.02);
 }
 
 nav li ul li:last-child {
     border-radius: 0 0 10px 10px;
     overflow: hidden;
 }
+
+
+
+
 
 #container {
     padding: 90px 15px 15px;
