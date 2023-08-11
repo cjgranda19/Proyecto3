@@ -1,6 +1,7 @@
 <?php
 $alert = "";
 session_start();
+include "conexion.php";
 
 if (!empty($_SESSION['active'])) {
   header('location: sistema/');
@@ -14,16 +15,7 @@ if (!empty($_SESSION['active'])) {
 
       $user = mysqli_real_escape_string($conection, $_POST['usuario']);
       $pass = md5(mysqli_real_escape_string($conection, $_POST['clave']));
-
-      $query_insert = mysqli_query($conection, "INSERT INTO login_log (usuario_id, accion) VALUES ('$usuario_id', '$accion')");
-
-      if ($query_insert) {
-        $alert = '<p class="msg_save">Cliente guardado correctamente.</p>';
-      } else {
-        $alert = '<p class="msg_error">Error al guardar cliente.</p>';
-      }
       $query = mysqli_query($conection, "SELECT * FROM usuario WHERE usuario = '$user' AND clave = '$pass'");
-      mysqli_close($conection);
 
       $result = mysqli_num_rows($query);
 
@@ -36,18 +28,28 @@ if (!empty($_SESSION['active'])) {
         $_SESSION['user'] = $data['usuario'];
         $_SESSION['rol'] = $data['rol'];
 
-
+        $accion = "Inicio sesión";
+        
+        $usuario_id = $_SESSION['idUser'];
+        $user_ip = $_SERVER['REMOTE_ADDR']; 
+        if ($user_ip == '::1' || $user_ip == '127.0.0.1') {
+          // Use a placeholder value for loopback addresses
+          $user_ip = 'Loopback';
+      }
+      
+        
+        $query_insert = mysqli_query($conection, "INSERT INTO login_log (usuario_id, accion, user_ip) VALUES ('$usuario_id', '$accion', '$user_ip')");
 
         header('location: sistema/');
+
       } else {
         $alert = "El usuario o contraseña son incorrectos";
         session_destroy();
       }
-
+      mysqli_close($conection);
     }
   }
 }
-
 ?>
 
 <!doctype html>

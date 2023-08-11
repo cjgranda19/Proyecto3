@@ -45,7 +45,6 @@ if (!empty($_POST)) {
 	}
 }
 
-//mostrar datos
 if (empty($_REQUEST['id'])) {
 	header('Location: lista_usuarios.php');
 	mysqli_close($conection);
