@@ -127,77 +127,7 @@ header {
     margin-left: 30px;
 }
 
-
-/*
-nav ul {
-    background: linear-gradient(to right, rgb(243, 37, 51), rgb(179, 0, 75));
-    list-style: none;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flex;
-    display: -o-flex;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-}
-
-nav ul > li a {
-    position: relative;
-}
-
-nav a {
-    color: #FFF;
-    display: block;
-    font-size: 10pt;
-    font-family: 'GothamBook';
-    padding: 15px 30px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: background .5s;
-    border-right: 1px solid #319B8F;
-}
-
-nav .principal > a {
-    background: url(../images/arrow_bottom.png) no-repeat;
-    background-position-x: 0%;
-    background-position-y: 0%;
-    background-size: auto auto;
-    background-position: 94% center;
-    background-size: 10px;
-}
-
-nav ul li:hover ul {
-    display: block;
-}
-
-
-nav li ul {
-    background: rgba(179, 0, 75);
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    align-items: flex-start;
-    border-radius: 0 0 10px 10px;
-}
-
-nav li ul a {
-    position: relative;
-    padding: 10px 30px;
-    border-right: initial;
-    transition: transform 0.3s ease-in-out;
-}
-
-nav li ul a:hover {
-    background: rgba(255, 156, 21);
-    transform: scale(1.02);
-}
-
-nav li ul li:last-child {
-    border-radius: 0 0 10px 10px;
-    overflow: hidden;
-}
-
-*/
+/*Menu vertical*/
 
 nav {
     background: linear-gradient(to right, rgb(243, 37, 51), rgb(179, 0, 75));
@@ -208,7 +138,7 @@ nav {
     top: 35px;
     left: 0;
     bottom: 0;
-    width: 250px; /* Ajusta el ancho según tu preferencia */
+    width: 250px;
 }
 
 nav ul {
@@ -273,81 +203,10 @@ nav li ul li:last-child {
 
 #container {
     padding: 90px 15px 15px;
-    margin-left: 250px; /* Ancho del menú */
-    width: calc(100% - 250px); /* Ancho del contenido principal */
+    margin-left: 250px;
+    width: calc(100% - 250px);
 }
 
-/*****************************************************************/
-/*Esto debe de ir en resgistro_usuario.php*/
-
-/*.form_register{
-		width: 450px;
-		margin: auto;
-	}
-
-	.form_register h1{
-		color: #3c93b0;
-	}
-
-	hr{
-		border: 0;
-		background: #ccc;
-		height: 1px;
-		margin: 10px 0;
-		display: block;
-	}
-
-	form{
-		background: #fff;
-		margin: auto;
-		padding: 20px 50px;
-		border: 1px solid #d1d1d1;
-	}
-
-	label{
-		display: block;
-		font-size: 12pt;
-		font-family: 'GothamBook';
-		margin: 15px auto 5px auto;
-	}
-
-	input, select{
-		display: block;
-		width: 100%;
-		font-size: 13pt;
-		padding: 5px;
-		border: 1px solid #85929e;
-		border-radius: 5px;
-	}
-
-	.btn_save{
-		font-size: 12pt;
-		background: #12a4c6;
-		padding: 10px;
-		letter-spacing: 1px;
-		border: 0;
-		cursor: pointer;
-		margin: 15px auto;
-	}
-
-	.alert{
-		width: 100%;
-		background: #66e07d66;
-		border-radius: 6px;
-		margin: 20px auto;
-	}
-
-	.msg_error{
-		color: #e65656;
-	}
-
-	.msg_save{
-		color: #126e00;
-	}
-
-	.alert p{
-		padding: 10px;
-	}*/
 
 .prevPhoto {
     display: flex;

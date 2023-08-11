@@ -68,6 +68,8 @@ while ($row = $query->fetch_assoc()) {
         .ingredients-list > .ingredient > .quantity {
             margin-left: 10px;
         }
+
+        
     </style>
 </head>
 <body>
@@ -78,11 +80,11 @@ while ($row = $query->fetch_assoc()) {
         <div class="ui-box-content">
             <div class="ui-table">
                 <div class="row header">
-                    <div class="column min-width"></div>
-                    <div class="column">Nombre</div>
-                    <div class="column">Precio</div>
-                    <div class="column">Ingredientes</div>
-                    <div class="column min-width">Acciones</div>
+                    <div class="column min-width" style="background: rgb(192, 27, 96);"></div>
+                    <div class="column" style="background: rgb(192, 27, 96);">Nombre</div>
+                    <div class="column" style="background: rgb(192, 27, 96);">Precio</div>
+                    <div class="column" style="background: rgb(192, 27, 96);">Ingredientes</div>
+                    <div class="column min-width" style="background: rgb(192, 27, 96);">Acciones</div>
                 </div>
                 <?php foreach ($recipes as $recipe): ?>
                     <div class="row">

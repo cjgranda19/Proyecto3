@@ -104,7 +104,7 @@
             </div>
             <div class="ui-form-group">
                 <label for="thumbnail">Imagen</label>
-                <input type="file" name="thumbnail" id="thumbnail">
+                <input type="file" name="thumbnail" id="thumbnail" >
             </div>
             <div class="ui-form-group">
                 <label for="thumbnail">Ingredientes</label>
@@ -127,7 +127,7 @@
                         <input type="number" name="quantity" id="ingredient-quantity" placeholder="Cantidad" step="0.01" value="1">
                     </div>
                     <div class="ui-form-group button">
-                        <button type="button" class="ui-button ui-button blue" id="add-ingredient">Agregar</button>
+                        <button type="button" class="ui-button ui-button blue" id="add-ingredient" style="background: rgb(107, 2, 46);">Agregar</button>
                     </div>
                     <div id="ingredients-fields">
                         <?php if (isset($update_recipe)): ?>
@@ -166,7 +166,7 @@
             </div>
         </div>
         <div class="ui-box-footer right-aligned">
-            <button type="submit" class="ui-button ui-button green">Guardar</button>
+            <button type="submit" class="ui-button ui-button green" style="background: rgb(107, 2, 46);">Guardar</button>
         </div>
         <?php if (isset($update_recipe)): ?>
             <input type="hidden" name="id" value="<?php echo $update_recipe['id']; ?>">

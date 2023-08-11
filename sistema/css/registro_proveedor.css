@@ -4,7 +4,7 @@
 }
 
 .form_register h1{
-    color: #3c93b0;
+    color: rgb(107, 2, 46);
 }
 
 hr{
@@ -34,7 +34,8 @@ input, select{
     width: 100%;
     font-size: 13pt;
     padding: 5px;
-    border: 1px solid #85929e;
+    background-color: #eee;
+	border: none;
     border-radius: 5px;
 }
 
@@ -44,12 +45,21 @@ input, select{
 
 .btn_save{
     font-size: 12pt;
-    background: #12a4c6;
+    background: rgb(107, 2, 46);
     padding: 10px;
     letter-spacing: 1px;
     border: 0;
     cursor: pointer;
     margin: 15px auto;
+    color: #fff;
+}
+
+.btn_save{
+    transition: transform 0.3s ease-in-out;
+}
+
+.btn_save:hover{
+    transform: scale(1.02);
 }
 
 .alert{

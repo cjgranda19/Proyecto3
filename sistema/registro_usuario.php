@@ -77,10 +77,10 @@ if (!empty($_POST)) {
 				<label for="usuario">Usuario: </label>
 				<input type="text" name="usuario" id="usuario" placeholder="usuario">
 				<div id="mensajeErrorUsuario" style="color: red;"></div>
-				<label for="Clave">Clave</label>
+				<label for="Clave">Clave: </label>
 				<input type="password" name="clave" id="clave" placeholder="Clave de acceso">
 				<div id="mensajeErrorPassword" style="color: red;"></div>
-				<label for="rol">Tipo Usuario</label>
+				<label for="rol">Tipo Usuario: </label>
 
 				<?php
 

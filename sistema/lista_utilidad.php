@@ -19,11 +19,19 @@
 
 	.btn_new{
 		display: inline-block;
-		background: #239baa;
+		background: rgb(107, 2, 46);
 		color: #fff;
 		padding: 5px 25px;
 		border-radius: 4px;
 		margin: 20px;
+	}
+
+	.btn_new {
+		transition: transform 0.3s ease-in-out;
+	}
+
+	.btn_new:hover {
+		transform: scale(1.02);
 	}
 
 	form{
@@ -53,7 +61,7 @@
 	table th{
 		text-align: left;
 		padding: 10px;
-		background: #3d7ba8;
+		background: rgb(192, 27, 96);
 		color: #fff;
 	}
 
@@ -122,12 +130,20 @@
 	}
 
 	.form_search .btn_search{
-		background: #1faac8;
+		background: rgb(107, 2, 46);
 		color: #fff;
 		padding: 0 20px;
 		border: 0;
 		cursor: pointer;
 		margin-left: 10px;
+	}
+
+	.btn_search {
+		transition: transform 0.3s ease-in-out;
+	}
+
+	.btn_search:hover {
+		transform: scale(1.02);
 	}
 
 	.img_de_producto img{

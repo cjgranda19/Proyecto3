@@ -58,7 +58,7 @@ while ($row = $query->fetch_assoc()) {
                             <input type="number" name="quantity" id="recipe-quantity" placeholder="Cantidad" step="1" value="1">
                         </div>
                         <div class="ui-form-group button">
-                            <button type="button" class="ui-button ui-button blue" id="add-recipe">Agregar</button>
+                            <button type="button" class="ui-button ui-button blue" id="add-recipe" style="background: rgb(107, 2, 46);">Agregar</button>
                         </div>
                         <div id="recipes-fields"></div>
                     </div>
@@ -75,7 +75,7 @@ while ($row = $query->fetch_assoc()) {
                 </div>
             </div>
             <div class="ui-box-footer right-aligned">
-                <button type="submit" class="ui-button ui-button green">Guardar</button>
+                <button type="submit" class="ui-button ui-button green" style="background: rgb(107, 2, 46);">Guardar</button>
             </div>
         </form>
     </main>
