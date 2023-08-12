@@ -67,7 +67,7 @@ while ($row = mysqli_fetch_assoc($stmt)) {
             <div><strong>Cliente:</strong> <?php echo $order['customer_name'] ?></div>
             <div><strong>Fecha:</strong> <?php echo $order['created_at'] ?></div>
             <div class="recipes">
-                <strong>Recetas:</strong>    
+                <strong>Recetas:</strong>
                 <div class="ui-table recipes-added minimal small">
                     <div class="row header">
                         <div class="column">Receta</div>
@@ -95,6 +95,7 @@ while ($row = mysqli_fetch_assoc($stmt)) {
         <div class="ui-box-footer">
             <strong>Total: </strong>
             <span>$<?php echo $subtotal; ?></span>
+            <a href="factura/generaFactura.php?cl=<?php echo $order['customer_id']; ?>&f=<?php echo $order['id']; ?>" class="button">Factura</a>
         </div>
     </div>
     <?php endforeach; ?>

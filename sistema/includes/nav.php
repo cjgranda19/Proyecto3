@@ -5,7 +5,7 @@
 		if ($_SESSION['rol'] == 1) {
 			?>
 			<li class="principal">
-				<a href="#"><i class="fa-solid fa-user"></i> Usuarios</a>
+				<a href="lista_usuarios.php"><i class="fa-solid fa-user"></i> Usuarios</a>
 				<ul>
 					<li><a href="registro_usuario.php"><i class="fa-solid fa-user-plus"></i> Nuevo Usuario</a></li>
 					<li><a href="lista_usuarios.php"><i class="fa-solid fa-users"></i> Lista de Usuarios</a></li>
@@ -17,7 +17,7 @@
 			<?php
 			if ($_SESSION['rol'] == 1) {
 				?>
-				<a href="#"><i class="fa-solid fa-truck-field"></i> Proveedores</a>
+				<a href="lista_proveedor.php"><i class="fa-solid fa-truck-field"></i> Proveedores</a>
 				<ul>
 					<li><a href="registro_proveedor.php"><i class="fa-solid fa-user-plus"></i> Nuevo Proveedor</a></li>
 					<li><a href="lista_proveedor.php"><i class="fa-solid fa-users"></i> Lista de Proveedores</a></li>
@@ -25,7 +25,7 @@
 			</li>
 		<?php } ?>
 		<li class="principal">
-			<a href="#"><i class="fa-solid fa-box-open"></i> Productos</a>
+			<a href="lista_producto.php"><i class="fa-solid fa-box-open"></i> Productos</a>
 			<ul>
 				<?php
 				if ($_SESSION['rol'] == 1) {
@@ -36,41 +36,31 @@
 			</ul>
 		</li>
 		<li class="principal">
-			<a href="#"><i class="fa-solid fa-clipboard-list"></i> Recetas</a>
+			<a href="lista_recetas.php"><i class="fa-solid fa-clipboard-list"></i> Ponerelnombrequeelingepidio</a>
 			<ul>
 				<?php
 				if ($_SESSION['rol'] == 1) {
 					?>
-					<li><a href="registro_receta.php"><i class="fa-solid fa-plus"></i> Nuevo Producto</a></li>
+					<li><a href="registro_receta.php"><i class="fa-solid fa-plus"></i> Crear</a></li>
 				<?php } ?>
-				<li><a href="lista_recetas.php"><i class="fa-solid fa-list"></i> Lista de Productos</a></li>
+				<li><a href="lista_recetas.php"><i class="fa-solid fa-list"></i> Lista</a></li>
 			</ul>
 		</li>
 		<li class="principal">
-			<a href="#"><i class="fa-solid fa-arrow-up-wide-short"></i> Órdenes</a>
+			<a href="lista_ordenes.php"><i class="fa-solid fa-arrow-up-wide-short"></i> Órdenes</a>
 			<ul>
 				<li><a href="lista_ordenes.php"><i class="fa-solid fa-list"></i> Lista de órdenes</a></li>
 				<li><a href="crear_orden.php"><i class="fa-solid fa-list"></i> Crear</a></li>
 
 			</ul>
 		</li>
-		<li class="principal">
-			<a href="#">Inventario</a>
-			<ul>
-				<?php
-				if ($_SESSION['rol'] == 1) {
-					?>
-					<li><a href="nueva_utilidad.php">Nueva Utilidad</a></li>
-				<?php } ?>
-				<li><a href="lista_utilidad.php">Lista de Utilidades</a></li>
-			</ul>
-		</li>
+	
 		<li class="principal">
 
 			<?php
 			if ($_SESSION['rol'] == 1) {
 				?>
-				<a href="#">Clientes</a>
+				<a href="lista_clientes.php"><i class="fa-solid fa-person"></i> Clientes</a>
 				<ul>
 					<li><a href="buscar_cliente.php">Clientes</a></li>
 					<li><a href="registro_cliente.php">Registro Cliente</a></li>

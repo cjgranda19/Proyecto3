@@ -1,27 +1,41 @@
 <?php
-	session_start();
-	include "../conexion.php";
+session_start();
+include "../conexion.php";
+
+if ($_SESSION['rol'] != 1) {
+	if ($_SESSION['rol'] == 3) {
+		header("location: index.php");
+	} elseif ($_SESSION['rol'] == 2) {
+		header("location: index.php");
+	} else {
+		header("location: ./");
+	}
+}
+
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
 	<link type="text/css" rel="stylesheet" href="css/estilo.css">
 	<title>Lista Productos</title>
 </head>
+
 <body>
 	<?php include "includes/header.php"; ?>
 	<section id="container">
 
 		<?php
 
-			$busqueda = strtolower($_REQUEST['busqueda']);
-			if(empty($busqueda)){
-				header('location: lista_proveedor.php');
-				mysqli_close($conection);
-			}
+		$busqueda = strtolower($_REQUEST['busqueda']);
+		if (empty($busqueda)) {
+			header('location: lista_proveedor.php');
+			mysqli_close($conection);
+		}
 
 		?>
 
@@ -44,7 +58,7 @@
 				<th>Foto</th>
 				<th>Acciones</th>
 			</tr>
-		<?php
+			<?php
 
 			//paginador
 			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM proveedor WHERE (codproducto LIKE '%busqueda%' OR proveedor LIKE '%busqueda%' OR medida_pro LIKE '%busqueda%' OR descripcion LIKE '%busqueda%' OR precio LIKE '%busqueda%' OR existencia LIKE '%busqueda%') AND estatus = 1 ");
@@ -53,13 +67,13 @@
 
 			$por_pagina = 4;
 
-			if(empty($_GET['pagina'])){
+			if (empty($_GET['pagina'])) {
 				$pagina = 1;
-			}else{
+			} else {
 				$pagina = $_GET['pagina'];
 			}
 
-			$desde= ($pagina-1) * $por_pagina;
+			$desde = ($pagina - 1) * $por_pagina;
 			$total_paginas = ceil($total_registro / $por_pagina);
 
 			$query = mysqli_query($conection, "SELECT * FROM producto WHERE 
@@ -75,57 +89,74 @@
 			mysqli_close($conection);
 			$result = mysqli_num_rows($query);
 
-			if($result>0){
-				while ($data = mysqli_fetch_array($query)){
-					if($data['foto'] != "img_producto.png"){
-						$foto = 'img/uploads/'.$data['foto'];
-					}else{
-						$foto = 'img/'.$data['foto'];
+			if ($result > 0) {
+				while ($data = mysqli_fetch_array($query)) {
+					if ($data['foto'] != "img_producto.png") {
+						$foto = 'img/uploads/' . $data['foto'];
+					} else {
+						$foto = 'img/' . $data['foto'];
 					}
-		?>
-			<tr>
-				<td><?php echo $data['codproducto']; ?></td>
-				<td><?php echo $data['descripcion']; ?></td>
-				<td><?php echo $data['proveedor']; ?></td>
-				<td><?php echo $data['precio']; ?></td>
-				<td><?php echo $data['existencia']; ?></td>
-				<td><?php echo $data['medida_pro']; ?></td>
-				<td class="img_de_producto"><img src="<?php echo $foto; ?>" alt="<?php echo $data['descripcion']; ?>"></td>
+					?>
+					<tr>
+						<td>
+							<?php echo $data['codproducto']; ?>
+						</td>
+						<td>
+							<?php echo $data['descripcion']; ?>
+						</td>
+						<td>
+							<?php echo $data['proveedor']; ?>
+						</td>
+						<td>
+							<?php echo $data['precio']; ?>
+						</td>
+						<td>
+							<?php echo $data['existencia']; ?>
+						</td>
+						<td>
+							<?php echo $data['medida_pro']; ?>
+						</td>
+						<td class="img_de_producto"><img src="<?php echo $foto; ?>" alt="<?php echo $data['descripcion']; ?>">
+						</td>
 
-				<?php if($_SESSION['rol'] == 1){ ?>
-				<td>
-					<a class="link_edit" href="editar_producto.php?id=<?php echo $data['codproducto']; ?>">Editar</a>
-					<a class="link_delete" href="eliminar_confirmar_producto.php?id=<?php echo $data['codproducto']; ?>"> Eliminar</a>
-				</td>
-				<?php } ?>
-			</tr>
+						<?php if ($_SESSION['rol'] == 1) { ?>
+							<td>
+								<a class="link_edit" href="editar_producto.php?id=<?php echo $data['codproducto']; ?>">Editar</a>
+								<a class="link_delete"
+									href="eliminar_confirmar_producto.php?id=<?php echo $data['codproducto']; ?>"> Eliminar</a>
+							</td>
+						<?php } ?>
+					</tr>
 
-		<?php
+					<?php
 				}
 			}
-		?>
-			
+			?>
+
 		</table>
 
 		<div class="paginador">
 			<ul>
 				<?php
-					if($pagina != 1){
-				?>
-					<li><a href="?pagina=<?php echo 1; ?>">|<</a></li>
-					<li><a href="?pagina=<?php echo $pagina-1; ?>"><<</a></li>
-				<?php
+				if ($pagina != 1) {
+					?>
+					<li><a href="?pagina=<?php echo 1; ?>">|<< /a>
+					</li>
+					<li><a href="?pagina=<?php echo $pagina - 1; ?>">
+							<<< /a>
+					</li>
+					<?php
+				}
+				for ($i = 1; $i <= $total_paginas; $i++) {
+					if ($i == $pagina) {
+						echo '<li class="pageSelected">' . $i . '</li>';
+					} else {
+						echo '<li><a href="?pagina=' . $i . '">' . $i . '</a></li>';
 					}
-					for ($i=1; $i <= $total_paginas; $i++){
-						if($i==$pagina){
-							echo '<li class="pageSelected">'.$i.'</li>';
-						}else{
-							echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
-						}
-					}
+				}
 
-					if($pagina != $total_paginas){
-				?>	
+				if ($pagina != $total_paginas) {
+					?>
 					<li><a href="?pagina=<?php echo $pagina + 1; ?>">>></a></li>
 					<li><a href="?pagina=<?php echo $total_paginas; ?> ">>|</a></li>
 				<?php } ?>
@@ -135,4 +166,5 @@
 	</section>
 	<?php include "includes/footer.php"; ?>
 </body>
+
 </html>
