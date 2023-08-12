@@ -9,7 +9,7 @@ include "../conexion.php";
 <head>
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
-	<title>Lista Inventario</title>
+	<title>Lista de Productos</title>
 </head>
 
 <style>
@@ -52,7 +52,6 @@ include "../conexion.php";
 		border-radius: 5px;
 	}
 
-
 	table {
 		border-collapse: collapse;
 		font-size: 12pt;
@@ -92,9 +91,6 @@ include "../conexion.php";
 		list-style: none;
 		background: #fff;
 		margin-top: 15px;
-		display: -webkit-flex;
-		display: -moz-flex;
-		display: -ms-flex;
 		display: flex;
 		justify-content: flex-end;
 	}
@@ -103,7 +99,6 @@ include "../conexion.php";
 	.pageSelected {
 		color: #428bca;
 		border: 1px solid #ddd;
-		display: 5px;
 		display: inline-block;
 		font-size: 14px;
 		text-align: center;
@@ -121,10 +116,6 @@ include "../conexion.php";
 	}
 
 	.form_search {
-		display: -webkit-flex;
-		display: -moz-flex;
-		display: -ms-flex;
-		display: -o-flex;
 		display: flex;
 		float: right;
 		background: initial;
@@ -159,8 +150,8 @@ include "../conexion.php";
 <body>
 	<?php include "includes/header.php"; ?>
 	<section id="container">
-		<h1>Lista de inventario</h1>
-		<a href="nueva_utilidad.php" class="btn_new">Nueva materia prima</a>
+		<h1>Lista de Productos</h1>
+		<a href="nueva_utilidad.php" class="btn_new">Nuevo producto</a>
 
 		<form action="buscar_inventario.php" method="get" class="form_search">
 			<input type="text" name="busqueda" id="busqueda" placeholder="Buscar">
@@ -170,9 +161,8 @@ include "../conexion.php";
 		<table>
 			<tr>
 				<th>Código</th>
-				<th>Materia prima</th>
+				<th>Descripción</th>
 				<th>Cantidad</th>
-				<th>Medida</th>
 				<th>Proveedor</th>
 				<th>Acciones</th>
 			</tr>
@@ -192,7 +182,7 @@ include "../conexion.php";
 			$desde = ($pagina - 1) * $por_pagina;
 			$total_paginas = ceil($total_registro / $por_pagina);
 
-			$query = "SELECT p.codproducto, p.descripcion, p.proveedor, p.precio, p.existencia, p.medida_pro
+			$query = "SELECT p.codproducto, p.descripcion, p.existencia, p.proveedor, p.medida_pro
 			FROM producto p
 			WHERE p.estatus = 1
 			ORDER BY p.codproducto ASC
@@ -208,16 +198,13 @@ include "../conexion.php";
 				?>
 				<tr>
 					<td>
-						<?php echo $data['cod_inventario']; ?>
+						<?php echo $data['codproducto']; ?>
 					</td>
 					<td>
-						<?php echo $data['nombre_inventario']; ?>
+						<?php echo $data['descripcion']; ?>
 					</td>
 					<td>
-						<?php echo $data['cantidad_inventario']; ?>
-					</td>
-					<td>
-						<?php echo $data['medida_inv']; ?>
+						<?php echo $data['existencia']; ?>
 					</td>
 					<td>
 						<?php echo $data['proveedor']; ?>
@@ -226,9 +213,9 @@ include "../conexion.php";
 					<?php if ($_SESSION['rol'] == 1) { ?>
 						<td>
 							<a class="link_edit"
-								href="editar_inventario.php?id=<?php echo $data['cod_inventario']; ?>">Editar</a>
+								href="editar_inventario.php?id=<?php echo $data['codproducto']; ?>">Editar</a>
 							<a class="link_delete"
-								href="eliminar_confirmar_inventario.php?id=<?php echo $data['cod_inventario']; ?>">Eliminar</a>
+								href="eliminar_confirmar_inventario.php?id=<?php echo $data['codproducto']; ?>">Eliminar</a>
 						</td>
 					<?php } ?>
 				</tr>
@@ -240,11 +227,8 @@ include "../conexion.php";
 				<?php
 				if ($pagina != 1) {
 					?>
-					<li><a href="?pagina=1">|<<< /a>
-					</li>
-					<li><a href="?pagina=<?php echo $pagina - 1; ?>">
-							<<< /a>
-					</li>
+					<li><a href="?pagina=1">|<</a></li>
+					<li><a href="?pagina=<?php echo $pagina - 1; ?>"><<</a></li>
 					<?php
 				}
 				for ($i = 1; $i <= $total_paginas; $i++) {
@@ -258,7 +242,7 @@ include "../conexion.php";
 				if ($pagina != $total_paginas) {
 					?>
 					<li><a href="?pagina=<?php echo $pagina + 1; ?>">>></a></li>
-					<li><a href="?pagina=<?php echo $total_paginas; ?>">>>|</a></li>
+					<li><a href="?pagina=<?php echo $total_paginas; ?>">>|</a></li>
 				<?php } ?>
 			</ul>
 		</div>
