@@ -177,8 +177,6 @@ include "../conexion.php";
 				<th>Acciones</th>
 			</tr>
 			<?php
-
-			//paginador
 			$sql_registe = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM inventario WHERE estatus = 1 ");
 			$result_register = mysqli_fetch_array($sql_registe);
 			$total_registro = $result_register['total_registro'];
@@ -195,11 +193,11 @@ include "../conexion.php";
 			$total_paginas = ceil($total_registro / $por_pagina);
 
 			$query = "SELECT p.cod_inventario, p.nombre_inventario, p.cantidad_inventario, p.medida_inv, pr.proveedor
-          FROM inventario p
-          INNER JOIN proveedor pr ON p.proveedor = pr.codproveedor
-          WHERE p.estatus = 1
-          ORDER BY p.cod_inventario ASC
-          LIMIT $desde, $por_pagina";
+					  FROM inventario p
+					  INNER JOIN proveedor pr ON p.proveedor = pr.codproveedor
+					  WHERE p.estatus = 1
+					  ORDER BY p.cod_inventario ASC
+					  LIMIT $desde, $por_pagina";
 
 			$result = mysqli_query($conection, $query);
 
@@ -207,47 +205,35 @@ include "../conexion.php";
 				die("Error en la consulta: " . mysqli_error($conection));
 			}
 
-			// Resto del código para mostrar los resultados en la tabla
-			
+			while ($data = mysqli_fetch_array($result)) {
+				?>
+				<tr>
+					<td>
+						<?php echo $data['cod_inventario']; ?>
+					</td>
+					<td>
+						<?php echo $data['nombre_inventario']; ?>
+					</td>
+					<td>
+						<?php echo $data['cantidad_inventario']; ?>
+					</td>
+					<td>
+						<?php echo $data['medida_inv']; ?>
+					</td>
+					<td>
+						<?php echo $data['proveedor']; ?>
+					</td>
 
-			mysqli_close($conection);
-			$result = mysqli_num_rows($query);
-
-			if ($result > 0) {
-				while ($data = mysqli_fetch_array($query)) {
-					?>
-					<tr>
+					<?php if ($_SESSION['rol'] == 1) { ?>
 						<td>
-							<?php echo $data['cod_inventario']; ?>
+							<a class="link_edit"
+								href="editar_inventario.php?id=<?php echo $data['cod_inventario']; ?>">Editar</a>
+							<a class="link_delete"
+								href="eliminar_confirmar_inventario.php?id=<?php echo $data['cod_inventario']; ?>">Eliminar</a>
 						</td>
-						<td>
-							<?php echo $data['nombre_inventario']; ?>
-						</td>
-						<td>
-							<?php echo $data['cantidad_inventario']; ?>
-						</td>
-						<td>
-							<?php echo $data['medida_inv']; ?>
-						</td>
-						<td>
-							<?php echo $data['proveedor']; ?>
-						</td>
-
-						<?php if ($_SESSION['rol'] == 1) { ?>
-							<td>
-								<a class="link_edit"
-									href="editar_inventario.php?id=<?php echo $data['cod_inventario']; ?>">Editar</a>
-								<a class="link_delete"
-									href="eliminar_confirmar_inventario.php?id=<?php echo $data['cod_inventario']; ?>"> Eliminar</a>
-							</td>
-						<?php } ?>
-					</tr>
-
-					<?php
-				}
-			}
-			?>
-
+					<?php } ?>
+				</tr>
+			<?php } ?>
 		</table>
 
 		<div class="paginador">
@@ -255,7 +241,7 @@ include "../conexion.php";
 				<?php
 				if ($pagina != 1) {
 					?>
-					<li><a href="?pagina=<?php echo 1; ?>">|<< /a>
+					<li><a href="?pagina=1">|<<< /a>
 					</li>
 					<li><a href="?pagina=<?php echo $pagina - 1; ?>">
 							<<< /a>
@@ -273,7 +259,7 @@ include "../conexion.php";
 				if ($pagina != $total_paginas) {
 					?>
 					<li><a href="?pagina=<?php echo $pagina + 1; ?>">>></a></li>
-					<li><a href="?pagina=<?php echo $total_paginas; ?> ">>|</a></li>
+					<li><a href="?pagina=<?php echo $total_paginas; ?>">>>|</a></li>
 				<?php } ?>
 			</ul>
 		</div>
