@@ -177,7 +177,7 @@ include "../conexion.php";
 				<th>Acciones</th>
 			</tr>
 			<?php
-			$sql_registe = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM inventario WHERE estatus = 1 ");
+			$sql_registe = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM producto WHERE estatus = 1 ");
 			$result_register = mysqli_fetch_array($sql_registe);
 			$total_registro = $result_register['total_registro'];
 
@@ -192,12 +192,11 @@ include "../conexion.php";
 			$desde = ($pagina - 1) * $por_pagina;
 			$total_paginas = ceil($total_registro / $por_pagina);
 
-			$query = "SELECT p.cod_inventario, p.nombre_inventario, p.cantidad_inventario, p.medida_inv, pr.proveedor
-					  FROM inventario p
-					  INNER JOIN proveedor pr ON p.proveedor = pr.codproveedor
-					  WHERE p.estatus = 1
-					  ORDER BY p.cod_inventario ASC
-					  LIMIT $desde, $por_pagina";
+			$query = "SELECT p.codproducto, p.descripcion, p.proveedor, p.precio, p.existencia, p.medida_pro
+			FROM producto p
+			WHERE p.estatus = 1
+			ORDER BY p.codproducto ASC
+			LIMIT $desde, $por_pagina";
 
 			$result = mysqli_query($conection, $query);
 
