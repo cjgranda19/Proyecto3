@@ -133,4 +133,4 @@ if ($id == null) {
     }
 }
 
-header('Location: lista_recetas.php');
+header('Location: index.php');

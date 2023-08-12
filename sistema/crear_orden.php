@@ -1,7 +1,10 @@
 <?php
+session_start();
 
 include(dirname(__DIR__) . '/conexion.php');
 global $conection;
+
+$error = null;
 
 $recipes = [];
 
@@ -10,6 +13,85 @@ $query = mysqli_query($conection, "SELECT * FROM recetas");
 while ($row = $query->fetch_assoc()) {
     $row['name'] = html_entity_decode($row['name']);
     $recipes[] = $row;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (empty($_POST['customerName'])) {
+        $error = 'No se ha recibido el nombre del cliente';
+    } elseif (empty($_POST['recipes']) || !is_array($_POST['recipes'])) {
+        $error = 'No se han recibido las recetas';
+    } else {
+        $customerName = htmlentities($_POST['customerName']);
+        $recipesData = $_POST['recipes'];
+        $now = date('Y-m-d H:i:s');
+        $userId = intval($_SESSION['idUser']);
+
+        foreach ($recipesData as $recipe) {
+            $recipe_id = intval($recipe['id']);
+            $quantity = intval($recipe['quantity']);
+
+            $stmt = mysqli_query($conection,
+                "SELECT p.codproducto, p.existencia, p.medida_pro, rp.cantidad, p.descripcion
+                 FROM receta_producto as rp
+                 LEFT JOIN producto as p ON(p.codproducto = rp.producto_id)
+                 WHERE rp.receta_id = {$recipe_id}");
+
+            $ingredients = [];
+            $rows = mysqli_fetch_all($stmt, MYSQLI_ASSOC);
+
+            foreach ($rows as $ingredient) {
+                $newQuantity = floatval($ingredient['existencia']) - (floatval($ingredient['cantidad']) * $quantity);
+
+                if ($newQuantity < 0) {
+                    $error = "No hay suficientes ingredientes para la receta<br>"
+                        . "se intento usar {$ingredient['cantidad']} {$ingredient['medida_pro']} de {$ingredient['descripcion']}";
+                    break;
+                }
+            }
+        }
+
+        if (!$error) {
+            $stmt = mysqli_prepare($conection, "INSERT INTO ordenes(user_id, customer_name, created_at, updated_at) VALUES(?, ?, ?, ?)");
+
+            if (!$stmt) {
+                $error = mysqli_error($conection);
+            } else {
+                $stmt->bind_param('isss', $userId, $customerName, $now, $now);
+                $stmt->execute();
+                $stmt->close();
+
+                $order_id = mysqli_insert_id($conection);
+
+                foreach ($recipesData as $recipe) {
+                    $stmt = mysqli_prepare($conection, "INSERT INTO ordenes_recetas(orden_id, receta_id, quantity) VALUES(?, ?, ?)");
+                    $recipe_id = intval($recipe['id']);
+                    $quantity = intval($recipe['quantity']);
+                    $stmt->bind_param('iid', $order_id, $recipe_id, $quantity);
+                    $stmt->execute();
+                    $stmt->close();
+
+                    $stmt2 = mysqli_query($conection,
+                        "SELECT p.codproducto, p.existencia, p.medida_pro, rp.cantidad
+                         FROM receta_producto as rp
+                         LEFT JOIN producto as p ON(p.codproducto = rp.producto_id)
+                         WHERE rp.receta_id = {$recipe_id}");
+                    $ingredients = [];
+                    $rows = mysqli_fetch_all($stmt2, MYSQLI_ASSOC);
+
+                    foreach ($rows as $ingredient) {
+                        $stmt3 = mysqli_prepare($conection, "UPDATE producto SET existencia = ? WHERE codproducto = ?");
+                        $newQuantity = floatval($ingredient['existencia']) - (floatval($ingredient['cantidad']) * $quantity);
+                        $stmt3->bind_param('di', $newQuantity, $ingredient['codproducto']);
+                        if (!$stmt3->execute()) {
+                            $error = mysqli_error($conection);
+                            break;
+                        }
+                        $stmt3->close();
+                    }
+                }
+            }
+        }
+    }
 }
 
 ?>
@@ -21,13 +103,13 @@ while ($row = $query->fetch_assoc()) {
     <?php include "includes/scripts.php"; ?>
     <title>Crear orden</title>
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="sytlesheet" href="../css/crear_orden.css">
+    <link rel="stylesheet" href="../css/crear_orden.css">
 </head>
 
 <body>
     <?php include(__DIR__ . '/includes/header.php'); ?>
     <main id="container" class="ui-container">
-        <form class="ui-box ui-form new-order-container" method="POST" action="guardar_orden.php">
+        <form class="ui-box ui-form new-order-container" method="POST" action="">
             <h3 class="ui-box-title">Crear nueva orden</h3>
             <div class="ui-box-content">
                 <?php if (isset($error)): ?>

@@ -80,7 +80,6 @@ while ($row = $query->fetch_assoc()) {
         <div class="ui-box-content">
             <div class="ui-table">
                 <div class="row header">
-                    <div class="column min-width" style="background: rgb(192, 27, 96);"></div>
                     <div class="column" style="background: rgb(192, 27, 96);">Nombre</div>
                     <div class="column" style="background: rgb(192, 27, 96);">Precio</div>
                     <div class="column" style="background: rgb(192, 27, 96);">Ingredientes</div>
@@ -88,9 +87,7 @@ while ($row = $query->fetch_assoc()) {
                 </div>
                 <?php foreach ($recipes as $recipe): ?>
                     <div class="row">
-                        <div class="column">
-                            <img class="recipe-thumbnail" src="../img/<?php echo $recipe['thumbnail']; ?>" />
-                        </div>
+                        
                         <div class="column"><?php echo $recipe['name']; ?></div>
                         <div class="column"><?php echo number_format($recipe['manufacturingCost'], 2, '.', ''); ?></div>
                         <div class="column">

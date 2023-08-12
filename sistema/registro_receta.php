@@ -38,7 +38,8 @@
             $update_recipe['manufacturingCost'] += $subrow['cantidad'] * $subrow['precio'];
         }
     }
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -102,10 +103,7 @@
                 <label for="name">Nombre</label>
                 <input <?php echo (isset($update_recipe) ? 'value="' . $update_recipe['name'] . '"' : ''); ?> type="text" name="name" id="name" placeholder="Nombre de la receta" required>
             </div>
-            <div class="ui-form-group">
-                <label for="thumbnail">Imagen</label>
-                <input type="file" name="thumbnail" id="thumbnail" >
-            </div>
+        
             <div class="ui-form-group">
                 <label for="thumbnail">Ingredientes</label>
                 <div class="ui-form-group compound">
