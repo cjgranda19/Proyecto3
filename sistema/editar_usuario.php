@@ -13,42 +13,44 @@ $rol = "";
 $idrol = "";
 $alert = "";
 
+<?php
 if (!empty($_POST)) {
+    include "../conexion.php";
+
     $alert = '';
 
     if (empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['usuario']) || empty($_POST['rol'])) {
         $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
     } else {
-        include "../conexion.php";
-
         $idUsuario = $_POST['id'];
         $nombre = $_POST['nombre'];
         $email = $_POST['correo'];
         $user = $_POST['usuario'];
-        $clave = md5($_POST['clave']);
         $rol = $_POST['rol'];
 
         $query = mysqli_query($conection, "SELECT * FROM usuario WHERE (usuario = '$user' AND idusuario != $idUsuario) OR (correo = '$email' AND idusuario != $idUsuario)");
 
-        $result = mysqli_fetch_array($query);
-        $resultCount = count($result);
-
-        if ($resultCount > 0) {
-            $alert = '<p class="msg_error">El correo o el usuario ya existe.</p>';
+        if (!$query) {
+            $alert = '<p class="msg_error">Error en la consulta.</p>';
         } else {
-            if (empty($_POST['clave'])) {
-                $sql_update = mysqli_query($conection, "UPDATE usuario SET nombre = '$nombre', correo='$email', usuario='$user', rol='$rol' WHERE idusuario=$idUsuario ");
-            } else {
-                $sql_update = mysqli_query($conection, "UPDATE usuario SET nombre = '$nombre', correo='$email', usuario='$user', clave='$clave', rol='$rol' WHERE idusuario=$idUsuario ");
-            }
+            $resultCount = mysqli_num_rows($query);
 
-            if ($sql_update) {
-                $alert = '<p class="msg_save">Usuario actualizado correctamente.</p>';
+            if ($resultCount > 0) {
+                $alert = '<p class="msg_error">El correo o el usuario ya existe.</p>';
             } else {
-                $alert = '<p class="msg_error">Error al actualizar el usuario.</p>';
+                $updateClause = empty($_POST['clave']) ? "" : ", clave='" . md5($_POST['clave']) . "'";
+                $sql_update = mysqli_query($conection, "UPDATE usuario SET nombre = '$nombre', correo='$email', usuario='$user'$updateClause, rol='$rol' WHERE idusuario=$idUsuario ");
+
+                if ($sql_update) {
+                    $alert = '<p class="msg_save">Usuario actualizado correctamente.</p>';
+                } else {
+                    $alert = '<p class="msg_error">Error al actualizar el usuario.</p>';
+                }
             }
         }
     }
+
+    mysqli_close($conection);
 }
 
 if (empty($_REQUEST['id'])) {
