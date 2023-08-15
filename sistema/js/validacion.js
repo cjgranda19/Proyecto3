@@ -25,10 +25,10 @@ const elements = {
     },
     clave: {
         input: document.querySelector('input[name="clave"]'),
-        regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&.]{8,}$/,
         mensajeError: document.getElementById("mensajeErrorPassword"),
         errorMessages: {
-            regex: "La contraseña debe tener al menos 8 caracteres y contener al menos una letra, un número y un carácter especial (@, $, !, %, *, #, ?, &)."
+            regex: "La contraseña debe tener al menos 8 caracteres y contener al menos una letra, un número y un carácter especial (@, $, !, %, *, #, ?, &, .)."
         }
     }
 };

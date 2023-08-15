@@ -24,7 +24,7 @@ if (!empty($_POST)) {
 
 		$query = mysqli_query($conection, "SELECT * FROM usuario WHERE (usuario = '$user' AND idusuario != $idUsuario) OR (correo = '$email' AND idusuario != $idUsuario)");
 
-		$result = mysqli_fetch_array($query);
+		$result = mysqli_fetch_rows($query);
 		$result = count($result);
 
 		if ($result > 0) {
@@ -59,7 +59,7 @@ if ($result_sql == 0) {
 	header('Location: lista_usuarios.php');
 } else {
 	$option = '';
-	while ($data = mysqli_fetch_array($sql)) {
+	while ($data = mysqli_fetch_row($sql)) {
 		$iduser = $data['idusuario'];
 		$nombre = $data['nombre'];
 		$correo = $data['correo'];
