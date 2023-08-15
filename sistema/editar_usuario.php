@@ -24,7 +24,7 @@ if (!empty($_POST)) {
 
 		$query = mysqli_query($conection, "SELECT * FROM usuario WHERE (usuario = '$user' AND idusuario != $idUsuario) OR (correo = '$email' AND idusuario != $idUsuario)");
 
-		$result = mysqli_fetch_rows($query);
+		$result = mysqli_fetch_row($query);
 		$result = count($result);
 
 		if ($result > 0) {
