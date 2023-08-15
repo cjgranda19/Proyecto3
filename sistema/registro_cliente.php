@@ -7,27 +7,27 @@ if (!empty($_POST)) {
 
     $alert = '';
 
-    if (empty($_POST['nit']) || empty($_POST['nombre']) || empty($_POST['telefono']) || empty($_POST['direccion'])) {
+    if (empty($_POST['cedula']) || empty($_POST['nombre']) || empty($_POST['telefono']) || empty($_POST['direccion'])) {
         $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
     } else {
 
-        $nit = $_POST['nit'];
+        $cedula = $_POST['cedula'];
         $nombre = $_POST['nombre'];
         $telefono = $_POST['telefono'];
         $direccion = $_POST['direccion'];
         $usuario_id = $_SESSION['idUser'];
 
-        if (!isValidCI($nit)) {
+        if (!isValidCI($cedula)) {
             $alert = '<p class="msg_error">El número de cédula no es válido. Debe ser un número real</p>';
         } else {
 
-            $query = mysqli_query($conection, "SELECT * FROM cliente WHERE nit = '$nit' ");
+            $query = mysqli_query($conection, "SELECT * FROM cliente WHERE cedula = '$cedula' ");
             $result = mysqli_fetch_array($query);
 
             if ($result > 0) {
                 $alert = '<p class="msg_error">El número de cédula ya existe.</p>';
             } else {
-                $query_insert = mysqli_query($conection, "INSERT INTO cliente(nit,nombre,telefono,direccion,usuario_id) VALUES('$nit','$nombre','$telefono','$direccion','$usuario_id')");
+                $query_insert = mysqli_query($conection, "INSERT INTO cliente(cedula,nombre,telefono,direccion,usuario_id) VALUES('$cedula','$nombre','$telefono','$direccion','$usuario_id')");
 
                 if ($query_insert) {
                     $alert = '<p class="msg_save">Cliente guardado correctamente.</p>';
@@ -89,8 +89,8 @@ function isValidCI($ci) {
 			<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 
 			<form action="" method="post">
-				<label for="nit">Cédula: </label>
-				<input type="text" name="nit" id="nit" placeholder="Número de CI">
+				<label for="cedula">Cédula: </label>
+				<input type="text" name="cedula" id="cedula" placeholder="Número de CI">
 				<div id="cedula" style="color: red;"></div>
 				<label for="nombre">Nombre: </label>
 				<input type="text" name="nombre" placeholder="Nombre Apellido">

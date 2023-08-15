@@ -50,7 +50,6 @@
 			</tr>
 		<?php
 
-			//paginador
 
 			$rol = '';
 			if($busqueda == 'administrador'){
@@ -65,10 +64,10 @@
 			$result_registre = mysqli_fetch_array($sql_registre);
 			$total_registro = $result_registre['total_registro'];
 
-			$por_pagina = 8;
+			$por_pagina = 10;
 
 			if(empty($_GET['pagina'])){
-				$pagina = 5;
+				$pagina = 1;
 			}else{
 				$pagina = $_GET['pagina'];
 			}

@@ -117,7 +117,7 @@
 		float: right;
 		background: initial;
 		padding: 10px;
-		border-radius: 10px;
+		border-radius: 10p x;
 	}
 
 	.form_search .btn_search{

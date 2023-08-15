@@ -3,58 +3,58 @@ session_start();
 include '../conexion.php';
 
 
-if(!empty($_POST)){
+if (!empty($_POST)) {
 
-    if ($_POST['action'] == 'getProducts') {
-        $id = intval($_POST['id'] ?? 0);
-        $query = mysqli_query($conection, "SELECT * FROM producto " . ($id > 0 ? "WHERE codproducto = $id" : ""));
-        mysqli_close($conection);
-        $result = mysqli_num_rows($query);
-        $products = [];
+	if ($_POST['action'] == 'getProducts') {
+		$id = intval($_POST['id'] ?? 0);
+		$query = mysqli_query($conection, "SELECT * FROM producto " . ($id > 0 ? "WHERE codproducto = $id" : ""));
+		mysqli_close($conection);
+		$result = mysqli_num_rows($query);
+		$products = [];
 
-        if ($result > 0) {
-            while ($row = mysqli_fetch_assoc($query)) {
-                $products[] = $row;
-            }
-        }
+		if ($result > 0) {
+			while ($row = mysqli_fetch_assoc($query)) {
+				$products[] = $row;
+			}
+		}
 
-        echo json_encode($products, JSON_UNESCAPED_UNICODE);
-        exit;
-    }
+		echo json_encode($products, JSON_UNESCAPED_UNICODE);
+		exit;
+	}
 
 	// Extraer datos del producto
 
-    if($_POST['action'] == 'infoProducto'){
-    	$producto_id = $_POST['producto'];
+	if ($_POST['action'] == 'infoProducto') {
+		$producto_id = $_POST['producto'];
 
-    	$query = mysqli_query($conection, "SELECT codproducto, descripcion, existencia, precio FROM producto WHERE codproducto = $producto_id AND estatus = 1");
+		$query = mysqli_query($conection, "SELECT codproducto, descripcion, precio, existencia FROM producto WHERE codproducto = $producto_id AND estatus = 1");
 
-    	mysqli_query($conection);
+		mysqli_query($conection);
 
-    	$result = mysqli_num_rows($query);
-    	if($result > 0){
-    		$data = mysqli_fetch_assoc($query);
-    		echo json_encode($data, JSON_UNESCAPED_UNICODE);
-    		exit;
-    	}
-    	echo 'error';
-    	exit;
-    }
+		$result = mysqli_num_rows($query);
+		if ($result > 0) {
+			$data = mysqli_fetch_assoc($query);
+			echo json_encode($data, JSON_UNESCAPED_UNICODE);
+			exit;
+		}
+		echo 'error';
+		exit;
+	}
 
 	// Buscar cliente
-	if($_POST['action'] == 'searchCliente'){
-		if(!empty($_POST['cliente'])){
-			$nit = $_POST['cliente'];
+	if ($_POST['action'] == 'searchCliente') {
+		if (!empty($_POST['cliente'])) {
+			$cedula = $_POST['cliente'];
 
-			$query = mysqli_query($conection, "SELECT * FROM cliente WHERE nit LIKE '$nit' AND estatus = 1 ");
+			$query = mysqli_query($conection, "SELECT * FROM cliente WHERE cedula LIKE '$cedula' AND estatus = 1 ");
 			mysqli_close($conection);
 			$result = mysqli_num_rows($query);
 
 			$data = '';
 
-			if($result > 0){
+			if ($result > 0) {
 				$data = mysqli_fetch_assoc($query);
-			}else{
+			} else {
 				$data = 0;
 			}
 			echo json_encode($data, JSON_UNESCAPED_UNICODE);
@@ -65,19 +65,19 @@ if(!empty($_POST)){
 
 	// Registro cliente - ventas
 
-	if($_POST['action'] == 'addCliente'){
-		$nit = $_POST['nit_cliente'];
+	if ($_POST['action'] == 'addCliente') {
+		$cedula = $_POST['cedula_cliente'];
 		$nombre = $_POST['nom_cliente'];
 		$telefono = $_POST['tel_cliente'];
 		$direccion = $_POST['dir_cliente'];
 		$usuario_id = $_SESSION['idUser'];
 
-		$query_insert = mysqli_query($conection, "INSERT INTO cliente(nit, nombre, telefono, direccion, usuario_id) VALUES ('$nit', '$nombre', '$telefono', '$direccion', '$usuario_id')");
+		$query_insert = mysqli_query($conection, "INSERT INTO cliente(cedula, nombre, telefono, direccion, usuario_id) VALUES ('$cedula', '$nombre', '$telefono', '$direccion', '$usuario_id')");
 
-		if($query_insert){
+		if ($query_insert) {
 			$codCliente = mysqli_insert_id($conection);
 			$msg = $codCliente;
-		}else{
+		} else {
 			$msg = 'error';
 		}
 		echo $msg;
@@ -87,10 +87,10 @@ if(!empty($_POST)){
 
 	// Agregar producto al detalle temporal
 
-	if($_POST['action'] == 'addProductoDetalle'){
-		if(empty($_POST['producto']) || empty($_POST['cantidad'])){
+	if ($_POST['action'] == 'addProductoDetalle') {
+		if (empty($_POST['producto']) || empty($_POST['cantidad'])) {
 			echo 'error';
-		}else{
+		} else {
 			$codproducto = $_POST['producto'];
 			$cantidad = $_POST['cantidad'];
 			$token = md5($_SESSION['idUser']);
@@ -107,25 +107,25 @@ if(!empty($_POST)){
 			$total = 0;
 			$arrayData = array();
 
-			if($result > 0){
-				if($result_iva > 0){
+			if ($result > 0) {
+				if ($result_iva > 0) {
 					$info_iva = mysqli_fetch_assoc($query_iva);
 					$iva = $info_iva['iva'];
 				}
 
-				while ($data = mysqli_fetch_assoc($query_detalle_temp)){
+				while ($data = mysqli_fetch_assoc($query_detalle_temp)) {
 					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
 					$sub_total = round($sub_total + $precioTotal, 2);
 					$total = round($total + $precioTotal, 2);
 
 					$detalleTabla .= '<tr>
-	 									<td>'.$data['codproducto'].'</td>
-	 									<td colspan="2">'.$data['descripcion'].'</td>
-	 									<td class="textcenter">'.$data['cantidad'].'</td>
-	 									<td class="textright">'.$data['precio_venta'].'</td>
-	 									<td class="textright">'.$precioTotal.'</td>
+	 									<td>' . $data['codproducto'] . '</td>
+	 									<td colspan="2">' . $data['descripcion'] . '</td>
+	 									<td class="textcenter">' . $data['cantidad'] . '</td>
+	 									<td class="textright">' . $data['precio_venta'] . '</td>
+	 									<td class="textright">' . $precioTotal . '</td>
 	 									<td class="">
-	 										<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['correlativo'].');">Eliminar</a>
+	 										<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['correlativo'] . ');">Eliminar</a>
 	 									</td>
 	 								</tr>';
 				}
@@ -134,24 +134,24 @@ if(!empty($_POST)){
 				$tl_sniva = round($sub_total - $impuesto, 2);
 				$total = round($tl_sniva + $impuesto, 2);
 
-				$detalleTotales =   '<tr>
+				$detalleTotales = '<tr>
 	 									<td colspan="5" class="textright">SUBTOTAL Q.</td>
-	 									<td class="textright">'.$tl_sniva.'</td>
+	 									<td class="textright">' . $tl_sniva . '</td>
 	 								</tr>
 	 								<tr>
-	 									<td colspan="5" class="textright">('.$iva.'%)</td>
-	 									<td class="textright">'.$impuesto.'</td>
+	 									<td colspan="5" class="textright">(' . $iva . '%)</td>
+	 									<td class="textright">' . $impuesto . '</td>
 	 								</tr>
 	 								<tr>
 	 									<td colspan="5" class="textright">TOTAL Q.</td>
-	 									<td class="textright">'.$total.'</td>
+	 									<td class="textright">' . $total . '</td>
 	 								</tr>';
 
-	 			$arrayData['detalle'] = $detalleTabla;
-	 			$arrayData['totales'] = $detalleTotales;
+				$arrayData['detalle'] = $detalleTabla;
+				$arrayData['totales'] = $detalleTotales;
 
-	 			echo json_encode($arrayData, JSON_UNESCAPED_UNICODE);
-			}else{
+				echo json_encode($arrayData, JSON_UNESCAPED_UNICODE);
+			} else {
 				echo 'error';
 			}
 			mysqli_close($conection);
@@ -162,10 +162,10 @@ if(!empty($_POST)){
 
 	// Extrae datos del detalle_temp
 
-	if($_POST['action'] == 'serchForDetalle'){
-		if(empty($_POST['user'])){
+	if ($_POST['action'] == 'serchForDetalle') {
+		if (empty($_POST['user'])) {
 			echo 'error';
-		}else{
+		} else {
 			$token = md5($_SESSION['idUser']);
 
 			$query = mysqli_query($conection, "SELECT tmp.correlativo, tmp.token_user, tmp.cantidad, tmp.precio_venta, p.codproducto, p.descripcion FROM detalle_temp tmp INNER JOIN producto p ON tmp.codproducto = p.codproducto WHERE token_user = '$token' ");
@@ -181,25 +181,25 @@ if(!empty($_POST)){
 			$total = 0;
 			$arrayData = array();
 
-			if($result > 0){
-				if($result_iva > 0){
+			if ($result > 0) {
+				if ($result_iva > 0) {
 					$info_iva = mysqli_fetch_assoc($query_iva);
 					$iva = $info_iva['iva'];
 				}
 
-				while ($data = mysqli_fetch_assoc($query)){
+				while ($data = mysqli_fetch_assoc($query)) {
 					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
 					$sub_total = round($sub_total + $precioTotal, 2);
 					$total = round($total + $precioTotal, 2);
 
 					$detalleTabla .= '<tr>
-	 									<td>'.$data['codproducto'].'</td>
-	 									<td colspan="2">'.$data['descripcion'].'</td>
-	 									<td class="textcenter">'.$data['cantidad'].'</td>
-	 									<td class="textright">'.$data['precio_venta'].'</td>
-	 									<td class="textright">'.$precioTotal.'</td>
+	 									<td>' . $data['codproducto'] . '</td>
+	 									<td colspan="2">' . $data['descripcion'] . '</td>
+	 									<td class="textcenter">' . $data['cantidad'] . '</td>
+	 									<td class="textright">' . $data['precio_venta'] . '</td>
+	 									<td class="textright">' . $precioTotal . '</td>
 	 									<td class="">
-	 										<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['correlativo'].');">Eliminar</a>
+	 										<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['correlativo'] . ');">Eliminar</a>
 	 									</td>
 	 								</tr>';
 				}
@@ -208,24 +208,24 @@ if(!empty($_POST)){
 				$tl_sniva = round($sub_total - $impuesto, 2);
 				$total = round($tl_sniva + $impuesto, 2);
 
-				$detalleTotales =   '<tr>
+				$detalleTotales = '<tr>
 	 									<td colspan="5" class="textright">SUBTOTAL Q.</td>
-	 									<td class="textright">'.$tl_sniva.'</td>
+	 									<td class="textright">' . $tl_sniva . '</td>
 	 								</tr>
 	 								<tr>
-	 									<td colspan="5" class="textright">('.$iva.'%)</td>
-	 									<td class="textright">'.$impuesto.'</td>
+	 									<td colspan="5" class="textright">(' . $iva . '%)</td>
+	 									<td class="textright">' . $impuesto . '</td>
 	 								</tr>
 	 								<tr>
 	 									<td colspan="5" class="textright">TOTAL Q.</td>
-	 									<td class="textright">'.$total.'</td>
+	 									<td class="textright">' . $total . '</td>
 	 								</tr>';
 
-	 			$arrayData['detalle'] = $detalleTabla;
-	 			$arrayData['totales'] = $detalleTotales;
+				$arrayData['detalle'] = $detalleTabla;
+				$arrayData['totales'] = $detalleTotales;
 
-	 			echo json_encode($arrayData, JSON_UNESCAPED_UNICODE);
-			}else{
+				echo json_encode($arrayData, JSON_UNESCAPED_UNICODE);
+			} else {
 				echo 'error';
 			}
 			mysqli_close($conection);
@@ -233,10 +233,10 @@ if(!empty($_POST)){
 		exit;
 	}
 
-	if($_POST['action'] == 'delProductoDetalle'){
-		if(empty($_POST['id_detalle'])){
+	if ($_POST['action'] == 'delProductoDetalle') {
+		if (empty($_POST['id_detalle'])) {
 			echo 'error';
-		}else{
+		} else {
 			$id_detalle = $_POST['id_detalle'];
 			$token = md5($_SESSION['idUser']);
 
@@ -252,25 +252,25 @@ if(!empty($_POST)){
 			$total = 0;
 			$arrayData = array();
 
-			if($result > 0){
-				if($result_iva > 0){
+			if ($result > 0) {
+				if ($result_iva > 0) {
 					$info_iva = mysqli_fetch_assoc($query_iva);
 					$iva = $info_iva['iva'];
 				}
 
-				while ($data = mysqli_fetch_assoc($query_detalle_temp)){
+				while ($data = mysqli_fetch_assoc($query_detalle_temp)) {
 					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
 					$sub_total = round($sub_total + $precioTotal, 2);
 					$total = round($total + $precioTotal, 2);
 
 					$detalleTabla .= '<tr>
-	 									<td>'.$data['codproducto'].'</td>
-	 									<td colspan="2">'.$data['descripcion'].'</td>
-	 									<td class="textcenter">'.$data['cantidad'].'</td>
-	 									<td class="textright">'.$data['precio_venta'].'</td>
-	 									<td class="textright">'.$precioTotal.'</td>
+	 									<td>' . $data['codproducto'] . '</td>
+	 									<td colspan="2">' . $data['descripcion'] . '</td>
+	 									<td class="textcenter">' . $data['cantidad'] . '</td>
+	 									<td class="textright">' . $data['precio_venta'] . '</td>
+	 									<td class="textright">' . $precioTotal . '</td>
 	 									<td class="">
-	 										<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['correlativo'].');">Eliminar</a>
+	 										<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['correlativo'] . ');">Eliminar</a>
 	 									</td>
 	 								</tr>';
 				}
@@ -279,24 +279,24 @@ if(!empty($_POST)){
 				$tl_sniva = round($sub_total - $impuesto, 2);
 				$total = round($tl_sniva + $impuesto, 2);
 
-				$detalleTotales =   '<tr>
+				$detalleTotales = '<tr>
 	 									<td colspan="5" class="textright">SUBTOTAL Q.</td>
-	 									<td class="textright">'.$tl_sniva.'</td>
+	 									<td class="textright">' . $tl_sniva . '</td>
 	 								</tr>
 	 								<tr>
-	 									<td colspan="5" class="textright">('.$iva.'%)</td>
-	 									<td class="textright">'.$impuesto.'</td>
+	 									<td colspan="5" class="textright">(' . $iva . '%)</td>
+	 									<td class="textright">' . $impuesto . '</td>
 	 								</tr>
 	 								<tr>
 	 									<td colspan="5" class="textright">TOTAL Q.</td>
-	 									<td class="textright">'.$total.'</td>
+	 									<td class="textright">' . $total . '</td>
 	 								</tr>';
 
-	 			$arrayData['detalle'] = $detalleTabla;
-	 			$arrayData['totales'] = $detalleTotales;
+				$arrayData['detalle'] = $detalleTabla;
+				$arrayData['totales'] = $detalleTotales;
 
-	 			echo json_encode($arrayData, JSON_UNESCAPED_UNICODE);
-			}else{
+				echo json_encode($arrayData, JSON_UNESCAPED_UNICODE);
+			} else {
 				echo 'error';
 			}
 			mysqli_close($conection);
@@ -305,23 +305,23 @@ if(!empty($_POST)){
 	}
 
 	// Anular venta
-	if($_POST['action'] == 'anularVenta'){
+	if ($_POST['action'] == 'anularVenta') {
 		$token = md5($_SESSION['idUser']);
 		$query_del = mysqli_query($conection, "DELETE FROM detalle_temp WHERE token_user = '$token' ");
 		mysqli_close($conection);
-		if($query_del){
+		if ($query_del) {
 			echo 'ok';
-		}else{
+		} else {
 			echo 'error';
 		}
 		exit;
 	}
 
 	// Procesar venta
-	if($_POST['action'] == 'procesarVenta'){
-		if(empty($_POST['codcliente'])){
+	if ($_POST['action'] == 'procesarVenta') {
+		if (empty($_POST['codcliente'])) {
 			$codcliente = 1;
-		}else{
+		} else {
 			$codcliente = $_POST['codcliente'];
 		}
 
@@ -331,17 +331,17 @@ if(!empty($_POST)){
 		$query = mysqli_query($conection, "SELECT * FROM detalle_temp WHERE token_user = '$token' ");
 		$result = mysqli_num_rows($query);
 
-		if($result > 0){
+		if ($result > 0) {
 			$query_procesar = mysqli_query($conection, "CALL procesar_venta($usuario,$codcliente,'$token')");
 			$result_detalle = mysqli_num_rows($query_procesar);
 
-			if($result_detalle > 0){
+			if ($result_detalle > 0) {
 				$data = mysqli_fetch_assoc($query_procesar);
 				echo json_encode($data, JSON_UNESCAPED_UNICODE);
-			}else{
+			} else {
 				echo 'error';
 			}
-		}else{
+		} else {
 			echo 'error';
 		}
 		mysqli_close($conection);
@@ -349,8 +349,8 @@ if(!empty($_POST)){
 	}
 
 	// Info de la factura
-	if($_POST['action'] == 'infoFactura'){
-		if(!empty($_POST['nofactura'])){
+	if ($_POST['action'] == 'infoFactura') {
+		if (!empty($_POST['nofactura'])) {
 
 			$nofactura = $_POST['nofactura'];
 
@@ -358,7 +358,7 @@ if(!empty($_POST)){
 			mysqli_close($conection);
 
 			$result = mysqli_num_rows($query);
-			if(result > 0){
+			if (result > 0) {
 				$data = mysqli_fetch_assoc($query);
 				echo json_encode($data, JSON_UNESCAPED_UNICODE);
 				exit;
@@ -368,14 +368,14 @@ if(!empty($_POST)){
 		exit;
 	}
 
-	if($_POST['action'] == 'anularFactura'){
-		if(!empty($_POST['noFactura'])){
+	if ($_POST['action'] == 'anularFactura') {
+		if (!empty($_POST['noFactura'])) {
 			$noFactura = $_POST['noFactura'];
 
 			$query_anular = mysqli_query($conection, "CALL anular_factura($noFactura)");
 			mysqli_close($conection);
 			$result = mysqli_num_rows($query_anular);
-			if($result > 0){
+			if ($result > 0) {
 				$data = mysqli_fetch_assoc($query_anular);
 				echo json_encode($data, JSON_UNESCAPED_UNICODE);
 				exit;
@@ -387,7 +387,7 @@ if(!empty($_POST)){
 
 
 
- }
+}
 
 exit;
 

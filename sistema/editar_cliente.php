@@ -6,19 +6,19 @@
 
 		$alert = '';
 
-		if(empty($_POST['nombre']) || empty($_POST['telefono']) || empty($_POST['direccion']) || empty($_POST['nit'])){
+		if(empty($_POST['nombre']) || empty($_POST['telefono']) || empty($_POST['direccion']) || empty($_POST['cedula'])){
 			$alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
 		}else{
 			include "../conexion.php";
 
 			$idCliente = $_POST['id'];
-			$nit = $_POST['nit'];
+			$cedula = $_POST['cedula'];
 			$nombre = $_POST['nombre'];
 			$telefono = $_POST['telefono'];
 			$direccion = $_POST['direccion'];
 
 
-			$query = mysqli_query($conection, "SELECT * FROM cliente WHERE nit = '$nit' AND idcliente != $idCliente");
+			$query = mysqli_query($conection, "SELECT * FROM cliente WHERE cedula = '$cedula' AND idcliente != $idCliente");
 
 			$result = mysqli_fetch_array($query);
 			$result = count($result);
@@ -26,7 +26,7 @@
 			if($result > 0){
 				$alert = '<p class="msg_error">La cédula ya está registrada.</p>';
 			}else{
-				$sql_update = mysqli_query($conection, "UPDATE cliente SET nit = '$nit', nombre='$nombre', telefono='$telefono', direccion='$direccion' WHERE idcliente=$idCliente ");
+				$sql_update = mysqli_query($conection, "UPDATE cliente SET cedula = '$cedula', nombre='$nombre', telefono='$telefono', direccion='$direccion' WHERE idcliente=$idCliente ");
 				
 				if($sql_update){
 					$alert = '<p class="msg_save">Cliente actualizado correctamente.</p>';
@@ -54,7 +54,7 @@ if($result_sql == 0){
 	$option = '';
 	while ($data = mysqli_fetch_array($sql)){
 		$idcliente = $data['idcliente'];
-		$nit = $data['nit'];
+		$cedula = $data['cedula'];
 		$nombre = $data['nombre'];
 		$telefono = $data['telefono'];
 		$direccion = $data['direccion'];
@@ -156,12 +156,12 @@ if($result_sql == 0){
 
 			<form action="" method="post">
 				<input type="hidden" name="id" value="<?php echo $idcliente; ?>">
-				<label for="nit">Cédula: </label>
-				<input type="text" name="nit" id="nit" placeholder="Número de CI" maxlength="10" minlength="10" onkeyup="this.value=Numeros(this.value)" value="<?php echo $nit; ?>">
+				<label for="cedula">Cédula: </label>
+				<input type="text" name="cedula" id="cedula" placeholder="Número de CI" maxlength="10" minlength="10"  value="<?php echo $cedula; ?>">
 				<label for="nombre">Nombre: </label>
-				<input type="text" name="nombre" id="nombre"placeholder="Nombre completo" onkeyup="this.value=Letras(this.value)" value="<?php echo $nombre; ?>">
+				<input type="text" name="nombre" id="nombre"placeholder="Nombre completo"  value="<?php echo $nombre; ?>">
 				<label for="telefono">Teléfono: </label>
-				<input type="text" name="telefono" id="telefono" placeholder="Teléfono" maxlength="10" minlength="10" onkeyup="this.value=Numeros(this.value)" value="<?php echo $telefono; ?>">
+				<input type="text" name="telefono" id="telefono" placeholder="Teléfono" maxlength="10" minlength="10" value="<?php echo $telefono; ?>">
 				<label for="direccion">Dirección: </label>
 				<input type="text" name="direccion" id="direccion" placeholder="Dirección completa" value="<?php echo $direccion; ?>">
 				<input type="submit" value="Actualizar cliente" class="btn_save" >

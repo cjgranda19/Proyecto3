@@ -34,7 +34,7 @@
 
 		if($result > 0){
 			while ($data = mysqli_fetch_array($query)){
-				$nit = $data['nit'];
+				$cedula = $data['cedula'];
 				$nombre = $data['nombre'];
 			}
 		}else{
@@ -110,7 +110,7 @@
 		<div class="data_delete">
 			<h2>¿Está seguro de eliminar el siguiente registro?</h2>
 			<p>Nombre del cliente: <span><?php echo $nombre; ?></span></p>
-			<p>Cédula: <span><?php echo $nit; ?></span></p>
+			<p>Cédula: <span><?php echo $cedula; ?></span></p>
 
 			<form method="post" action="">
 				<input type="hidden" name="idcliente" value="<?php echo $idcliente; ?>">

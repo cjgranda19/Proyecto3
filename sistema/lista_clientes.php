@@ -180,7 +180,7 @@ include "../conexion.php";
 							<?php echo $data['idcliente']; ?>
 						</td>
 						<td>
-							<?php echo $data['nit']; ?>
+							<?php echo $data['cedula']; ?>
 						</td>
 						<td>
 							<?php echo $data['nombre']; ?>
