@@ -12,8 +12,6 @@ $usuario = "";
 $rol = "";
 $idrol = "";
 $alert = "";
-
-<?php
 if (!empty($_POST)) {
     include "../conexion.php";
 
