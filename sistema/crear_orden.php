@@ -12,6 +12,14 @@ while ($row = $query->fetch_assoc()) {
     $recipes[] = $row;
 }
 
+
+$customerNames = [];
+
+$query = mysqli_query($conection, "SELECT nombre FROM cliente");
+
+while ($row = $query->fetch_assoc()) {
+    $customerNames[] = $row['nombre'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -20,8 +28,8 @@ while ($row = $query->fetch_assoc()) {
     <meta charset="UTF-8">
     <?php include "includes/scripts.php"; ?>
     <title>Crear orden</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="sytlesheet" href="../css/crear_orden.css">
+    <link rel="stylesheet" href="./css/crear_orden.css">
+
 </head>
 
 <body>
@@ -31,22 +39,30 @@ while ($row = $query->fetch_assoc()) {
             <h3 class="ui-box-title">Crear nueva orden</h3>
             <div class="ui-box-content">
                 <?php if (isset($error)): ?>
-                <div class="ui-alert error">
-                    <p><?php echo $error; ?></p>
-                </div>
+                    <div class="ui-alert error">
+                        <p>
+                            <?php echo $error; ?>
+                        </p>
+                    </div>
                 <?php endif; ?>
 
                 <div class="ui-form-group">
                     <label for="order-date">Nombre cliente</label>
-                    <input type="text" id="order-customer-name" name="customerName" class="ui-form-control" placeholder="Nombre cliente">
+                    <select id="order-customer-name" name="customerName" class="ui-form-control">
+                        <option value="" disabled selected>Selecciona un cliente</option>
+                        <?php foreach ($customerNames as $name): ?>
+                            <option value="<?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
+
                 <div class="ui-form-group">
                     <label for="thumbnail">Recetas</label>
                     <div class="ui-form-group compound">
                         <div class="ui-form-group">
                             <label for="recipe-item">Receta</label>
                             <select class="form-control" name="recipes" id="recipe-item">
-                                <?php foreach ($recipes as $recipe) : ?>
+                                <?php foreach ($recipes as $recipe): ?>
                                     <option value="<?php echo $recipe['id']; ?>">
                                         <?php echo $recipe['name']; ?>
                                     </option>
@@ -55,10 +71,12 @@ while ($row = $query->fetch_assoc()) {
                         </div>
                         <div class="ui-form-group">
                             <label for="quantity">Cantidad</label>
-                            <input type="number" name="quantity" id="recipe-quantity" placeholder="Cantidad" step="1" value="1">
+                            <input type="number" name="quantity" id="recipe-quantity" placeholder="Cantidad" step="1"
+                                value="1">
                         </div>
                         <div class="ui-form-group button">
-                            <button type="button" class="ui-button ui-button blue" id="add-recipe" style="background: rgb(107, 2, 46);">Agregar</button>
+                            <button type="button" class="ui-button ui-button blue" id="add-recipe"
+                                style="background: rgb(107, 2, 46);">Agregar</button>
                         </div>
                         <div id="recipes-fields"></div>
                     </div>
@@ -75,7 +93,8 @@ while ($row = $query->fetch_assoc()) {
                 </div>
             </div>
             <div class="ui-box-footer right-aligned">
-                <button type="submit" class="ui-button ui-button green" style="background: rgb(107, 2, 46);">Guardar</button>
+                <button type="submit" class="ui-button ui-button green"
+                    style="background: rgb(107, 2, 46);">Guardar</button>
             </div>
         </form>
     </main>
@@ -91,8 +110,11 @@ while ($row = $query->fetch_assoc()) {
             </div>
         </div>
     </template>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
     <script>
         const recipes = <?php echo json_encode($recipes); ?>;
         const addedRecipes = [];
@@ -101,7 +123,7 @@ while ($row = $query->fetch_assoc()) {
         $('#recipe-item').autoComplete({
             resolver: 'custom',
             events: {
-                search: function(qry, callback) {
+                search: function (qry, callback) {
                     const filtered = recipes
                         .filter(recipe => recipe.name.toLowerCase().includes(qry.toLowerCase()))
                         .map(recipe => ({
@@ -113,7 +135,7 @@ while ($row = $query->fetch_assoc()) {
             }
         });
 
-        $('#recipe-item').on('autocomplete.select', function(evt, item) {
+        $('#recipe-item').on('autocomplete.select', function (evt, item) {
             currentRecipe = item;
             return false;
         });

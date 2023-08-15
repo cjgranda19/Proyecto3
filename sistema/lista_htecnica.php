@@ -76,13 +76,13 @@ while ($row = $query->fetch_assoc()) {
 <?php include(__DIR__ . '/includes/header.php'); ?>
 <main id="container" class="ui-container">
     <div class="ui-box recipes-container">
-        <h3 class="ui-box-title">Lista de recetas</h3>
+        <h3 class="ui-box-title">Hoja Tecnica</h3>
         <div class="ui-box-content">
             <div class="ui-table">
                 <div class="row header">
                     <div class="column" style="background: rgb(192, 27, 96);">Nombre</div>
                     <div class="column" style="background: rgb(192, 27, 96);">Precio</div>
-                    <div class="column" style="background: rgb(192, 27, 96);">Ingredientes</div>
+                    <div class="column" style="background: rgb(192, 27, 96);">Articulos</div>
                     <div class="column min-width" style="background: rgb(192, 27, 96);">Acciones</div>
                 </div>
                 <?php foreach ($recipes as $recipe): ?>
@@ -101,8 +101,8 @@ while ($row = $query->fetch_assoc()) {
                             </div>
                         </div>
                         <div class="column min-width buttons">
-                            <a href="eliminar_receta.php?id=<?php echo $recipe['id']; ?>" class="ui-button red">Eliminar</a>
-                            <a href="registro_receta.php?id=<?php echo $recipe['id']; ?>" class="ui-button blue">Editar</a>
+                            <a href="eliminar_htecnica.php?id=<?php echo $recipe['id']; ?>" class="ui-button red">Eliminar</a>
+                            <a href="registro_htecnica.php?id=<?php echo $recipe['id']; ?>" class="ui-button blue">Editar</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -111,7 +111,7 @@ while ($row = $query->fetch_assoc()) {
         <div class="ui-box-footer">
             <div class="ui-table">
                 <div class="row">
-                    <div class="column">Total de recetas: <?php echo $totals['recipes']; ?></div>
+                    <div class="column">Total de hojas tecnicas: <?php echo $totals['recipes']; ?></div>
                 </div>
             </div>
         </div>

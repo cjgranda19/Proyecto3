@@ -36,14 +36,14 @@
 			</ul>
 		</li>
 		<li class="principal">
-			<a href="lista_recetas.php"><i class="fa-solid fa-clipboard-list"></i> Ponerelnombrequeelingepidio</a>
+			<a href="lista_htecnica.php"><i class="fa-solid fa-clipboard-list"></i> Hoja Tecnica</a>
 			<ul>
 				<?php
 				if ($_SESSION['rol'] == 1) {
 					?>
-					<li><a href="registro_receta.php"><i class="fa-solid fa-plus"></i> Crear</a></li>
+					<li><a href="registro_htecnica.php"><i class="fa-solid fa-plus"></i> Crear</a></li>
 				<?php } ?>
-				<li><a href="lista_recetas.php"><i class="fa-solid fa-list"></i> Lista</a></li>
+				<li><a href="lista_htecnica.php"><i class="fa-solid fa-list"></i> Lista</a></li>
 			</ul>
 		</li>
 		<li class="principal">

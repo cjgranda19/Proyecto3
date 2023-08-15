@@ -44,7 +44,8 @@
 <head>
     <meta charset="UTF-8">
     <?php include "includes/scripts.php"; ?>
-    <title>Crear receta</title>
+    <title>Hoja Tecnica - Registro
+    </title>
     <link rel="stylesheet" href="./css/style.css">
     <style>
         .ingredients-list {
@@ -91,8 +92,8 @@
 <body>
 <?php include(__DIR__ . '/includes/header.php'); ?>
 <main id="container" class="ui-container">
-    <form class="container-recipes ui-box ui-form recipe-form" method="POST" action="guardar_receta.php" enctype="multipart/form-data">
-        <h2 class="ui-box-title">Registrar nueva receta</h2>
+    <form class="container-recipes ui-box ui-form recipe-form" method="POST" action="guardar_htecnica.php" enctype="multipart/form-data">
+        <h2 class="ui-box-title">Generar Hoja Tecnica</h2>
         <div class="ui-box-content">
             <?php if (isset($error)): ?>
             <div class="ui-alert error">
@@ -101,14 +102,15 @@
             <?php endif; ?>
             <div class="ui-form-group">
                 <label for="name">Nombre</label>
-                <input <?php echo (isset($update_recipe) ? 'value="' . $update_recipe['name'] . '"' : ''); ?> type="text" name="name" id="name" placeholder="Nombre de la receta" required>
+                <input <?php echo (isset($update_recipe) ? 'value="' . htmlspecialchars($update_recipe['name'], ENT_QUOTES, 'UTF-8') . '"' : ''); ?> type="text" name="name" id="name" placeholder="Nombre del Producto Final" required>
+
             </div>
         
             <div class="ui-form-group">
-                <label for="thumbnail">Ingredientes</label>
+                <label for="thumbnail">Productos</label>
                 <div class="ui-form-group compound">
                     <div class="ui-form-group">
-                        <label for="ingredient-item">Ingrediente</label>
+                        <label for="ingredient-item">Producto</label>
                         <select name="products" id="ingredient-item">
                             <?php foreach ($products as $product): ?>
                                 <option value="<?php echo $product['codproducto']; ?>" 
@@ -144,14 +146,15 @@
                     <?php if (isset($update_recipe)): ?>
                         <?php foreach ($update_recipe['ingredients'] as $ingredient): ?>
                             <div class="row">
+                                
                                 <div class="column quantity">
                                     <?php echo $ingredient['cantidad'] . ' ' . $ingredient['medida_pro']; ?>
                                 </div>
                                 <div class="column name">
                                     <?php echo $ingredient['descripcion']; ?>
                                 </div>
-                                <div class="column options">
-                                    <a href="javascript:void(0)" onclick="deleteIngredient(<?php echo $ingredient['codproducto']; ?>)"><i class="fa-solid fa-trash"></i></a>
+                                <div class="column quantity">
+                                    <a href="javascript:void(0)" onclick="deleteIngredient(<?php echo $ingredient['codproducto']; ?>)"><i class="fa-solid fa-trash" style="color: white"></i></a>
                                 </div>
                             </div>
                         <?php endforeach; ?>
