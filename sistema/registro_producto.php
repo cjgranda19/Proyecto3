@@ -10,7 +10,7 @@ if (!empty($_POST)) {
 
 	$alert = '';
 
-	if (empty($_POST['producto']) || empty($_POST['proveedor']) || empty($_POST['precio']) || empty($_POST['cantidad']) || empty($_POST['medida']) || $_POST['precio'] <= 0 || $_POST['cantidad'] <= 0) {
+	if (empty($_POST['producto']) || empty($_POST['proveedor']) || empty($_POST['precio']) || empty($_POST['cantidad'])  || $_POST['precio'] <= 0 || $_POST['cantidad'] <= 0) {
 		$alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
 	} else {
 
@@ -18,10 +18,9 @@ if (!empty($_POST)) {
 		$proveedor = $_POST['proveedor'];
 		$precio = $_POST['precio'];
 		$cantidad = $_POST['cantidad'];
-		$medida = $_POST['medida'];
 		$usuario_id = $_SESSION['idUser'];
 
-		$query_insert = mysqli_query($conection, "INSERT INTO producto(descripcion, proveedor, precio,existencia, medida_pro, usuario_id) VALUES('$producto', '$proveedor', '$precio','$cantidad', '$medida', '$usuario_id')");
+		$query_insert = mysqli_query($conection, "INSERT INTO producto(descripcion, proveedor, precio,existencia, usuario_id) VALUES('$producto', '$proveedor', '$precio','$cantidad', '$usuario_id')");
 
 		if ($query_insert) {
 			$alert = '<p class="msg_save">Producto guardado correctamente.</p>';
@@ -84,16 +83,6 @@ if (!empty($_POST)) {
 				<input type="number" name="precio" id="precio" step="0.01" placeholder="Precio del producto">
 				<label for="cantidad">Cantidad: </label>
 				<input type="number" name="cantidad" id="cantidad" placeholder="Stock">
-
-				<label for="medida">Medida</label>
-				<select name="medida" id="medida">
-					<option value="Kilogramos">Kilogramos</option>
-					<option value="Litros">Litros</option>
-					<option value="Unidades">Unidades</option>
-					<option value="Onzas">Onzas</option>
-					<option value="Libras">Libras</option>
-				</select>
-
 				<input type="submit" value="Guardar producto" class="btn_save">
 
 			</form>

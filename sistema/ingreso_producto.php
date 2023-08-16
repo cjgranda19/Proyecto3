@@ -14,18 +14,27 @@ if (!empty($_POST)) {
         $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
     } else {
 
-        $producto = $_POST['producto'];
+        $codproducto = $_POST['codproducto'];
+        $descripcion = $_POST['descripcion'];
         $proveedor = $_POST['proveedor'];
         $precio = $_POST['precio'];
         $cantidad = $_POST['cantidad'];
         $usuario_id = $_SESSION['idUser'];
 
-        $query_update = mysqli_query($conection, "UPDATE producto SET proveedor = '$proveedor', precio ='$precio',  existencia ='$cantidad', usuario_id= '$usuario_id'  WHERE  descripcion = '$producto'");
+        $query_update = mysqli_query($conection, "UPDATE producto SET proveedor = '$proveedor', precio ='$precio',  existencia ='$cantidad', usuario_id= '$usuario_id'  WHERE  codproducto = $codproducto");
         if ($query_update) {
             $alert = '<p class="msg_save">Producto editado correctamente.</p>';
             header("location: lista_producto.php");
         } else {
+
             $alert = '<p class="msg_error">Error al editar producto.</p>';
+            $alert .= 'Producto' . $producto . ', ';
+            $alert .= 'CodProducto' . $codproducto . ', ';
+            $alert .= 'Proveedor: ' . $proveedor . ', ';
+            $alert .= 'Precio: ' . $precio . ', ';
+            $alert .= 'Cantidad: ' . $cantidad . ' ';
+            $alert .= 'Usuario: ' . $usuario_id . '</p>';
+
         }
     }
 }
@@ -52,6 +61,7 @@ if (!empty($_POST)) {
                 <?php echo isset($alert) ? $alert : ''; ?>
             </div>
             <form action="" method="post">
+                <input  type="hidden" name="codproducto"  id="codproducto" value="<?php echo $codproducto; ?>">
                 <label for="producto">Producto: </label>
                 <input type="text" name="producto" id="producto" placeholder="Nombre del producto">
                 <label for="proveedor">Proveedor</label>
@@ -67,7 +77,6 @@ if (!empty($_POST)) {
                     if ($result_proveedor > 0) {
                         while ($proveedor = mysqli_fetch_array($query_proveedor)) {
                             ?>
-
                             <option value="<?php echo $proveedor['codproveedor']; ?>"><?php echo $proveedor['proveedor']; ?>
                             </option>
                             <?php
@@ -102,20 +111,20 @@ if (!empty($_POST)) {
                 success: function (response) {
 
                     if (response == 0) {
-                        $('#codproveedor').val('');
+                        $('#codproducto').val('');
+                        $('#producto').val('');
                         $('#proveedor').val('');
                         $('#precio').val('');
                         $('#cantidad').val('');
                     } else {
                         var data = $.parseJSON(response);
+                        $('#codproducto').val(data.codproducto);
                         $('#producto').val(data.descripcion);
                         $('#proveedor').val(data.proveedor);
                         $('#precio').val(data.precio);
                         $('#cantidad').val(data.existencia);
-
-                        $('#producto').prop('disabled', true); 
+                        $('#producto').prop('disabled', true);
                         $('#proveedor').removeAttr('disabled');
-
                         $('#precio').removeAttr('disabled');
                         $('#cantidad').removeAttr('disabled');
 
