@@ -2,7 +2,7 @@
 session_start();
 if ($_SESSION['rol'] != 1) {
     header("location: ../");
-    exit; // Exit after redirection
+    exit;
 }
 include "../conexion.php";
 
@@ -54,7 +54,7 @@ if (!empty($_POST)) {
 if (empty($_REQUEST['id'])) {
     header('Location: lista_usuarios.php');
     mysqli_close($conection);
-    exit; // Exit after redirection
+    exit;
 }
 $iduser = $_REQUEST['id'];
 
@@ -65,7 +65,7 @@ $result_sql = mysqli_num_rows($sql);
 if ($result_sql == 0) {
     header('Location: lista_usuarios.php');
     mysqli_close($conection);
-    exit; // Exit after redirection
+    exit;
 } else {
     while ($data = mysqli_fetch_assoc($sql)) {
         $iduser = $data['idusuario'];
@@ -73,7 +73,7 @@ if ($result_sql == 0) {
         $correo = $data['correo'];
         $usuario = $data['usuario'];
         $rol = $data['rol'];
-        $idrol = $data['idrol']; // Assign the value of idrol
+        $idrol = $data['idrol'];
     }
 }
 ?>

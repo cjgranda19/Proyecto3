@@ -59,7 +59,6 @@ if ($_SESSION['rol'] != 1) {
 			</tr>
 			<?php
 
-			//paginador
 			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM cliente WHERE (idcliente LIKE '%busqueda%' OR cedula LIKE '%busqueda%' OR nombre LIKE '%busqueda%' OR telefono LIKE '%busqueda%' OR direccion LIKE '%busqueda%') AND estatus = 1 ");
 			$result_registre = mysqli_fetch_array($sql_registre);
 			$total_registro = $result_registre['total_registro'];

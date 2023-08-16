@@ -9,7 +9,7 @@ include "../conexion.php";
 <head>
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
-	<title>Lista Destinatario</title>
+	<title>Lista Clientes</title>
 </head>
 
 <style>
@@ -133,8 +133,8 @@ include "../conexion.php";
 <body>
 	<?php include "includes/header.php"; ?>
 	<section id="container">
-		<h1>Lista de destinatarios</h1>
-		<a href="registro_cliente.php" class="btn_new">Nuevo destinatario</a>
+		<h1>Lista de Clientes	</h1>
+		<a href="registro_cliente.php" class="btn_new">Nuevo Cliente</a>
 
 		<form action="buscar_cliente.php" method="get" class="form_search">
 			<input type="text" name="busqueda" id="busqueda" placeholder="Buscar">

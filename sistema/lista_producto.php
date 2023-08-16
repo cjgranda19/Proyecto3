@@ -17,8 +17,13 @@ include "../conexion.php";
 <body>
 	<?php include "includes/header.php"; ?>
 	<section id="container">
-		<h1>Lista de productos</h1>
+	<h1>Lista de proveedor</h1>
+
+	<?php
+		if ($_SESSION['rol'] == 1) {
+			?>
 		<a href="registro_producto.php" class="btn_new">Nuevo producto</a>
+		<?php } ?>
 
 		<form action="buscar_producto.php" method="get" class="form_search">
 			<input type="text" name="busqueda" id="busqueda" placeholder="Buscar">

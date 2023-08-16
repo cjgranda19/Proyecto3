@@ -13,7 +13,6 @@
 		}
 
 		$codproducto = $_POST['codproducto'];
-		// $query_delete = mysqli_query($conection, "DELETE FROM usuario WHERE idusuario=$idusuario ");
 		$query_delete = mysqli_query($conection, "UPDATE producto SET estatus = 0 WHERE codproducto = $codproducto ");
 		mysqli_close($conection);
 		if($query_delete){

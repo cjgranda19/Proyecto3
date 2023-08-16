@@ -40,7 +40,7 @@ while ($row = $query->fetch_assoc()) {
 <head>
     <meta charset="UTF-8">
     <?php include "includes/scripts.php"; ?>
-    <title>Lista de recetas</title>
+    <title>Hoja Tecnica</title>
     <link rel="stylesheet" href="./css/style.css">
     <style>
         .recipe-thumbnail {
