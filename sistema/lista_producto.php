@@ -17,12 +17,14 @@ include "../conexion.php";
 <body>
 	<?php include "includes/header.php"; ?>
 	<section id="container">
-	<h1>Lista de proveedor</h1>
+	<h1>Lista de Productos</h1>
 
 	<?php
 		if ($_SESSION['rol'] == 1) {
 			?>
 		<a href="registro_producto.php" class="btn_new">Nuevo producto</a>
+		<a href="ingreso_producto.php" class="btn_new">Ingreso Producto</a>
+
 		<?php } ?>
 
 		<form action="buscar_producto.php" method="get" class="form_search">
@@ -38,7 +40,11 @@ include "../conexion.php";
 				<th>Precio</th>
 				<th>Stock</th>
 				<th>Medida</th>
+				<?php
+			if ($_SESSION['rol'] == 1) {
+				?>
 				<th>Acciones</th>
+				<?php } ?>
 			</tr>
 			<?php
 			$sql_registe = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM producto WHERE estatus = 1 ");

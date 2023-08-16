@@ -63,6 +63,29 @@ if (!empty($_POST)) {
 
 	}
 
+	
+	// Buscar Producto
+	if ($_POST['action'] == 'searchProduct') {
+		if (!empty($_POST['producto'])) {
+			$producto = $_POST['producto'];
+			
+			$query = mysqli_query($conection, "SELECT * FROM producto WHERE descripcion LIKE '%$producto%' AND estatus = 1 ");
+			mysqli_close($conection);
+			$result = mysqli_num_rows($query);
+
+			$data = '';
+
+			if ($result > 0) {
+				$data = mysqli_fetch_assoc($query);
+			} else {
+				$data = 0;
+			}
+			echo json_encode($data, JSON_UNESCAPED_UNICODE);
+		}
+		exit;
+
+	}
+
 	// Registro cliente - ventas
 
 	if ($_POST['action'] == 'addCliente') {
