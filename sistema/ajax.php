@@ -384,9 +384,6 @@ if (!empty($_POST)) {
 		echo "error";
 		exit;
 	}
-
-
-
 }
 
 exit;
