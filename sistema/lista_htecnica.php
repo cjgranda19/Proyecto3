@@ -18,7 +18,7 @@ $recipes = [];
 
 while ($row = $query->fetch_assoc()) {
     $subquery = mysqli_query($conection,
-        "SELECT p.codproducto, p.descripcion, rp.cantidad, p.medida_pro, p.precio
+        "SELECT p.codproducto, p.descripcion, rp.cantidad, p.precio
                 FROM receta_producto as rp
                 LEFT JOIN producto as p ON (p.codproducto = rp.producto_id)
                 WHERE rp.receta_id = {$row['id']}");
@@ -95,7 +95,7 @@ while ($row = $query->fetch_assoc()) {
                                 <?php foreach ($recipe['ingredients'] as $ingredient): ?>
                                     <div class="ingredient">
                                         <div class="name"><?php echo $ingredient['descripcion']; ?></div>
-                                        <div class="quantity"><?php echo $ingredient['cantidad'] . ' ' . $ingredient['medida_pro']; ?></div>
+                                        <div class="quantity"><?php echo $ingredient['cantidad']; ?></div>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
