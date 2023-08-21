@@ -222,7 +222,7 @@
 
 		<?php
 
-			if(total_registro != 0){
+			if($total_registro != 0){
 		?>
 
 		<div class="paginador">
