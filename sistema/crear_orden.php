@@ -57,7 +57,7 @@ while ($row = $query->fetch_assoc()) {
                 </div>
 
                 <div class="ui-form-group">
-                    <label for="thumbnail">Recetas</label>
+                    <label for="thumbnail">Hoja Tecnica</label>
                     <div class="ui-form-group compound">
                         <div class="ui-form-group">
                             <label for="recipe-item">Receta</label>

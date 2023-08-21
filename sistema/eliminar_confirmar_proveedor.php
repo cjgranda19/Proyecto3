@@ -13,7 +13,6 @@
 		}
 
 		$idproveedor = $_POST['idproveedor'];
-		// $query_delete = mysqli_query($conection, "DELETE FROM usuario WHERE idusuario=$idusuario ");
 		$query_delete = mysqli_query($conection, "UPDATE proveedor SET estatus = 0 WHERE codproveedor = $idproveedor ");
 		mysqli_close($conection);
 		if($query_delete){

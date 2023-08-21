@@ -161,8 +161,11 @@ include "../conexion.php";
 	<?php include "includes/header.php"; ?>
 	<section id="container">
 		<h1>Lista de proveedores</h1>
-		<a href="registro_proveedor.php" class="btn_new">Nuevo proveedor</a>
-
+		<?php
+		if ($_SESSION['rol'] == 1) {
+			?>
+			<a href="registro_proveedor.php" class="btn_new">Nuevo proveedor</a>
+		<?php } ?>
 		<form action="buscar_proveedor.php" method="get" class="form_search">
 			<input type="text" name="busqueda" id="busqueda" placeholder="Buscar">
 			<input type="submit" class="btn_search">
@@ -185,7 +188,7 @@ include "../conexion.php";
 			$result_registre = mysqli_fetch_array($sql_registre);
 			$total_registro = $result_registre['total_registro'];
 
-			$por_pagina = 4;
+			$por_pagina = 10;
 
 			if (empty($_GET['pagina'])) {
 				$pagina = 1;
@@ -205,22 +208,37 @@ include "../conexion.php";
 
 					$formato = 'Y-m-d H:i:s';
 					$fecha = DateTime::createFromFormat($formato, $data['date_add']);
-			?>
+					?>
 					<tr>
-						<td><?php echo $data['codproveedor']; ?></td>
-						<td><?php echo $data['proveedor']; ?></td>
-						<td><?php echo $data['contacto']; ?></td>
-						<td><?php echo $data['telefono']; ?></td>
-						<td><?php echo $data['direccion']; ?></td>
-						<td><?php echo $fecha->format('d-m-Y'); ?></td>
 						<td>
-							<a class="link_edit" href="editar_proveedor.php?id=<?php echo $data['codproveedor']; ?>"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+							<?php echo $data['codproveedor']; ?>
+						</td>
+						<td>
+							<?php echo $data['proveedor']; ?>
+						</td>
+						<td>
+							<?php echo $data['contacto']; ?>
+						</td>
+						<td>
+							<?php echo $data['telefono']; ?>
+						</td>
+						<td>
+							<?php echo $data['direccion']; ?>
+						</td>
+						<td>
+							<?php echo $fecha->format('d-m-Y'); ?>
+						</td>
+						<td>
+							<a class="link_edit" href="editar_proveedor.php?id=<?php echo $data['codproveedor']; ?>"><i
+									class="fa-solid fa-pen-to-square"></i> Editar</a>
 
-							<a class="link_delete" href="eliminar_confirmar_proveedor.php?id=<?php echo $data['codproveedor']; ?>"><i class="fa-solid fa-trash"></i> Eliminar</a>
+							<a class="link_delete"
+								href="eliminar_confirmar_proveedor.php?id=<?php echo $data['codproveedor']; ?>"><i
+									class="fa-solid fa-trash"></i> Eliminar</a>
 						</td>
 					</tr>
 
-			<?php
+					<?php
 				}
 			}
 			?>
@@ -231,10 +249,10 @@ include "../conexion.php";
 			<ul>
 				<?php
 				if ($pagina != 1) {
-				?>
+					?>
 					<li><a href="?pagina=<?php echo 1; ?>"><i class="fa-solid fa-backward-step"></i></a></li>
 					<li><a href="?pagina=<?php echo $pagina - 1; ?>"><i class="fa-solid fa-backward"></i></a></li>
-				<?php
+					<?php
 				}
 				for ($i = 1; $i <= $total_paginas; $i++) {
 					if ($i == $pagina) {
@@ -245,7 +263,7 @@ include "../conexion.php";
 				}
 
 				if ($pagina != $total_paginas) {
-				?>
+					?>
 					<li><a href="?pagina=<?php echo $pagina + 1; ?>"><i class="fa-solid fa-forward"></i></a></li>
 					<li><a href="?pagina=<?php echo $total_paginas; ?> "><i class="fa-solid fa-forward-step"></i></a></li>
 				<?php } ?>

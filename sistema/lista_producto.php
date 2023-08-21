@@ -17,8 +17,15 @@ include "../conexion.php";
 <body>
 	<?php include "includes/header.php"; ?>
 	<section id="container">
-		<h1>Lista de productos</h1>
+	<h1>Lista de Productos</h1>
+
+	<?php
+		if ($_SESSION['rol'] == 1) {
+			?>
 		<a href="registro_producto.php" class="btn_new">Nuevo producto</a>
+		<a href="ingreso_producto.php" class="btn_new">Ingreso Producto</a>
+
+		<?php } ?>
 
 		<form action="buscar_producto.php" method="get" class="form_search">
 			<input type="text" name="busqueda" id="busqueda" placeholder="Buscar">
@@ -32,8 +39,11 @@ include "../conexion.php";
 				<th>Proveedor</th>
 				<th>Precio</th>
 				<th>Stock</th>
-				<th>Medida</th>
+				<?php
+			if ($_SESSION['rol'] == 1) {
+				?>
 				<th>Acciones</th>
+				<?php } ?>
 			</tr>
 			<?php
 			$sql_registe = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM producto WHERE estatus = 1 ");
@@ -51,7 +61,7 @@ include "../conexion.php";
 			$desde = ($pagina - 1) * $por_pagina;
 			$total_paginas = ceil($total_registro / $por_pagina);
 
-			$query = "SELECT p.codproducto, p.proveedor, p.descripcion, p.precio, p.existencia, p.medida_pro, pr.proveedor FROM producto p INNER JOIN proveedor pr ON p.proveedor = pr.codproveedor WHERE p.estatus = 1 ORDER BY p.codproducto ASC LIMIT $desde,$por_pagina";
+			$query = "SELECT p.codproducto, p.proveedor, p.descripcion, p.precio, p.existencia, pr.proveedor FROM producto p INNER JOIN proveedor pr ON p.proveedor = pr.codproveedor WHERE p.estatus = 1 ORDER BY p.codproducto ASC LIMIT $desde,$por_pagina";
 
 			$result = mysqli_query($conection, $query);
 
@@ -77,9 +87,7 @@ include "../conexion.php";
 					<td>
 						<?php echo $data['existencia']; ?>
 					</td>
-					<td>
-						<?php echo $data['medida_pro']; ?>
-					</td>
+					
 					<?php if ($_SESSION['rol'] == 1) { ?>
 						<td>
 							<a class="link_edit" href="editar_producto.php?id=<?php echo $data['codproducto']; ?>"><i

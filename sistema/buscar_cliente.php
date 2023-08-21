@@ -59,12 +59,11 @@ if ($_SESSION['rol'] != 1) {
 			</tr>
 			<?php
 
-			//paginador
-			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM cliente WHERE (idcliente LIKE '%busqueda%' OR nit LIKE '%busqueda%' OR nombre LIKE '%busqueda%' OR telefono LIKE '%busqueda%' OR direccion LIKE '%busqueda%') AND estatus = 1 ");
+			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM cliente WHERE (idcliente LIKE '%busqueda%' OR cedula LIKE '%busqueda%' OR nombre LIKE '%busqueda%' OR telefono LIKE '%busqueda%' OR direccion LIKE '%busqueda%') AND estatus = 1 ");
 			$result_registre = mysqli_fetch_array($sql_registre);
 			$total_registro = $result_registre['total_registro'];
 
-			$por_pagina = 4;
+			$por_pagina = 10;
 
 			if (empty($_GET['pagina'])) {
 				$pagina = 1;
@@ -77,7 +76,7 @@ if ($_SESSION['rol'] != 1) {
 
 			$query = mysqli_query($conection, "SELECT * FROM cliente WHERE 
 								(idcliente LIKE '%$busqueda%' OR 
-								nit LIKE '%$busqueda%' OR 
+								cedula LIKE '%$busqueda%' OR 
 								nombre LIKE '%$busqueda%' OR 
 								telefono LIKE '%$busqueda%' OR
 								direccion LIKE '%$busqueda%') 
@@ -93,7 +92,7 @@ if ($_SESSION['rol'] != 1) {
 							<?php echo $data['idcliente']; ?>
 						</td>
 						<td>
-							<?php echo $data['nit']; ?>
+							<?php echo $data['cedula']; ?>
 						</td>
 						<td>
 							<?php echo $data['nombre']; ?>

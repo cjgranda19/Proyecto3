@@ -21,9 +21,8 @@ if (!empty($_POST)) {
 		$clave = md5($_POST['clave']);
 		$rol = $_POST['rol'];
 
-
 		$query = mysqli_query($conection, "SELECT * FROM usuario WHERE usuario = '$user' OR correo = '$email' ");
-		$result = mysqli_fetch_array($query);
+		$result = mysqli_num_rows($query);
 
 		if ($result > 0) {
 			$alert = '<p class="msg_error">El correo o el usuario ya existe.</p>';
@@ -52,7 +51,7 @@ if (!empty($_POST)) {
 	<?php include "includes/scripts.php"; ?>
 	<title>Registro Usuario</title>
 	<link href="../css/registro_usuario.css" rel="stylesheet">
-	
+
 </head>
 
 <body>

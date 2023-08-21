@@ -55,17 +55,15 @@ if ($_SESSION['rol'] != 1) {
 				<th>Precio</th>
 				<th>Stock</th>
 				<th>Medida</th>
-				<th>Foto</th>
 				<th>Acciones</th>
 			</tr>
 			<?php
 
-			//paginador
 			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM proveedor WHERE (codproducto LIKE '%busqueda%' OR proveedor LIKE '%busqueda%' OR medida_pro LIKE '%busqueda%' OR descripcion LIKE '%busqueda%' OR precio LIKE '%busqueda%' OR existencia LIKE '%busqueda%') AND estatus = 1 ");
 			$result_registre = mysqli_fetch_array($sql_registre);
 			$total_registro = $result_registre['total_registro'];
 
-			$por_pagina = 4;
+			$por_pagina = 10;
 
 			if (empty($_GET['pagina'])) {
 				$pagina = 1;
@@ -91,11 +89,7 @@ if ($_SESSION['rol'] != 1) {
 
 			if ($result > 0) {
 				while ($data = mysqli_fetch_array($query)) {
-					if ($data['foto'] != "img_producto.png") {
-						$foto = 'img/uploads/' . $data['foto'];
-					} else {
-						$foto = 'img/' . $data['foto'];
-					}
+
 					?>
 					<tr>
 						<td>
@@ -115,9 +109,7 @@ if ($_SESSION['rol'] != 1) {
 						</td>
 						<td>
 							<?php echo $data['medida_pro']; ?>
-						</td>
-						<td class="img_de_producto"><img src="<?php echo $foto; ?>" alt="<?php echo $data['descripcion']; ?>">
-						</td>
+						
 
 						<?php if ($_SESSION['rol'] == 1) { ?>
 							<td>

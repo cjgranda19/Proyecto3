@@ -23,34 +23,14 @@ const elements = {
             regex: "El usuario debe estar compuesto únicamente por letras minúsculas."
         }
     },
-    
     clave: {
         input: document.querySelector('input[name="clave"]'),
-        regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&.]{8,}$/,
         mensajeError: document.getElementById("mensajeErrorPassword"),
         errorMessages: {
-            regex: "La contraseña debe tener al menos 8 caracteres y contener al menos una letra, un número y un carácter especial (@, $, !, %, *, #, ?, &)."
-        }
-    },
-    cedula: {
-        input: document.querySelector('input[name="niat"]'),
-        regex: /^[0-9]{1,10}$/,
-
-        mensajeError: document.getElementById("cedula"),
-        errorMessages: {
-            regex: "Por favor, ingrese un número de cédula válido de 10 dígitos."
-        }
-    },
-    telefono: {
-        input: document.querySelector('input[name="telefono"]'),
-        regex: /^\d{10}$/,
-        mensajeError: document.getElementById("mensajeErrorTelefono"),
-        errorMessages: {
-            regex: "Por favor, ingrese un número de teléfono válido de Ecuador con 10 dígitos."
+            regex: "La contraseña debe tener al menos 8 caracteres y contener al menos una letra, un número y un carácter especial (@, $, !, %, *, #, ?, &, .)."
         }
     }
-    
-    
 };
 
 const botonEnviar = document.getElementById("btn_sb");
