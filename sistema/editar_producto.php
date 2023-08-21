@@ -42,7 +42,7 @@
             header("location: lista_producto.php");
         }
 
-        $query_producto = mysqli_query($conection, "SELECT p.codproducto, p.proveedor, p.descripcion, p.precio, p.existencia, p.medida_pro, pr.proveedor FROM producto p INNER JOIN proveedor pr ON p.proveedor = pr.codproveedor WHERE p.codproducto = $id_producto AND p.estatus = 1");
+        $query_producto = mysqli_query($conection, "SELECT p.codproducto, p.proveedor, p.descripcion, p.precio, p.existencia, pr.proveedor FROM producto p INNER JOIN proveedor pr ON p.proveedor = pr.codproveedor WHERE p.codproducto = $id_producto AND p.estatus = 1");
         $result_producto = mysqli_num_rows($query_producto);
 
         if ($result_producto > 0) {
