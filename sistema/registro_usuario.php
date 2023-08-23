@@ -84,11 +84,11 @@ if (!empty($_POST)) {
 				<?php
 
 				$query_rol = mysqli_query($conection, "SELECT * FROM rol");
-				mysqli_close($conection);
 				$result_rol = mysqli_num_rows($query_rol);
+				mysqli_close($conection);
+
 
 				?>
-
 				<select name="rol" id="rol">
 					<?php
 					if ($result_rol > 0) {
@@ -98,7 +98,6 @@ if (!empty($_POST)) {
 							<?php
 						}
 					}
-
 					?>
 				</select>
 				<input type="submit" value="Crear usuario" class="btn_save" id="btn_sb">
