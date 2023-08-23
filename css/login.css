@@ -279,51 +279,57 @@ footer a {
 	text-decoration: none;
 }
 
- /* Existing styles... */
+/* Existing styles... */
 
-/* Responsive styles */
 @media (max-width: 768px) {
-    body {
-        font-size: 14px;
-    }
+	body {
+		font-size: 14px;
+	}
 
-    .container {
-        width: 100%;
-        border-radius: 0;
-        box-shadow: none;
-    }
+	.container {
+		width: 100%;
+		border-radius: 0;
+		box-shadow: none;
+	}
 
-    .form-container {
-        width: 100%;
-        position: relative;
-    }
+	.form-container {
+		width: 100%;
+		position: relative;
+	}
 
-    .sign-in-container,
-    .sign-up-container {
-        left: 0;
-        width: 100%;
-        opacity: 1;
-    }
+	.sign-in-container,
+	.sign-up-container {
+		left: 0;
+		width: 100%;
+		opacity: 1;
+		display: block;
+		/* Mostrar solo la tarjeta de Iniciar Sesión en móvil */
+	}
 
-    .overlay-container {
-        left: 0;
-        width: 100%;
-        transform: translateX(0);
-    }
+	.overlay-container {
+		left: 0;
+		width: 100%;
+		transform: translateX(0);
+	}
 
-    .overlay,
-    .overlay-panel {
-        width: 100%;
-        transform: translateX(0);
-    }
+	.overlay,
+	.overlay-panel {
+		width: 100%;
+		transform: translateX(0);
+	}
 
-    .overlay-left,
-    .overlay-right {
-        transform: translateX(0);
-    }
+	.overlay-left,
+	.overlay-right {
+		transform: translateX(0);
+	}
 
-    footer {
-        position: static;
-        width: 100%;
-    }
+	.overlay-right {
+		display: none;
+		/* Ocultar la tarjeta de Registro en móvil */
+	}
+
+	.container.right-panel-active .overlay-right {
+		display: none;
+		/* Ocultar la tarjeta de Registro en móvil */
+	}
 }
