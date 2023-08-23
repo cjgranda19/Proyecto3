@@ -11,6 +11,14 @@ if (!empty($_POST)) {
 
 	$alert = '';
 
+	$query_rol = mysqli_query($conection, "SELECT * FROM rol");
+	if (!$query_rol) {
+		die("Query error: " . mysqli_error($conection));
+	}
+	$result_rol = mysqli_num_rows($query_rol);
+	mysqli_close($conection);
+
+
 	if (empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['usuario']) || empty($_POST['clave']) || empty($_POST['rol'])) {
 		$alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
 	} else {
@@ -81,17 +89,6 @@ if (!empty($_POST)) {
 				<div id="mensajeErrorPassword" style="color: red;"></div>
 				<label for="rol">Tipo Usuario: </label>
 
-				<?php
-
-				$query_rol = mysqli_query($conection, "SELECT * FROM rol");
-				if (!$query_rol) {
-					die("Query error: " . mysqli_error($conection));
-				}
-				$result_rol = mysqli_num_rows($query_rol);
-				mysqli_close($conection);
-
-
-				?>
 				<select name="rol" id="rol">
 					<?php
 					if ($result_rol > 0) {
