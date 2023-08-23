@@ -20,7 +20,7 @@ include('includes/session_timeout.php');
 <body>
 	<?php include "includes/header.php"; ?>
 	<section id="container">
-		<h1>Lista de Clientes	</h1>
+		<h1>Lista de Clientes </h1>
 		<a href="registro_cliente.php" class="btn_new">Nuevo Cliente</a>
 
 		<form action="buscar_cliente.php" method="get" class="form_search">
@@ -39,12 +39,11 @@ include('includes/session_timeout.php');
 			</tr>
 			<?php
 
-			//paginador
 			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM cliente WHERE estatus = 1 ");
 			$result_registre = mysqli_fetch_array($sql_registre);
 			$total_registro = $result_registre['total_registro'];
 
-			$por_pagina = 4;
+			$por_pagina = 10;
 
 			if (empty($_GET['pagina'])) {
 				$pagina = 1;
@@ -83,7 +82,8 @@ include('includes/session_timeout.php');
 									class="fa-solid fa-pen-to-square"></i> Editar</a>
 
 							<?php if ($_SESSION['rol'] == 1) { ?>
-								<a class="link_delete" href="eliminar_confirmar_cliente.php?id=<?php echo $data['id_cliente']; ?>"><i
+								<a class="link_delete"
+									href="eliminar_confirmar_cliente.php?id=<?php echo $data['id_cliente']; ?>"><i
 										class="fa-solid fa-trash"></i> Eliminar</a>
 							<?php } ?>
 						</td>
@@ -101,11 +101,8 @@ include('includes/session_timeout.php');
 				<?php
 				if ($pagina != 1) {
 					?>
-					<li><a href="?pagina=<?php echo 1; ?>">|<< /a>
-					</li>
-					<li><a href="?pagina=<?php echo $pagina - 1; ?>">
-							<<< /a>
-					</li>
+					<li><a href="?pagina=1">&laquo;&laquo;</a></li>
+					<li><a href="?pagina=<?php echo $pagina - 1; ?>">&laquo;</a></li>
 					<?php
 				}
 				for ($i = 1; $i <= $total_paginas; $i++) {
