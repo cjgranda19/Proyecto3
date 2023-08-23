@@ -5,6 +5,7 @@ if ($_SESSION['rol'] != 1) {
     header("location: ./");
 }
 include "../conexion.php";
+include('includes/session_timeout.php');
 
 if (!empty($_POST)) {
 

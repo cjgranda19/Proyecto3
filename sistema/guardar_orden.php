@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('includes/session_timeout.php');
 
 include(dirname(__DIR__) . '/conexion.php');
 global $conection;
@@ -26,12 +27,14 @@ $userId = intval($_SESSION['idUser']);
 foreach ($recipes as $recipe) {
     $recipe_id = intval($recipe['id']);
     $quantity = intval($recipe['quantity']);
-    
-    $stmt = mysqli_query($conection, 
+
+    $stmt = mysqli_query(
+        $conection,
         "SELECT p.codproducto, p.existencia, p.medida_pro, rp.cantidad, p.descripcion
          FROM rule_recipe as rp
          LEFT JOIN producto as p ON(p.codproducto = rp.id_recipe)
-         WHERE rp.id_recipe = {$recipe_id}");
+         WHERE rp.id_recipe = {$recipe_id}"
+    );
 
     $ingredients = [];
     $rows = mysqli_fetch_all($stmt, MYSQLI_ASSOC);
@@ -71,11 +74,13 @@ foreach ($recipes as $recipe) {
     $stmt->execute();
     $stmt->close();
 
-    $stmt2 = mysqli_query($conection, 
+    $stmt2 = mysqli_query(
+        $conection,
         "SELECT p.codproducto, p.existencia, p.medida_pro, rp.cantidad
          FROM rule_recipe as rp
          LEFT JOIN producto as p ON(p.codproducto = rp.id_product_rule
-         WHERE rp.id_recipe = {$recipe_id}");
+         WHERE rp.id_recipe = {$recipe_id}"
+    );
     $ingredients = [];
     $rows = mysqli_fetch_all($stmt2, MYSQLI_ASSOC);
 

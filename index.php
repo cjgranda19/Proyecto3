@@ -3,6 +3,7 @@ $alert = "";
 session_start();
 include "conexion.php";
 
+
 if (!empty($_SESSION['active'])) {
   header('location: sistema/');
 } else {

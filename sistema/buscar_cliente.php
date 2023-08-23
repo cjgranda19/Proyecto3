@@ -1,6 +1,8 @@
 <?php
 session_start();
 include "../conexion.php";
+include('includes/session_timeout.php');
+
 
 if ($_SESSION['rol'] != 1) {
 	if ($_SESSION['rol'] == 3) {

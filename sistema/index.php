@@ -1,5 +1,7 @@
 <?php
 	session_start();
+	include('includes/session_timeout.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

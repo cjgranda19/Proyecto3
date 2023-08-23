@@ -1,4 +1,5 @@
 <?php
+	include('includes/session_timeout.php');
 
 session_start();
 

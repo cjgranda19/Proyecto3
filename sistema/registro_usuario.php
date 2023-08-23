@@ -5,6 +5,8 @@ if ($_SESSION['rol'] != 1) {
 }
 
 include "../conexion.php";
+include('includes/session_timeout.php');
+
 
 $query_rol = mysqli_query($conection, "SELECT * FROM rol");
 $result_rol = mysqli_num_rows($query_rol);
