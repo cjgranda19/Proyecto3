@@ -49,7 +49,7 @@ if (!empty($_POST)) {
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
 	<title>Registro Proveedor</title>
-	<link href="css/registro_proveedor.css" rel="stylesheet">
+	<link href="css/style_create.css" rel="stylesheet">
 </head>
 
 <body>

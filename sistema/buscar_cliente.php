@@ -22,7 +22,7 @@ if ($_SESSION['rol'] != 1) {
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
 	<title>Lista Clientes</title>
-	<link type="text/css" rel="stylesheet" href="css/buscar_cliente.css">
+	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
 </head>
 
 <body>

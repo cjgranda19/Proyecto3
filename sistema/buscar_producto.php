@@ -21,7 +21,7 @@ if ($_SESSION['rol'] != 1) {
 <head>
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
-	<link type="text/css" rel="stylesheet" href="css/estilo.css">
+	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
 	<title>Lista Productos</title>
 </head>
 
@@ -105,8 +105,8 @@ if ($_SESSION['rol'] != 1) {
 						<td>
 							<?php echo $data['existencia']; ?>
 						</td>
-							
-						
+
+
 
 						<?php if ($_SESSION['rol'] == 1) { ?>
 							<td>

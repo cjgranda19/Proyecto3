@@ -76,7 +76,7 @@ function isValidCI($ci) {
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
 	<title>Registro Destinatario</title>
-	<link href="css/registro_cliente.css" rel="stylesheet">
+	<link href="css/style_create.css" rel="stylesheet">
 </head>
 
 <body>
