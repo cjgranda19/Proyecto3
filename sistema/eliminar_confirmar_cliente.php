@@ -9,14 +9,14 @@
 
 	if(!empty($_POST)){
 
-		if(empty($_POST['idcliente'])){
+		if(empty($_POST['id_cliente'])){
 			header("location: lista_clientes.php");
 			mysqli_close($conection);
 		}
 
-		$idcliente = $_POST['idcliente'];
+		$id_cliente = $_POST['id_cliente'];
 		// $query_delete = mysqli_query($conection, "DELETE FROM usuario WHERE idusuario=$idusuario ");
-		$query_delete = mysqli_query($conection, "UPDATE cliente SET estatus = 0 WHERE idcliente = $idcliente ");
+		$query_delete = mysqli_query($conection, "UPDATE cliente SET estatus = 0 WHERE id_cliente = $id_cliente ");
 		mysqli_close($conection);
 		if($query_delete){
 			header("location: lista_clientes.php");
@@ -29,8 +29,8 @@
 		header("location: lista_clientes.php");
 		mysqli_close($conection);
 	}else{
-		$idcliente = $_REQUEST['id'];
-		$query = mysqli_query($conection, "SELECT * FROM cliente WHERE idcliente = $idcliente ");
+		$id_cliente = $_REQUEST['id'];
+		$query = mysqli_query($conection, "SELECT * FROM cliente WHERE id_cliente = $id_cliente ");
 		mysqli_close($conection);
 		$result = mysqli_num_rows($query);
 
@@ -115,7 +115,7 @@
 			<p>Cédula: <span><?php echo $cedula; ?></span></p>
 
 			<form method="post" action="">
-				<input type="hidden" name="idcliente" value="<?php echo $idcliente; ?>">
+				<input type="hidden" name="id_cliente" value="<?php echo $id_cliente; ?>">
 				<a href="lista_clientes.php" class="btn_cancel">Cancelar</a>
 				<input type="submit" value="Eliminar" class="btn_ok">
 			</form>

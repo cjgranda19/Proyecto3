@@ -61,7 +61,7 @@ if ($_SESSION['rol'] != 1) {
 			</tr>
 			<?php
 
-			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM cliente WHERE (idcliente LIKE '%busqueda%' OR cedula LIKE '%busqueda%' OR nombre LIKE '%busqueda%' OR telefono LIKE '%busqueda%' OR direccion LIKE '%busqueda%') AND estatus = 1 ");
+			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM cliente WHERE (id_cliente LIKE '%busqueda%' OR cedula LIKE '%busqueda%' OR nombre LIKE '%busqueda%' OR telefono LIKE '%busqueda%' OR direccion LIKE '%busqueda%') AND estatus = 1 ");
 			$result_registre = mysqli_fetch_array($sql_registre);
 			$total_registro = $result_registre['total_registro'];
 
@@ -77,13 +77,12 @@ if ($_SESSION['rol'] != 1) {
 			$total_paginas = ceil($total_registro / $por_pagina);
 
 			$query = mysqli_query($conection, "SELECT * FROM cliente WHERE 
-								(idcliente LIKE '%$busqueda%' OR 
 								cedula LIKE '%$busqueda%' OR 
 								nombre LIKE '%$busqueda%' OR 
 								telefono LIKE '%$busqueda%' OR
 								direccion LIKE '%$busqueda%') 
 								AND 
-								estatus = 1 ORDER BY idcliente ASC LIMIT $desde, $por_pagina");
+								estatus = 1 ORDER BY id_cliente ASC LIMIT $desde, $por_pagina");
 
 			$result = mysqli_num_rows($query);
 			if ($result > 0) {
@@ -91,7 +90,7 @@ if ($_SESSION['rol'] != 1) {
 					?>
 					<tr>
 						<td>
-							<?php echo $data['idcliente']; ?>
+							<?php echo $data['id_cliente']; ?>
 						</td>
 						<td>
 							<?php echo $data['cedula']; ?>
@@ -106,11 +105,11 @@ if ($_SESSION['rol'] != 1) {
 							<?php echo $data['direccion']; ?>
 						</td>
 						<td>
-							<a class="link_edit" href="editar_cliente.php?id=<?php echo $data['idcliente']; ?>">Editar</a>
+							<a class="link_edit" href="editar_cliente.php?id=<?php echo $data['id_cliente']; ?>">Editar</a>
 
 							<?php if ($_SESSION['rol'] == 1) { ?>
 								<a class="link_delete"
-									href="eliminar_confirmar_cliente.php?id=<?php echo $data['idcliente']; ?>">Eliminar</a>
+									href="eliminar_confirmar_cliente.php?id=<?php echo $data['id_cliente']; ?>">Eliminar</a>
 							<?php } ?>
 						</td>
 					</tr>

@@ -55,7 +55,7 @@ include('includes/session_timeout.php');
 			$desde = ($pagina - 1) * $por_pagina;
 			$total_paginas = ceil($total_registro / $por_pagina);
 
-			$query = mysqli_query($conection, "SELECT * FROM cliente WHERE estatus = 1 ORDER BY idcliente ASC LIMIT $desde,$por_pagina");
+			$query = mysqli_query($conection, "SELECT * FROM cliente WHERE estatus = 1 ORDER BY id_cliente ASC LIMIT $desde,$por_pagina");
 
 			mysqli_close($conection);
 			$result = mysqli_num_rows($query);
@@ -64,7 +64,7 @@ include('includes/session_timeout.php');
 					?>
 					<tr>
 						<td>
-							<?php echo $data['idcliente']; ?>
+							<?php echo $data['id_cliente']; ?>
 						</td>
 						<td>
 							<?php echo $data['cedula']; ?>
@@ -79,11 +79,11 @@ include('includes/session_timeout.php');
 							<?php echo $data['direccion']; ?>
 						</td>
 						<td>
-							<a class="link_edit" href="editar_cliente.php?id=<?php echo $data['idcliente']; ?>"><i
+							<a class="link_edit" href="editar_cliente.php?id=<?php echo $data['id_cliente']; ?>"><i
 									class="fa-solid fa-pen-to-square"></i> Editar</a>
 
 							<?php if ($_SESSION['rol'] == 1) { ?>
-								<a class="link_delete" href="eliminar_confirmar_cliente.php?id=<?php echo $data['idcliente']; ?>"><i
+								<a class="link_delete" href="eliminar_confirmar_cliente.php?id=<?php echo $data['id_cliente']; ?>"><i
 										class="fa-solid fa-trash"></i> Eliminar</a>
 							<?php } ?>
 						</td>

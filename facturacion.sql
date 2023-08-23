@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `cliente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `cliente` (
-  `idcliente` int NOT NULL AUTO_INCREMENT,
+  `id_cliente` int NOT NULL AUTO_INCREMENT,
   `nit` varchar(10) DEFAULT NULL,
   `nombre` varchar(80) DEFAULT NULL,
   `telefono` varchar(10) DEFAULT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE `cliente` (
   `dateadd` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `usuario_id` int NOT NULL,
   `estatus` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idcliente`),
+  PRIMARY KEY (`id_cliente`),
   KEY `usuario_id` (`usuario_id`),
   CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
