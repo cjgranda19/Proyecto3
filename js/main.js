@@ -10,7 +10,7 @@ signInButton.addEventListener('click', () => {
 	container.classList.remove("right-panel-active");
 });
 
-if (window.innerWidth <= 768) {
+if (window.innerWidth <= 400) {
 	signUpButton.style.display = "none";
 	container.classList.remove("right-panel-active");
 }
