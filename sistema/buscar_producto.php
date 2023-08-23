@@ -54,12 +54,11 @@ if ($_SESSION['rol'] != 1) {
 				<th>Proveedor</th>
 				<th>Precio</th>
 				<th>Stock</th>
-				<th>Medida</th>
 				<th>Acciones</th>
 			</tr>
 			<?php
 
-			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM proveedor WHERE (codproducto LIKE '%busqueda%' OR proveedor LIKE '%busqueda%' OR medida_pro LIKE '%busqueda%' OR descripcion LIKE '%busqueda%' OR precio LIKE '%busqueda%' OR existencia LIKE '%busqueda%') AND estatus = 1 ");
+			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM proveedor WHERE (codproducto LIKE '%busqueda%' OR proveedor LIKE '%busqueda%' LIKE '%busqueda%' OR descripcion LIKE '%busqueda%' OR precio LIKE '%busqueda%' OR existencia LIKE '%busqueda%') AND estatus = 1 ");
 			$result_registre = mysqli_fetch_array($sql_registre);
 			$total_registro = $result_registre['total_registro'];
 
@@ -79,7 +78,6 @@ if ($_SESSION['rol'] != 1) {
 								descripcion LIKE '%$busqueda%' OR 
 								proveedor LIKE '%$busqueda%' OR
 								precio LIKE '%$busqueda%' OR 
-								medida_pro LIKE '%$busqueda%' OR
 								existencia LIKE '%$busqueda%') 
 								AND 
 								estatus = 1 ORDER BY codproducto ASC LIMIT $desde, $por_pagina");
@@ -107,8 +105,7 @@ if ($_SESSION['rol'] != 1) {
 						<td>
 							<?php echo $data['existencia']; ?>
 						</td>
-						<td>
-							<?php echo $data['medida_pro']; ?>
+							
 						
 
 						<?php if ($_SESSION['rol'] == 1) { ?>

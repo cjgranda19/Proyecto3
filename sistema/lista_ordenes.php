@@ -29,6 +29,14 @@ while ($row = mysqli_fetch_assoc($stmt)) {
 
     $row['recipes'] = $recipes;
     $orders[] = $row;
+
+    $query = "SELECT p.codproducto, p.proveedor, p.descripcion, p.precio, p.existencia FROM producto p, ordenes_recetas o, ordenes ord where orden_id = {$row['id']}";
+
+    $result = mysqli_query($conection, $query);
+
+    if (!$result) {
+        die("Error en la consulta: " . mysqli_error($conection));
+    }
 }
 
 
@@ -94,7 +102,8 @@ while ($row = mysqli_fetch_assoc($stmt)) {
                                     <div class="column name">
                                         <?php echo $recipe['name']; ?>
                                     </div>
-                                    <div class="column price">$
+                                    <div class="column price">
+                                        $
                                         <?php echo $recipe['price']; ?>
                                     </div>
                                     <div class="column quantity">
@@ -109,8 +118,30 @@ while ($row = mysqli_fetch_assoc($stmt)) {
                                 <?php
                                 $subtotal += $recipe['total'];
                                 ?>
+
+                                <div class="row header">
+                                    <div class="column name">Producto</div>
+                                    <div class="column name">Cantidad</div>
+                                    <div class="column name">Precio</div>
+                                </div>
+                                <?php foreach ($recipe['products'] as $product): ?>
+                                    <div class="row">
+                                        <div class="column name">
+                                            <?php echo $product['product_name']; ?>
+                                        </div>
+                                        <div class="column quantity">
+                                            <?php echo $product['product_quantity']; ?>
+                                        </div>
+                                        <div class="column price">
+                                            $
+                                            <?php echo $product['product_price']; ?>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+
                             <?php endforeach; ?>
                         </div>
+
                     </div>
                 </div>
                 <div class="ui-box-footer">
