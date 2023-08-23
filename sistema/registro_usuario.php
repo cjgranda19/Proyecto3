@@ -84,6 +84,9 @@ if (!empty($_POST)) {
 				<?php
 
 				$query_rol = mysqli_query($conection, "SELECT * FROM rol");
+				if (!$query_rol) {
+					die("Query error: " . mysqli_error($conection));
+				}
 				$result_rol = mysqli_num_rows($query_rol);
 				mysqli_close($conection);
 
