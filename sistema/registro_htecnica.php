@@ -1,46 +1,49 @@
 <?php
-    include(dirname(__DIR__) . '/conexion.php');
-    global $conection;
+include(dirname(__DIR__) . '/conexion.php');
+global $conection;
 
-    $totals = [];
+$totals = [];
 
-    $query = mysqli_query($conection, "SELECT * FROM producto");
-    $totals['products'] = mysqli_num_rows($query);
-    $products = [];
+$query = mysqli_query($conection, "SELECT * FROM producto");
+$totals['products'] = mysqli_num_rows($query);
+$products = [];
 
-    while ($row = $query->fetch_assoc()) {
-        $products[] = $row;
-    }
+while ($row = $query->fetch_assoc()) {
+    $products[] = $row;
+}
 
-    $query = mysqli_query($conection, "SELECT * FROM id_recipe");
-    $totals['recipes'] = mysqli_num_rows($query);
-    $recipes = [];
+$query = mysqli_query($conection, "SELECT * FROM recipe");
+$totals['recipes'] = mysqli_num_rows($query);
+$recipes = [];
 
-    while ($row = $query->fetch_assoc()) {
-        $recipes[] = $row;
-    }
+while ($row = $query->fetch_assoc()) {
+    $recipes[] = $row;
+}
 
-    $update_id = isset($_GET['id']) ? intval($_GET['id']) : (isset($id) ? intval($id) : null);
+$update_id = isset($_GET['id']) ? intval($_GET['id']) : (isset($id) ? intval($id) : null);
 
-    if ($update_id) {
-        $query = mysqli_query($conection, "SELECT * FROM id_recipe WHERE id = $update_id");
-        $update_recipe = $query->fetch_assoc();
-        $subquery = mysqli_query($conection,
-            "SELECT p.codproducto, p.descripcion, rp.cantidad, p.medida_pro, p.precio
+if ($update_id) {
+    $query = mysqli_query($conection, "SELECT * FROM recipe WHERE id = $update_id");
+    $update_recipe = $query->fetch_assoc();
+    $subquery = mysqli_query(
+        $conection,
+        "SELECT p.codproducto, p.descripcion, rp.cantidad, p.precio
                 FROM rule_recipe as rp
-                LEFT JOIN producto as p ON (p.codproducto = rp.id_recipe)
-                WHERE rp.id_recipe = {$update_recipe['id']}");
-        $update_recipe['ingredients'] = [];
-        $update_recipe['manufacturingCost'] = 0;
+                LEFT JOIN producto as p ON (p.codproducto = rp.id_product_rule)
+                WHERE rp.id_recipe = {$update_recipe['id']}"
+    );
+    $update_recipe['ingredients'] = [];
+    $update_recipe['manufacturingCost'] = 0;
 
-        while ($subrow = $subquery->fetch_assoc()) {
-            $update_recipe['ingredients'][] = $subrow;
-            $update_recipe['manufacturingCost'] += $subrow['cantidad'] * $subrow['precio'];
-        }
+    while ($subrow = $subquery->fetch_assoc()) {
+        $update_recipe['ingredients'][] = $subrow;
+        $update_recipe['manufacturingCost'] += $subrow['cantidad'] * $subrow['precio'];
     }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <?php include "includes/scripts.php"; ?>
@@ -89,93 +92,106 @@
         }
     </style>
 </head>
-<body>
-<?php include(__DIR__ . '/includes/header.php'); ?>
-<main id="container" class="ui-container">
-    <form class="container-recipes ui-box ui-form recipe-form" method="POST" action="guardar_htecnica.php" enctype="multipart/form-data">
-        <h2 class="ui-box-title">Generar Hoja Tecnica</h2>
-        <div class="ui-box-content">
-            <?php if (isset($error)): ?>
-            <div class="ui-alert error">
-                <p><?php echo $error; ?></p>
-            </div>
-            <?php endif; ?>
-            <div class="ui-form-group">
-                <label for="name">Nombre</label>
-                <input <?php echo (isset($update_recipe) ? 'value="' . htmlspecialchars($update_recipe['name'], ENT_QUOTES, 'UTF-8') . '"' : ''); ?> type="text" name="name" id="name" placeholder="Nombre del Producto Final" required>
 
-            </div>
-        
-            <div class="ui-form-group">
-                <label for="thumbnail">Productos</label>
-                <div class="ui-form-group compound">
-                    <div class="ui-form-group">
-                        <label for="ingredient-item">Producto</label>
-                        <select name="products" id="ingredient-item">
-                            <?php foreach ($products as $product): ?>
-                                <option value="<?php echo $product['codproducto']; ?>" 
+<body>
+    <?php include(__DIR__ . '/includes/header.php'); ?>
+    <main id="container" class="ui-container">
+        <form class="container-recipes ui-box ui-form recipe-form" method="POST" action="guardar_htecnica.php"
+            enctype="multipart/form-data">
+            <h2 class="ui-box-title">Generar Hoja Tecnica</h2>
+            <div class="ui-box-content">
+                <?php if (isset($error)): ?>
+                    <div class="ui-alert error">
+                        <p>
+                            <?php echo $error; ?>
+                        </p>
+                    </div>
+                <?php endif; ?>
+                <div class="ui-form-group">
+                    <label for="name">Nombre</label>
+                    <input <?php echo (isset($update_recipe) ? 'value="' . htmlspecialchars($update_recipe['name'], ENT_QUOTES, 'UTF-8') . '"' : ''); ?> type="text" name="name" id="name"
+                        placeholder="Nombre del Producto Final" required>
+
+                </div>
+
+                <div class="ui-form-group">
+                    <label for="thumbnail">Productos</label>
+                    <div class="ui-form-group compound">
+                        <div class="ui-form-group">
+                            <label for="ingredient-item">Producto</label>
+                            <select name="products" id="ingredient-item">
+                                <?php foreach ($products as $product): ?>
+                                    <option value="<?php echo $product['codproducto']; ?>"
                                         data-name="<?php echo $product['descripcion']; ?>"
-                                        data-medida="<?php echo $product['medida_pro']; ?>"
                                         data-precio="<?php echo $product['precio']; ?>">
-                                    <?php echo $product['descripcion']; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="ui-form-group">
-                        <label for="quantity">Cantidad</label>
-                        <input type="number" name="quantity" id="ingredient-quantity" placeholder="Cantidad" step="0.01" value="1">
-                    </div>
-                    <div class="ui-form-group button">
-                        <button type="button" class="ui-button ui-button blue" id="add-ingredient" style="background: rgb(107, 2, 46);">Agregar</button>
-                    </div>
-                    <div id="ingredients-fields">
-                        <?php if (isset($update_recipe)): ?>
-                            <?php
+                                        <?php echo $product['descripcion']; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="ui-form-group">
+                            <label for="quantity">Cantidad</label>
+                            <input type="number" name="quantity" id="ingredient-quantity" placeholder="Cantidad"
+                                step="0.01" value="1">
+                        </div>
+                        <div class="ui-form-group button">
+                            <button type="button" class="ui-button ui-button blue" id="add-ingredient"
+                                style="background: rgb(107, 2, 46);">Agregar</button>
+                        </div>
+                        <div id="ingredients-fields">
+                            <?php if (isset($update_recipe)): ?>
+                                <?php
                                 $index = 0;
-                            ?>
+                                ?>
+                                <?php foreach ($update_recipe['ingredients'] as $ingredient): ?>
+                                    <input type="hidden" name="ingredients[<?php echo $index; ?>][id]"
+                                        value="<?php echo $ingredient['codproducto']; ?>">
+                                    <input type="hidden" name="ingredients[<?php echo $index; ?>][quantity]"
+                                        value="<?php echo $ingredient['cantidad']; ?>">
+                                    <?php $index++; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div id="ingredients-list" class="ingredients-list">
+                        <?php if (isset($update_recipe)): ?>
                             <?php foreach ($update_recipe['ingredients'] as $ingredient): ?>
-                                <input type="hidden" name="ingredients[<?php echo $index; ?>][id]" value="<?php echo $ingredient['codproducto']; ?>">
-                                <input type="hidden" name="ingredients[<?php echo $index; ?>][quantity]" value="<?php echo $ingredient['cantidad']; ?>">
-                                <?php $index++; ?>
+                                <div class="row">
+
+                                    <div class="column quantity">
+                                        <?php echo $ingredient['cantidad']; ?>
+                                    </div>
+                                    <div class="column name">
+                                        <?php echo $ingredient['descripcion']; ?>
+                                    </div>
+                                    <div class="column quantity">
+                                        <a href="javascript:void(0)"
+                                            onclick="deleteIngredient(<?php echo $ingredient['codproducto']; ?>)"><i
+                                                class="fa-solid fa-trash" style="color: white"></i></a>
+                                    </div>
+                                </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </div>
-                </div>
-                <div id="ingredients-list" class="ingredients-list">
-                    <?php if (isset($update_recipe)): ?>
-                        <?php foreach ($update_recipe['ingredients'] as $ingredient): ?>
-                            <div class="row">
-                                
-                                <div class="column quantity">
-                                    <?php echo $ingredient['cantidad'] . ' ' . $ingredient['medida_pro']; ?>
-                                </div>
-                                <div class="column name">
-                                    <?php echo $ingredient['descripcion']; ?>
-                                </div>
-                                <div class="column quantity">
-                                    <a href="javascript:void(0)" onclick="deleteIngredient(<?php echo $ingredient['codproducto']; ?>)"><i class="fa-solid fa-trash" style="color: white"></i></a>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </div>
-                <div class="final-price">
-                    <strong>Precio final: </strong>
-                    <span id="final-price"><?php echo (isset($update_recipe) ? number_format($update_recipe['manufacturingCost'], 2, '.', '') : 0); ?></span>
+                    <div class="final-price">
+                        <strong>Precio final: </strong>
+                        <span id="final-price">
+                            <?php echo (isset($update_recipe) ? number_format($update_recipe['manufacturingCost'], 2, '.', '') : 0); ?>
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="ui-box-footer right-aligned">
-            <button type="submit" class="ui-button ui-button green" style="background: rgb(107, 2, 46);">Guardar</button>
-        </div>
-        <?php if (isset($update_recipe)): ?>
-            <input type="hidden" name="id" value="<?php echo $update_recipe['id']; ?>">
-        <?php endif; ?>
-    </form>
-</main>
-<?php include(__DIR__ . '/includes/footer.php'); ?>
-<script>
+            <div class="ui-box-footer right-aligned">
+                <button type="submit" class="ui-button ui-button green"
+                    style="background: rgb(107, 2, 46);">Guardar</button>
+            </div>
+            <?php if (isset($update_recipe)): ?>
+                <input type="hidden" name="id" value="<?php echo $update_recipe['id']; ?>">
+            <?php endif; ?>
+        </form>
+    </main>
+    <?php include(__DIR__ . '/includes/footer.php'); ?>
+    <script>
     const products = <?php echo json_encode($products); ?>;
     const addIngredientBtn = document.querySelector('#add-ingredient');
     const ingredients = <?php
@@ -248,11 +264,9 @@
         ingredients.forEach(ingredient => {
             const row = document.createElement('div');
             row.classList.add('row');
-            const producto = products.find(product => product.codproducto == ingredient.id);
-            const unidad = producto['medida_pro'];
 
             row.innerHTML = `
-                <div class="column quantity">${ingredient.quantity} ${unidad} ($${(ingredient.quantity * ingredient.price).toFixed(2)})</div>
+                <div class="column quantity">${ingredient.quantity}</div>
                 <div class="column name">${ingredient.name}</div>
                 <div class="column options">
                     <a href="javascript:void(0)" onclick="deleteIngredient(${ingredient.id})"><i class="fa-solid fa-trash"></i></a>
@@ -294,5 +308,7 @@
         });
     }
 </script>
+
 </body>
+
 </html>
