@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 if ($_SESSION['rol'] != 1) {
 	header("location: ./");
@@ -7,17 +6,12 @@ if ($_SESSION['rol'] != 1) {
 
 include "../conexion.php";
 
+$query_rol = mysqli_query($conection, "SELECT * FROM rol");
+$result_rol = mysqli_num_rows($query_rol);
+
 if (!empty($_POST)) {
 
 	$alert = '';
-
-	$query_rol = mysqli_query($conection, "SELECT * FROM rol");
-	if (!$query_rol) {
-		die("Query error: " . mysqli_error($conection));
-	}
-	$result_rol = mysqli_num_rows($query_rol);
-	mysqli_close($conection);
-
 
 	if (empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['usuario']) || empty($_POST['clave']) || empty($_POST['rol'])) {
 		$alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
@@ -46,8 +40,6 @@ if (!empty($_POST)) {
 	}
 	mysqli_close($conection);
 }
-
-
 ?>
 
 
@@ -59,7 +51,6 @@ if (!empty($_POST)) {
 	<?php include "includes/scripts.php"; ?>
 	<title>Registro Usuario</title>
 	<link href="./css/style_create.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -74,21 +65,19 @@ if (!empty($_POST)) {
 			</div>
 
 			<form action="" method="post">
-
 				<label for="nombre">Nombre: </label>
 				<input type="text" name="nombre" placeholder="Nombre Apellido">
 				<div id="mensajeErrorNombre" style="color: red;"></div>
-				<label for=correo>Correo electónico: </label>
+				<label for="correo">Correo electrónico: </label>
 				<input type="email" name="correo" id="correo" placeholder="texto@dominio.com">
 				<div id="mensajeError" style="color: red;"></div>
 				<label for="usuario">Usuario: </label>
 				<input type="text" name="usuario" id="usuario" placeholder="usuario">
 				<div id="mensajeErrorUsuario" style="color: red;"></div>
-				<label for="Clave">Clave: </label>
+				<label for="clave">Clave: </label>
 				<input type="password" name="clave" id="clave" placeholder="Clave de acceso">
 				<div id="mensajeErrorPassword" style="color: red;"></div>
 				<label for="rol">Tipo Usuario: </label>
-
 				<select name="rol" id="rol">
 					<?php
 					if ($result_rol > 0) {
@@ -102,10 +91,9 @@ if (!empty($_POST)) {
 				</select>
 				<input type="submit" value="Crear usuario" class="btn_save" id="btn_sb">
 			</form>
-
+		</div>
 	</section>
 	<script src="js/validacion.js"></script>
-
 	<?php include "includes/footer.php"; ?>
 </body>
 
