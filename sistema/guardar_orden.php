@@ -13,7 +13,7 @@ if (empty($_POST['customerName'])) {
 }
 
 if (empty($_POST['recipes']) || !is_array($_POST['recipes'])) {
-    $error = 'No se han recibido las recetas';
+    $error = 'No se han recibido las id_recipe';
     include(__DIR__ . '/crear_orden.php');
     exit;
 }
@@ -29,9 +29,9 @@ foreach ($recipes as $recipe) {
     
     $stmt = mysqli_query($conection, 
         "SELECT p.codproducto, p.existencia, p.medida_pro, rp.cantidad, p.descripcion
-         FROM receta_producto as rp
-         LEFT JOIN producto as p ON(p.codproducto = rp.producto_id)
-         WHERE rp.receta_id = {$recipe_id}");
+         FROM rule_recipe as rp
+         LEFT JOIN producto as p ON(p.codproducto = rp.id_recipe)
+         WHERE rp.id_recipe = {$recipe_id}");
 
     $ingredients = [];
     $rows = mysqli_fetch_all($stmt, MYSQLI_ASSOC);
@@ -64,7 +64,7 @@ $stmt->close();
 $order_id = mysqli_insert_id($conection);
 
 foreach ($recipes as $recipe) {
-    $stmt = mysqli_prepare($conection, "INSERT INTO ordenes_recetas(orden_id, receta_id, quantity) VALUES(?, ?, ?)");
+    $stmt = mysqli_prepare($conection, "INSERT INTO ordenes_recetas(orden_id, id_recipe, quantity) VALUES(?, ?, ?)");
     $recipe_id = intval($recipe['id']);
     $quantity = intval($recipe['quantity']);
     $stmt->bind_param('iid', $order_id, $recipe_id, $quantity);
@@ -73,9 +73,9 @@ foreach ($recipes as $recipe) {
 
     $stmt2 = mysqli_query($conection, 
         "SELECT p.codproducto, p.existencia, p.medida_pro, rp.cantidad
-         FROM receta_producto as rp
-         LEFT JOIN producto as p ON(p.codproducto = rp.producto_id)
-         WHERE rp.receta_id = {$recipe_id}");
+         FROM rule_recipe as rp
+         LEFT JOIN producto as p ON(p.codproducto = rp.id_product_rule
+         WHERE rp.id_recipe = {$recipe_id}");
     $ingredients = [];
     $rows = mysqli_fetch_all($stmt2, MYSQLI_ASSOC);
 

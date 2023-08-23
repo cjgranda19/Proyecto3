@@ -12,7 +12,7 @@
         $products[] = $row;
     }
 
-    $query = mysqli_query($conection, "SELECT * FROM recetas");
+    $query = mysqli_query($conection, "SELECT * FROM id_recipe");
     $totals['recipes'] = mysqli_num_rows($query);
     $recipes = [];
 
@@ -23,13 +23,13 @@
     $update_id = isset($_GET['id']) ? intval($_GET['id']) : (isset($id) ? intval($id) : null);
 
     if ($update_id) {
-        $query = mysqli_query($conection, "SELECT * FROM recetas WHERE id = $update_id");
+        $query = mysqli_query($conection, "SELECT * FROM id_recipe WHERE id = $update_id");
         $update_recipe = $query->fetch_assoc();
         $subquery = mysqli_query($conection,
             "SELECT p.codproducto, p.descripcion, rp.cantidad, p.medida_pro, p.precio
-                FROM receta_producto as rp
-                LEFT JOIN producto as p ON (p.codproducto = rp.producto_id)
-                WHERE rp.receta_id = {$update_recipe['id']}");
+                FROM rule_recipe as rp
+                LEFT JOIN producto as p ON (p.codproducto = rp.id_recipe)
+                WHERE rp.id_recipe = {$update_recipe['id']}");
         $update_recipe['ingredients'] = [];
         $update_recipe['manufacturingCost'] = 0;
 

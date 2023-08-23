@@ -5,7 +5,7 @@ global $conection;
 
 $recipes = [];
 
-$query = mysqli_query($conection, "SELECT * FROM recetas");
+$query = mysqli_query($conection, "SELECT * FROM id_recipe");
 
 while ($row = $query->fetch_assoc()) {
     $row['name'] = html_entity_decode($row['name']);

@@ -16,7 +16,7 @@ if (empty($id)) {
 
 include "../conexion.php";
 
-$query_delete = mysqli_query($conection, "DELETE FROM receta_producto WHERE receta_id = $id");
-$query_delete = mysqli_query($conection, "DELETE FROM recetas WHERE id = $id");
+$query_delete = mysqli_query($conection, "DELETE FROM rule_recipe WHERE id_recipe = $id");
+$query_delete = mysqli_query($conection, "DELETE FROM id_recipe WHERE id = $id");
 
 header('location: lista_htecnica.php');

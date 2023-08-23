@@ -29,14 +29,14 @@ if (!empty($_SESSION['active'])) {
         $_SESSION['rol'] = $data['rol'];
 
         $accion = "Inicio sesión";
-        
+
         $usuario_id = $_SESSION['idUser'];
-        $user_ip = $_SERVER['REMOTE_ADDR']; 
+        $user_ip = $_SERVER['REMOTE_ADDR'];
         if ($user_ip == '::1' || $user_ip == '127.0.0.1') {
           $user_ip = 'Loopback';
-      }
-      
-        
+        }
+
+
         $query_insert = mysqli_query($conection, "INSERT INTO login_log (usuario_id, accion, user_ip) VALUES ('$usuario_id', '$accion', '$user_ip')");
 
         header('location: sistema/');
@@ -61,21 +61,6 @@ if (!empty($_SESSION['active'])) {
 
 <body>
   <div class="container" id="container">
-    <div class="form-container sign-up-container">
-      <form action="#">
-        <h1>Contactanos</h1>
-        <div class="social-container">
-          <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-          <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-
-        <input type="text" placeholder="Name" />
-        <input type="email" placeholder="Email" />
-
-        <button>Contactanos</button>
-      </form>
-    </div>
     <div class="form-container sign-in-container">
       <form class="login" action="" method="post">
         <h1>Inicia sesión</h1>
@@ -83,7 +68,6 @@ if (!empty($_SESSION['active'])) {
         <input type="password" id="apellido" name="clave" placeholder="Contraseña" />
         <a href="#">¿Olvidaste tu contraseña?</a>
         <input type="submit" value="INGRESAR" id="ingresar" class="button">
-
         <label class="alert" id="alerta">
           <?php echo isset($alert) ? $alert : ''; ?>
         </label>
@@ -105,7 +89,6 @@ if (!empty($_SESSION['active'])) {
     </div>
   </div>
   <script src="js/main.js"></script>
-
 </body>
 
 </html>

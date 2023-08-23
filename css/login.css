@@ -279,11 +279,9 @@ footer a {
 	text-decoration: none;
 }
 
-/* Existing styles... */
-
-@media (max-width: 400px) {
+@media screen and (max-width: 600px) {
 	body {
-		font-size: 14px;
+		margin: 0;
 	}
 
 	.container {
@@ -292,44 +290,22 @@ footer a {
 		box-shadow: none;
 	}
 
-	.form-container {
-		width: 100%;
-		position: relative;
-	}
-
-	.sign-in-container,
-	.sign-up-container {
-		left: 0;
-		width: 100%;
-		opacity: 1;
-		display: block;
-		/* Mostrar solo la tarjeta de Iniciar Sesión en móvil */
-	}
-
 	.overlay-container {
-		left: 0;
 		width: 100%;
-		transform: translateX(0);
 	}
 
-	.overlay,
+	.overlay {
+		width: 100%;
+		left: 0;
+	}
+
 	.overlay-panel {
 		width: 100%;
-		transform: translateX(0);
+		padding: 0 20px;
 	}
 
 	.overlay-left,
 	.overlay-right {
 		transform: translateX(0);
-	}
-
-	.overlay-right {
-		display: none;
-		/* Ocultar la tarjeta de Registro en móvil */
-	}
-
-	.container.right-panel-active .overlay-right {
-		display: none;
-		/* Ocultar la tarjeta de Registro en móvil */
 	}
 }

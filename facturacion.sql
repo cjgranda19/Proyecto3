@@ -236,12 +236,12 @@ DROP TABLE IF EXISTS `ordenes_recetas`;
 /*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `ordenes_recetas` (
   `orden_id` int NOT NULL,
-  `receta_id` int NOT NULL,
+  `id_recipe` int NOT NULL,
   `quantity` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`orden_id`,`receta_id`),
-  KEY `receta_id_fk_idx` (`receta_id`) /*!80000 INVISIBLE */,
+  PRIMARY KEY (`orden_id`,`id_recipe`),
+  KEY `id_recipe_fk_idx` (`id_recipe`) /*!80000 INVISIBLE */,
   CONSTRAINT `ordenes_recetas_orden_id_fk` FOREIGN KEY (`orden_id`) REFERENCES `ordenes` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `ordenes_recetas_receta_id_fk` FOREIGN KEY (`receta_id`) REFERENCES `recetas` (`id`) ON DELETE CASCADE
+  CONSTRAINT `ordenes_recetas_id_recipe_fk` FOREIGN KEY (`id_recipe`) REFERENCES `id_recipe` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -323,41 +323,41 @@ INSERT INTO `proveedor` VALUES (1,'BIC','Claudia Rosales',789877889,'Avenida las
 UNLOCK TABLES;
 
 --
--- Table structure for table `receta_producto`
+-- Table structure for table `rule_recipe`
 --
 
-DROP TABLE IF EXISTS `receta_producto`;
+DROP TABLE IF EXISTS `rule_recipe`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8 */;
-CREATE TABLE `receta_producto` (
-  `receta_id` int NOT NULL,
-  `producto_id` int NOT NULL,
+CREATE TABLE `rule_recipe` (
+  `id_recipe` int NOT NULL,
+  `id_product_rule` int NOT NULL,
   `cantidad` double NOT NULL DEFAULT '1',
-  PRIMARY KEY (`receta_id`,`producto_id`),
-  KEY `producto_id_fk_idx` (`producto_id`),
-  CONSTRAINT `producto_id_fk` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`codproducto`),
-  CONSTRAINT `receta_id_fk` FOREIGN KEY (`receta_id`) REFERENCES `recetas` (`id`)
+  PRIMARY KEY (`id_recipe`,`id_product`),
+  KEY `id_product_fk_idx` (`id_product`),
+  CONSTRAINT `id_product_fk` FOREIGN KEY (`id_product`) REFERENCES `producto` (`codproducto`),
+  CONSTRAINT `id_recipe_fk` FOREIGN KEY (`id_recipe`) REFERENCES `id_recipe` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `receta_producto`
+-- Dumping data for table `rule_recipe`
 --
 
-LOCK TABLES `receta_producto` WRITE;
-/*!40000 ALTER TABLE `receta_producto` DISABLE KEYS */;
-INSERT INTO `receta_producto` VALUES (19,1,1),(19,20,1),(19,24,0.2),(19,27,2),(20,21,0.5),(20,23,4),(20,24,1.5),(20,26,0.2),(20,27,10);
-/*!40000 ALTER TABLE `receta_producto` ENABLE KEYS */;
+LOCK TABLES `rule_recipe` WRITE;
+/*!40000 ALTER TABLE `rule_recipe` DISABLE KEYS */;
+INSERT INTO `rule_recipe` VALUES (19,1,1),(19,20,1),(19,24,0.2),(19,27,2),(20,21,0.5),(20,23,4),(20,24,1.5),(20,26,0.2),(20,27,10);
+/*!40000 ALTER TABLE `rule_recipe` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `recetas`
+-- Table structure for table `id_recipe`
 --
 
-DROP TABLE IF EXISTS `recetas`;
+DROP TABLE IF EXISTS `id_recipe`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8 */;
-CREATE TABLE `recetas` (
+CREATE TABLE `id_recipe` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -372,13 +372,13 @@ CREATE TABLE `recetas` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `recetas`
+-- Dumping data for table `id_recipe`
 --
 
-LOCK TABLES `recetas` WRITE;
-/*!40000 ALTER TABLE `recetas` DISABLE KEYS */;
-INSERT INTO `recetas` VALUES (19,1,'waffle',1.21,'','2023-03-08 06:58:34','2023-03-08 06:58:34'),(20,13,'Waffle Jeimmy ',5.83,'recipe_1678258990.JPG','2023-03-08 07:03:10','2023-03-08 07:03:10');
-/*!40000 ALTER TABLE `recetas` ENABLE KEYS */;
+LOCK TABLES `id_recipe` WRITE;
+/*!40000 ALTER TABLE `id_recipe` DISABLE KEYS */;
+INSERT INTO `id_recipe` VALUES (19,1,'waffle',1.21,'','2023-03-08 06:58:34','2023-03-08 06:58:34'),(20,13,'Waffle Jeimmy ',5.83,'recipe_1678258990.JPG','2023-03-08 07:03:10','2023-03-08 07:03:10');
+/*!40000 ALTER TABLE `id_recipe` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

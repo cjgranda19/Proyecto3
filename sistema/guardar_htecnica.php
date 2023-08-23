@@ -58,7 +58,7 @@ $product = [
 
 
 if ($id == null) {
-    $stmt = mysqli_prepare($conection, "INSERT INTO recetas(user_id, name, price, created_at, updated_at) VALUES(?, ?, ?, ?, ?)");
+    $stmt = mysqli_prepare($conection, "INSERT INTO id_recipe(user_id, name, price, created_at, updated_at) VALUES(?, ?, ?, ?, ?)");
 
     if (!$stmt) {
         $error = mysqli_error($conection);
@@ -73,7 +73,7 @@ if ($id == null) {
     $recipe_id = mysqli_insert_id($conection);
 
     foreach ($ingredients as $ingredient) {
-        $stmt = mysqli_prepare($conection, "INSERT INTO receta_producto(receta_id, producto_id, cantidad) VALUES(?, ?, ?)");
+        $stmt = mysqli_prepare($conection, "INSERT INTO rule_recipe(id_recipe, id_product_rule, cantidad) VALUES(?, ?, ?)");
         $quantity = floatval($ingredient['quantity']);
         $stmt->bind_param('iid', $recipe_id, $ingredient['id'], $quantity);
         $stmt->execute();
@@ -83,7 +83,7 @@ if ($id == null) {
 } else {
 
     foreach ($ingredients as $ingredient) {
-        $stmt = mysqli_prepare($conection, "INSERT INTO receta_producto(receta_id, producto_id, cantidad) VALUES(?, ?, ?)");
+        $stmt = mysqli_prepare($conection, "INSERT INTO rule_recipe(id_recipe, id_product_rule, cantidad) VALUES(?, ?, ?)");
         $quantity = floatval($ingredient['quantity']);
         $stmt->bind_param('iid', $id, $ingredient['id'], $quantity);
         $stmt->execute();

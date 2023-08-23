@@ -12,16 +12,16 @@ while ($row = $query->fetch_assoc()) {
     $products[] = $row;
 }
 
-$query = mysqli_query($conection, "SELECT * FROM recetas");
+$query = mysqli_query($conection, "SELECT * FROM recipe");
 $totals['recipes'] = mysqli_num_rows($query);
 $recipes = [];
 
 while ($row = $query->fetch_assoc()) {
     $subquery = mysqli_query($conection,
         "SELECT p.codproducto, p.descripcion, rp.cantidad, p.precio
-                FROM receta_producto as rp
-                LEFT JOIN producto as p ON (p.codproducto = rp.producto_id)
-                WHERE rp.receta_id = {$row['id']}");
+                FROM rule_recipe as rp
+                LEFT JOIN producto as p ON (p.codproducto = rp.id_recipe)
+                WHERE rp.id_recipe = {$row['id']}");
     $row['ingredients'] = [];
     $manufacturingCost = 0;
 
