@@ -18,7 +18,7 @@ while ($row = mysqli_fetch_assoc($stmt)) {
         $conection,
         "SELECT r.*, ordenes_recetas.quantity as quantity, ordenes_recetas.quantity * r.price as total
         FROM ordenes_recetas
-        LEFT JOIN recetas as r ON r.id = ordenes_recetas.id_recipe
+        LEFT JOIN recipe as r ON r.id = ordenes_recetas.id_recipe
         WHERE orden_id = {$row['id']}"
     );
     $recipes = [];
