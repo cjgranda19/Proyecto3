@@ -13,7 +13,7 @@
 		}
 
 		$idproveedor = $_POST['idproveedor'];
-		$query_delete = mysqli_query($conection, "UPDATE proveedor SET estatus = 0 WHERE codproveedor = $idproveedor ");
+		$query_delete = mysqli_query($conection, "UPDATE proveedor SET estatus = 0 WHERE id_supplier = $idproveedor ");
 		mysqli_close($conection);
 		if($query_delete){
 			header("location: lista_proveedor.php");
@@ -27,7 +27,7 @@
 		mysqli_close($conection);
 	}else{
 		$idproveedor = $_REQUEST['id'];
-		$query = mysqli_query($conection, "SELECT * FROM proveedor WHERE codproveedor = $idproveedor ");
+		$query = mysqli_query($conection, "SELECT * FROM proveedor WHERE id_supplier = $idproveedor ");
 		mysqli_close($conection);
 		$result = mysqli_num_rows($query);
 

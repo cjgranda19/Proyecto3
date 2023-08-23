@@ -20,7 +20,7 @@
 			$telefono = $_POST['telefono'];
 			$direccion = $_POST['direccion'];
 
-				$sql_update = mysqli_query($conection, "UPDATE proveedor SET proveedor = '$proveedor', contacto='$contacto', telefono='$telefono', direccion='$direccion' WHERE codproveedor=$idproveedor ");
+				$sql_update = mysqli_query($conection, "UPDATE proveedor SET proveedor = '$proveedor', contacto='$contacto', telefono='$telefono', direccion='$direccion' WHERE id_supplier=$idproveedor ");
 				
 				if($sql_update){
 					$alert = '<p class="msg_save">Proveedor actualizado correctamente.</p>';
@@ -37,7 +37,7 @@ if(empty($_REQUEST['id'])){
 }
 $idproveedor = $_REQUEST['id'];
 
-$sql = mysqli_query($conection, "SELECT * FROM proveedor WHERE codproveedor = $idproveedor AND estatus=1");
+$sql = mysqli_query($conection, "SELECT * FROM proveedor WHERE id_supplier = $idproveedor AND estatus=1");
 
 $result_sql = mysqli_num_rows($sql);
 
@@ -46,7 +46,7 @@ if($result_sql == 0){
 }else{
 	$option = '';
 	while ($data = mysqli_fetch_array($sql)){
-		$idproveedor = $data['codproveedor'];
+		$idproveedor = $data['id_supplier'];
 		$proveedor = $data['proveedor'];
 		$contacto = $data['contacto'];
 		$telefono = $data['telefono'];

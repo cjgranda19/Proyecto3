@@ -299,7 +299,7 @@ DROP TABLE IF EXISTS `proveedor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `proveedor` (
-  `codproveedor` int NOT NULL AUTO_INCREMENT,
+  `id_supplier` int NOT NULL AUTO_INCREMENT,
   `proveedor` varchar(100) DEFAULT NULL,
   `contacto` varchar(100) DEFAULT NULL,
   `telefono` bigint DEFAULT NULL,
@@ -307,7 +307,7 @@ CREATE TABLE `proveedor` (
   `date_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `usuario_id` int NOT NULL,
   `estatus` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`codproveedor`),
+  PRIMARY KEY (`id_supplier`),
   KEY `usuario_id` (`usuario_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

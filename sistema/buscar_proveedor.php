@@ -51,12 +51,12 @@
 		<?php
 
 			//paginador
-			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM proveedor WHERE (codproveedor LIKE '%busqueda%' OR proveedor LIKE '%busqueda%' OR contacto LIKE '%busqueda%' OR telefono LIKE '%busqueda%') AND estatus = 1 ");
+			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM proveedor WHERE (id_supplier LIKE '%busqueda%' OR proveedor LIKE '%busqueda%' OR contacto LIKE '%busqueda%' OR telefono LIKE '%busqueda%') AND estatus = 1 ");
 
 			$result_registre = mysqli_fetch_array($sql_registre);
 			$total_registro = $result_registre['total_registro'];
 
-			$por_pagina = 4;
+			$por_pagina = 10;
 
 			if(empty($_GET['pagina'])){
 				$pagina = 1;
@@ -68,12 +68,12 @@
 			$total_paginas = ceil($total_registro / $por_pagina);
 
 			$query = mysqli_query($conection, "SELECT * FROM proveedor WHERE 
-								(codproveedor LIKE '%$busqueda%' OR 
+								(id_supplier LIKE '%$busqueda%' OR 
 								proveedor LIKE '%$busqueda%' OR 
 								contacto LIKE '%$busqueda%' OR 
 								telefono LIKE '%$busqueda%') 
 								AND 
-								estatus = 1 ORDER BY codproveedor ASC LIMIT $desde, $por_pagina");
+								estatus = 1 ORDER BY id_supplier ASC LIMIT $desde, $por_pagina");
 
 			$result = mysqli_num_rows($query);
 			if($result>0){
@@ -82,16 +82,16 @@
 					$fecha = DateTime::createFromFormat($formato, $data['date_add']);
 		?>
 			<tr>
-				<td><?php echo $data['codproveedor']; ?></td>
+				<td><?php echo $data['id_supplier']; ?></td>
 				<td><?php echo $data['proveedor']; ?></td>
 				<td><?php echo $data['contacto']; ?></td>
 				<td><?php echo $data['telefono']; ?></td>
 				<td><?php echo $data['direccion']; ?></td>
 				<td><?php echo $fecha->format('d-m-Y'); ?></td>
 				<td>
-					<a class="link_edit" href="editar_proveedor.php?id=<?php echo $data['codproveedor']; ?>">Editar</a>
+					<a class="link_edit" href="editar_proveedor.php?id=<?php echo $data['id_supplier']; ?>">Editar</a>
 
-					<a class="link_delete" href="eliminar_confirmar_proveedor.php?id=<?php echo $data['codproveedor']; ?>">Eliminar</a>
+					<a class="link_delete" href="eliminar_confirmar_proveedor.php?id=<?php echo $data['id_supplier']; ?>">Eliminar</a>
 				</td>
 			</tr>
 

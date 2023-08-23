@@ -199,7 +199,7 @@ include "../conexion.php";
 			$desde = ($pagina - 1) * $por_pagina;
 			$total_paginas = ceil($total_registro / $por_pagina);
 
-			$query = mysqli_query($conection, "SELECT * FROM proveedor WHERE estatus = 1 ORDER BY codproveedor ASC LIMIT $desde,$por_pagina");
+			$query = mysqli_query($conection, "SELECT * FROM proveedor WHERE estatus = 1 ORDER BY id_supplier ASC LIMIT $desde,$por_pagina");
 
 			mysqli_close($conection);
 			$result = mysqli_num_rows($query);
@@ -211,7 +211,7 @@ include "../conexion.php";
 					?>
 					<tr>
 						<td>
-							<?php echo $data['codproveedor']; ?>
+							<?php echo $data['id_supplier']; ?>
 						</td>
 						<td>
 							<?php echo $data['proveedor']; ?>
@@ -229,11 +229,11 @@ include "../conexion.php";
 							<?php echo $fecha->format('d-m-Y'); ?>
 						</td>
 						<td>
-							<a class="link_edit" href="editar_proveedor.php?id=<?php echo $data['codproveedor']; ?>"><i
+							<a class="link_edit" href="editar_proveedor.php?id=<?php echo $data['id_supplier']; ?>"><i
 									class="fa-solid fa-pen-to-square"></i> Editar</a>
 
 							<a class="link_delete"
-								href="eliminar_confirmar_proveedor.php?id=<?php echo $data['codproveedor']; ?>"><i
+								href="eliminar_confirmar_proveedor.php?id=<?php echo $data['id_supplier']; ?>"><i
 									class="fa-solid fa-trash"></i> Eliminar</a>
 						</td>
 					</tr>

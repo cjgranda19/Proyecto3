@@ -42,7 +42,7 @@
             header("location: lista_producto.php");
         }
 
-        $query_producto = mysqli_query($conection, "SELECT p.codproducto, p.proveedor, p.descripcion, p.precio, p.existencia, pr.proveedor FROM producto p INNER JOIN proveedor pr ON p.proveedor = pr.codproveedor WHERE p.codproducto = $id_producto AND p.estatus = 1");
+        $query_producto = mysqli_query($conection, "SELECT p.codproducto, p.proveedor, p.descripcion, p.precio, p.existencia, pr.proveedor FROM producto p INNER JOIN proveedor pr ON p.proveedor = pr.id_supplier WHERE p.codproducto = $id_producto AND p.estatus = 1");
         $result_producto = mysqli_num_rows($query_producto);
 
         if ($result_producto > 0) {
@@ -84,9 +84,9 @@
                     <?php
                         if ($result_proveedor > 0) {
                             while ($proveedor = mysqli_fetch_array($query_proveedor)) {
-                                $selected = ($proveedor['codproveedor'] == $data_producto['proveedor']) ? "selected" : "";
+                                $selected = ($proveedor['id_supplier'] == $data_producto['proveedor']) ? "selected" : "";
                     ?>
-                                <option value="<?php echo $proveedor['codproveedor']; ?>" <?php echo $selected; ?>><?php echo $proveedor['proveedor']; ?></option>
+                                <option value="<?php echo $proveedor['id_supplier']; ?>" <?php echo $selected; ?>><?php echo $proveedor['proveedor']; ?></option>
                     <?php
                             }
                         }

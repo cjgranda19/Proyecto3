@@ -61,7 +61,7 @@ include "../conexion.php";
 			$desde = ($pagina - 1) * $por_pagina;
 			$total_paginas = ceil($total_registro / $por_pagina);
 
-			$query = "SELECT p.codproducto, p.proveedor, p.descripcion, p.precio, p.existencia, pr.proveedor FROM producto p INNER JOIN proveedor pr ON p.proveedor = pr.codproveedor WHERE p.estatus = 1 ORDER BY p.codproducto ASC LIMIT $desde,$por_pagina";
+			$query = "SELECT p.codproducto, p.proveedor, p.descripcion, p.precio, p.existencia, pr.proveedor FROM producto p INNER JOIN proveedor pr ON p.proveedor = pr.id_supplier WHERE p.estatus = 1 ORDER BY p.codproducto ASC LIMIT $desde,$por_pagina";
 
 			$result = mysqli_query($conection, $query);
 
