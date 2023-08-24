@@ -1,72 +1,41 @@
 <?php
-
 include(dirname(__DIR__) . '../../conexion.php');
 global $conection;
-
-$orders = [];
-
-$stmt = mysqli_query($conection, "SELECT * FROM ordenes");
-
-if (!$stmt) {
-    $error = mysqli_error($conection);
-    echo $error;
-    exit;
+if ($_SESSION['rol'] != 1) {
+    header("location: ./");
 }
 
-while ($row = mysqli_fetch_assoc($stmt)) {
-    $stmt2 = mysqli_query(
-        $conection,
-        "SELECT r.*, ordenes_recetas.quantity as quantity, ordenes_recetas.quantity * r.price as total
-        FROM ordenes_recetas
-        LEFT JOIN recipe as r ON r.id = ordenes_recetas.id_recipe
-        WHERE orden_id = {$row['id']}"
-    );
-    $recipes = [];
+if (isset($_GET['order_id']) && is_numeric($_GET['order_id'])) {
+    $orderId = $_GET['order_id'];
 
-    while ($row2 = mysqli_fetch_assoc($stmt2)) {
-        $recipes[] = $row2;
+    $stmt = mysqli_query($conection, "SELECT * FROM ordenes WHERE id = $orderId");
+
+    if ($stmt) {
+        $order = mysqli_fetch_assoc($stmt);
+
+        // Create a new XML document
+        $xml = new DOMDocument("1.0", "UTF-8");
+        $xml->formatOutput = true;
+
+        // Create root element
+        $root = $xml->createElement("order");
+        $xml->appendChild($root);
+
+        $root->appendChild($xml->createElement("order_id", $order['id']));
+        $root->appendChild($xml->createElement("customer_name", $order['customer_name']));
+        $root->appendChild($xml->createElement("created_at", $order['created_at']));
+
+        // ... (añadir más elementos XML según tus necesidades)
+
+        // Save XML to a file
+        $xmlFilePath = "data/invoices" . $orderId . ".xml";
+        $xml->save($xmlFilePath);
+
+        echo "XML invoice generated successfully for order $orderId: $xmlFilePath";
+    } else {
+        echo "Error fetching order data from the database.";
     }
-
-    $row['recipes'] = $recipes;
-    $orders[] = $row;
+} else {
+    echo "Invalid or missing order ID.";
 }
-
-// Create a new XML document
-$xml = new DOMDocument("1.0", "UTF-8");
-$xml->formatOutput = true;
-
-// Create root element
-$root = $xml->createElement("orders");
-$xml->appendChild($root);
-
-foreach ($orders as $order) {
-    $orderElement = $xml->createElement("order");
-    $root->appendChild($orderElement);
-
-    $orderElement->appendChild($xml->createElement("order_id", $order['id']));
-    $orderElement->appendChild($xml->createElement("customer_name", $order['customer_name']));
-    $orderElement->appendChild($xml->createElement("created_at", $order['created_at']));
-
-    $recipesElement = $xml->createElement("recipes");
-    foreach ($order['recipes'] as $recipe) {
-        $recipeElement = $xml->createElement("recipe");
-        $recipeElement->appendChild($xml->createElement("name", $recipe['name']));
-        $recipeElement->appendChild($xml->createElement("price", $recipe['price']));
-        $recipeElement->appendChild($xml->createElement("quantity", $recipe['quantity']));
-        $recipeElement->appendChild($xml->createElement("total", $recipe['total']));
-        $recipesElement->appendChild($recipeElement);
-    }
-    $orderElement->appendChild($recipesElement);
-
-    $orderElement->appendChild($xml->createElement("subtotal", array_reduce($order['recipes'], function ($carry, $recipe) {
-        return $carry + $recipe['total'];
-    }, 0)));
-}
-
-// Save XML to a file
-$xmlFilePath = "invoices.xml";
-$xml->save($xmlFilePath);
-
-echo "XML invoice generated successfully: $xmlFilePath";
-
 ?>
