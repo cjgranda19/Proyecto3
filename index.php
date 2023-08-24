@@ -58,6 +58,8 @@ if (!empty($_SESSION['active'])) {
 <head>
   <link rel="shortcut icon" href="img/icono.ico">
   <link rel="stylesheet" href="css/login.css">
+  <link rel="icon" type="image/jpg" href="sistema/img/favicon.png"/>
+
 </head>
 
 <body>
