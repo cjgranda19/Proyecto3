@@ -2,7 +2,6 @@
 
 include(dirname(__DIR__) . '/conexion.php');
 global $conection;
-include('includes/session_timeout.php');
 
 
 $orders = [];

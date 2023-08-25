@@ -1,6 +1,5 @@
 <?php
-	include('includes/session_timeout.php');
-
+	
 session_start();
 
 if (!isset($_SESSION['rol'])) {

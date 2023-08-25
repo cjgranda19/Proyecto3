@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 if (isset($_SESSION['last_activity'])) {
     $inactive_time = time() - $_SESSION['last_activity'];

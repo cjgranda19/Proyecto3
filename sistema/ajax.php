@@ -1,7 +1,6 @@
 <?php
 session_start();
 include '../conexion.php';
-include('includes/session_timeout.php');
 
 
 

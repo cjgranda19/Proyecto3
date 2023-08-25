@@ -8,8 +8,7 @@
 	if(empty($_SESSION['active'])){
 		header('location: ../');
 	}
-	include('includes/session_timeout.php');
-
+	
 
 ?>
 

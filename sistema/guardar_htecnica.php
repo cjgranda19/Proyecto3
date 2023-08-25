@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-include('includes/session_timeout.php');
 
 include(dirname(__DIR__) . '/conexion.php');
 global $conection;

@@ -5,7 +5,6 @@ if ($_SESSION['rol'] != 1) {
     exit;
 }
 include "../conexion.php";
-include('includes/session_timeout.php');
 
 
 $nombre = "";
