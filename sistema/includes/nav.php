@@ -71,5 +71,18 @@
 				<?php } ?>
 			</ul>
 		</li>
+		<li class="principal">
+
+			<?php
+			if ($_SESSION['rol'] == 1) {
+				?>
+				<a href="lista_clientes.php"><i class="fa-solid fa-person"></i> Reportes</a>
+				<ul>
+					<li><a href="buscar_cliente.php">Reportes</a></li>
+					<li><a href="registro_cliente.php">Reportess</a></li>
+
+				<?php } ?>
+			</ul>
+		</li>
 	</ul>
 </nav>
