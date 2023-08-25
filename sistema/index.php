@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<?php include "includes/scripts.php"; ?>}
+	<?php include "includes/scripts.php"; ?>
 	<link rel="icon" type="image/jpg" href="img/favicon.png"/>
 	<title>Sistema Ventas</title>
 </head>
