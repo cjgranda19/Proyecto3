@@ -5,14 +5,9 @@ if ($_SESSION['rol'] != 1) {
 }
 include "../conexion.php";
 
-// Consulta para obtener todos los productos
 $query_producto = mysqli_query($conection, "SELECT * FROM producto");
-
-// Consulta para obtener todos los proveedores activos
 $query_proveedor = mysqli_query($conection, "SELECT * FROM proveedor WHERE estatus = 1 ORDER BY proveedor ASC");
-
-// Realizar la consulta para obtener la información de precio y proveedor
-$producto_info = array(); // Array para almacenar la información de precio y proveedor por producto
+$producto_info = array(); 
 
 $query_info = mysqli_query($conection, "SELECT codproducto, precio, proveedor FROM producto");
 while ($info = mysqli_fetch_assoc($query_info)) {
@@ -28,28 +23,6 @@ mysqli_close($conection);
     <meta charset="UTF-8">
     <title>Ingreso a Bodega</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function populateFields() {
-            var selectedProductId = $("#producto").val();
-
-            $.ajax({
-                type: "POST",
-                url: "ajax.php", // Replace with the actual path to your ajax.php file
-                data: { action: "getProducts", id: selectedProductId },
-                dataType: "json",
-                success: function (response) {
-                    if (response.length > 0) {
-                        var product = response[0];
-                        $("#codproducto").val(product.codproducto);
-                        $("#proveedor").val(producto.proveedor);
-                        $("#precio").val(product.precio);
-                        $("#cantidad").val(product.cantidad);
-                    }
-                }
-            });
-        }
-    </script>
-
 </head>
 
 <body>
@@ -86,9 +59,9 @@ mysqli_close($conection);
                     ?>
                 </select>
                 <label for="precio">Precio: </label>
-                <input type="number" name="precio" id="precio" step="0.01" readonly>
+                <input type="number" name="precio" id="precio" step="0.01">
                 <label for="cantidad">Cantidad: </label>
-                <input type="number" name="cantidad" id="cantidad" placeholder="Stock" min="0" required readonly>
+                <input type="number" name="cantidad" id="cantidad" placeholder="Stock" min="0" required>
                 <div class="button-container">
                     <input type="submit" name="submit" value="Enviar" class="btn_save">
                 </div>

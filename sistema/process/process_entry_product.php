@@ -23,7 +23,7 @@ if (!empty($_POST)) {
         $result_producto = mysqli_fetch_assoc($query_producto);
 
         // Realizar la actualización del producto
-        $query_update = mysqli_query($conection, "UPDATE producto SET proveedor_id = '$proveedor', precio ='$precio',  existencia = existencia + '$cantidad', usuario_id= '$usuario_id'  WHERE  codproducto = $codproducto");
+        $query_update = mysqli_query($conection, "UPDATE producto SET proveedor = '$proveedor', precio ='$precio',  existencia = existencia + '$cantidad', usuario_id= '$usuario_id'  WHERE  codproducto = $codproducto");
         if ($query_update) {
             $alert = '<p class="msg_save">Producto editado correctamente.</p>';
 
@@ -45,8 +45,7 @@ if (!empty($_POST)) {
                 );
             }
 
-            // Obtener el proveedor anterior del producto
-            $query_old_supplier = mysqli_query($conection, "SELECT proveedor_id FROM producto WHERE codproducto = $codproducto");
+            $query_old_supplier = mysqli_query($conection, "SELECT proveedor FROM producto WHERE codproducto = $codproducto");
             $old_supplier_result = mysqli_fetch_assoc($query_old_supplier);
             if ($old_supplier_result) {
                 $old_supplier = $old_supplier_result['proveedor_id'];
@@ -62,7 +61,7 @@ if (!empty($_POST)) {
                 $changes_json = json_encode($changes);
 
                 // Insertar el registro en la tabla de auditoría
-                $query_audit = mysqli_query($conection, "INSERT INTO product_log_update (producto_id, usuario_id, fecha_cambio, cambios) VALUES ('$codproducto', '$usuario_id', NOW(), '$changes_json')");
+                $query_audit = mysqli_query($conection, "INSERT INTO product_log_update (producto_id, usuario_id,cambios, old_price, new_price, old_supplier, new_supplier) VALUES ('$codproducto', '$usuario_id', '$changes_json', '$old_price', '$precio', '$old_supplier', '$proveedor')");
                 if (!$query_audit) {
                 
                 }

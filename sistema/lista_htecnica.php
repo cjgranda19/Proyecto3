@@ -19,10 +19,7 @@ $recipes = [];
 
 while ($row = $query->fetch_assoc()) {
     $subquery = mysqli_query($conection,
-        "SELECT p.codproducto, p.descripcion, rp.cantidad, p.precio
-                FROM rule_recipe as rp
-                LEFT JOIN producto as p ON (p.codproducto = rp.id_recipe)
-                WHERE rp.id_recipe = {$row['id']}");
+    "SELECT DISTINCT p.codproducto, p.descripcion, rp.cantidad, p.precio FROM rule_recipe as rp INNER JOIN producto as p ON rp.id_product_rule = p.codproducto WHERE rp.id_recipe =  {$row['id']};");
     $row['ingredients'] = [];
     $manufacturingCost = 0;
 
@@ -68,7 +65,6 @@ while ($row = $query->fetch_assoc()) {
                                 <?php foreach ($recipe['ingredients'] as $ingredient): ?>
                                     <div class="ingredient">
                                         <div class="name"><?php echo $ingredient['descripcion']; ?></div>
-                                        
                                         <div class="quantity"><?php echo $ingredient['cantidad']; ?></div>
 
                                     </div>
