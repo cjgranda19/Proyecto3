@@ -1,36 +1,34 @@
 <?php
-
 session_start();
 if ($_SESSION['rol'] != 1) {
 	header("location: ./");
 }
+
 include "../conexion.php";
 
+$alert = '';
 
-if (!empty($_POST)) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	$producto = $_POST['producto'];
+	$proveedor = $_POST['proveedor'];
+	$precio = $_POST['precio'];
+	$cantidad = $_POST['cantidad'];
 
-	$alert = '';
-
-	if (empty($_POST['producto']) || empty($_POST['proveedor']) || empty($_POST['precio']) || empty($_POST['cantidad'])  || $_POST['precio'] <= 0 || $_POST['cantidad'] <= 0) {
+	// Validate data
+	if (empty($producto) || empty($proveedor) || empty($precio) || empty($cantidad) || $precio <= 0 || $cantidad <= 0) {
 		$alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
 	} else {
+		// Insert data into the database
+		$query_insert = "INSERT INTO producto (descripcion, proveedor, precio, existencia) VALUES ('$producto', '$proveedor', '$precio', '$cantidad')";
+		$result = mysqli_query($conection, $query_insert);
 
-		$producto = $_POST['producto'];
-		$proveedor = $_POST['proveedor'];
-		$precio = $_POST['precio'];
-		$cantidad = $_POST['cantidad'];
-		$usuario_id = $_SESSION['idUser'];
-
-		$query_insert = mysqli_query($conection, "INSERT INTO producto(descripcion, proveedor, precio,existencia, usuario_id) VALUES('$producto', '$proveedor', '$precio','$cantidad', '$usuario_id')");
-
-		if ($query_insert) {
+		if ($result) {
 			$alert = '<p class="msg_save">Producto guardado correctamente.</p>';
 		} else {
-			$alert = '<p class="msg_error">Error al guardar producto.</p>';
+			$alert = '<p class="msg_error">Error al guardar producto: ' . mysqli_error($conection) . '</p>';
 		}
 	}
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -38,61 +36,50 @@ if (!empty($_POST)) {
 
 <head>
 	<meta charset="UTF-8">
-	<?php include "includes/scripts.php"; ?>
 	<title>Registro Producto</title>
-	<link rel="stylesheet" href="css/nuevo_producto.css">
+	<link rel="stylesheet" href="css/popup.css">
 </head>
+
 <body>
-	<?php include "includes/header.php"; ?>
-	<section id="container">
+	<section id="container-2">
+	<div class="overlay" id="overlay" onclick="closePopup()"></div>
 
 		<div class="form_register">
-			<h1>Registro Producto</h1>
 			<hr>
-			<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
+			<div class="alert">
+				<?php echo isset($alert) ? $alert : ''; ?>
+			</div>
+            <span class="close-button" onclick="closePopup()">&times;</span>
 
-			<form action="" method="post">
+			<form id="registroForm" action="process_registro_producto.php" method="post">
+				<h1>Registro Producto</h1>
 
 				<label for="producto">Producto: </label>
-				<input type="text" name="producto" id="producto" placeholder="Nombre del producto">
+				<input type="text" name="producto" id="producto" placeholder="Nombre del producto" required>
 
 				<label for="proveedor">Proveedor</label>
-
-				<?php
-
-				$query_proveedor = mysqli_query($conection, "SELECT id_supplier, proveedor FROM proveedor WHERE estatus = 1 ORDER BY proveedor ASC");
-				$result_proveedor = mysqli_num_rows($query_proveedor);
-				mysqli_close($conection);
-				?>
-
-				<select name="proveedor" id="proveedor">
+				<select name="proveedor" id="proveedor" required>
 					<?php
-
-					if ($result_proveedor > 0) {
-						while ($proveedor = mysqli_fetch_array($query_proveedor)) {
-					?>
-							<option value="<?php echo $proveedor['id_supplier']; ?>"><?php echo $proveedor['proveedor']; ?>
-							</option>
-					<?php
-						}
+					$query_proveedor = mysqli_query($conection, "SELECT id_supplier, proveedor FROM proveedor WHERE estatus = 1 ORDER BY proveedor ASC");
+					while ($proveedor = mysqli_fetch_array($query_proveedor)) {
+						echo '<option value="' . $proveedor['id_supplier'] . '">' . $proveedor['proveedor'] . '</option>';
 					}
+					mysqli_close($conection);
 					?>
-
 				</select>
 
 				<label for="precio">Precio: </label>
-				<input type="number" name="precio" id="precio" step="0.01" placeholder="Precio del producto">
-				<label for="cantidad">Cantidad: </label>
-				<input type="number" name="cantidad" id="cantidad" placeholder="Stock">
-				<input type="submit" value="Guardar producto" class="btn_save">
+				<input type="number" name="precio" id="precio" step="0.01" placeholder="Precio del producto" required>
 
+				<label for="cantidad">Cantidad: </label>
+				<input type="number" name="cantidad" id="cantidad" placeholder="Stock" required>
+
+				<div class="button-container">
+					<input type="submit" name="submit" value="Registrar" class="btn_save">
+				</div>
 			</form>
 		</div>
-
 	</section>
-
-	<?php include "includes/footer.php"; ?>
-
 
 </body>
 
