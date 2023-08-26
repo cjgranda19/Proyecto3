@@ -22,9 +22,8 @@ if (isset($_GET['order_id']) && is_numeric($_GET['order_id'])) {
         $xml->appendChild($root);
 
         $root->appendChild($xml->createElement("order_id", $order['id']));
-        $root->appendChild($xml->createElement("customer_name", htmlspecialchars($order['customer_name'])));
-        $root->appendChild($xml->createElement("created_at", htmlspecialchars($order['created_at'])));
-        
+        $root->appendChild($xml->createElement("customer_name", $order['customer_name'])); 
+        $root->appendChild($xml->createElement("created_at", $order['created_at']));
 
         // ... (añadir más elementos XML según tus necesidades)
 

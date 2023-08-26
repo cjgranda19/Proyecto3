@@ -28,7 +28,28 @@ mysqli_close($conection);
     <meta charset="UTF-8">
     <title>Ingreso a Bodega</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/popup.js"></script>
+    <script>
+        function populateFields() {
+            var selectedProductId = $("#producto").val();
+
+            $.ajax({
+                type: "POST",
+                url: "ajax.php", // Replace with the actual path to your ajax.php file
+                data: { action: "getProducts", id: selectedProductId },
+                dataType: "json",
+                success: function (response) {
+                    if (response.length > 0) {
+                        var product = response[0];
+                        $("#codproducto").val(product.codproducto);
+                        $("#proveedor").val(producto.proveedor);
+                        $("#precio").val(product.precio);
+                        $("#cantidad").val(product.cantidad);
+                    }
+                }
+            });
+        }
+    </script>
+
 </head>
 
 <body>
