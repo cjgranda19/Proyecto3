@@ -83,12 +83,28 @@ if ($id == null) {
 } else {
 
     foreach ($ingredients as $ingredient) {
-        $stmt = mysqli_prepare($conection, "INSERT INTO rule_recipe(id_recipe, id_product_rule, cantidad) VALUES(?, ?, ?)");
-        $quantity = floatval($ingredient['quantity']);
-        $stmt->bind_param('iid', $id, $ingredient['id'], $quantity);
+        $stmt = mysqli_prepare($conection, "SELECT id_recipe FROM rule_recipe WHERE id_recipe = ? AND id_product_rule = ?");
+        $stmt->bind_param('ii', $id, $ingredient['id']);
         $stmt->execute();
-        $stmt->close();
+        $stmt->store_result();
+        
+        if ($stmt->num_rows > 0) {
+            // Si el registro ya existe, actualiza la cantidad en lugar de insertar
+            $stmt = mysqli_prepare($conection, "UPDATE rule_recipe SET cantidad = ? WHERE id_recipe = ? AND id_product_rule = ?");
+            $quantity = floatval($ingredient['quantity']);
+            $stmt->bind_param('dii', $quantity, $id, $ingredient['id']);
+            $stmt->execute();
+            $stmt->close();
+        } else {
+            // Si el registro no existe, inserta un nuevo registro
+            $stmt = mysqli_prepare($conection, "INSERT INTO rule_recipe(id_recipe, id_product_rule, cantidad) VALUES(?, ?, ?)");
+            $quantity = floatval($ingredient['quantity']);
+            $stmt->bind_param('iid', $id, $ingredient['id'], $quantity);
+            $stmt->execute();
+            $stmt->close();
+        }
     }
+    
 }
 
 header('Location: lista_htecnica.php');

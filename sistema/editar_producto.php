@@ -18,7 +18,6 @@
             $proveedor = $_POST['proveedor'];
             $precio = $_POST['precio'];
             $cantidad = $_POST['cantidad'];
-            $medida = $_POST['medida'];
 
             $query_insert = mysqli_query($conection, "UPDATE producto SET descripcion = '$producto', proveedor = $proveedor,  precio = $precio, existencia = $cantidad WHERE codproducto = $codproducto ");
 

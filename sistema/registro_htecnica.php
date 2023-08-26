@@ -192,6 +192,8 @@ if ($update_id) {
         </form>
     </main>
     <?php include(__DIR__ . '/includes/footer.php'); ?>
+
+    
     <script>
     const products = <?php echo json_encode($products); ?>;
     const addIngredientBtn = document.querySelector('#add-ingredient');

@@ -60,7 +60,7 @@ if ($_SESSION['rol'] != 1) {
 			</tr>
 			<?php
 
-			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM proveedor WHERE (codproducto LIKE '%busqueda%' OR proveedor LIKE '%busqueda%' LIKE '%busqueda%' OR descripcion LIKE '%busqueda%' OR precio LIKE '%busqueda%' OR existencia LIKE '%busqueda%') AND estatus = 1 ");
+			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM producto WHERE (proveedor LIKE '%busqueda%' LIKE '%busqueda%' OR descripcion LIKE '%busqueda%' OR precio LIKE '%busqueda%' OR existencia LIKE '%busqueda%') AND estatus = 1 ");
 			$result_registre = mysqli_fetch_array($sql_registre);
 			$total_registro = $result_registre['total_registro'];
 
