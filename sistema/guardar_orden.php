@@ -77,7 +77,7 @@ foreach ($recipes as $recipe) {
         $conection,
         "SELECT p.codproducto, p.existencia, rp.cantidad
          FROM rule_recipe as rp
-         LEFT JOIN producto as p ON(p.codproducto = rp.id_product_rule
+         LEFT JOIN producto as p ON p.codproducto = rp.id_product_rule
          WHERE rp.id_recipe = {$recipe_id}"
     );
     $ingredients = [];
