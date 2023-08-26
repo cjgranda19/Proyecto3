@@ -97,7 +97,6 @@ include "../conexion.php";
 			?>
 
 		</table>
-//0998573453
 		<div class="paginador">
 			<ul>
 				<?php
