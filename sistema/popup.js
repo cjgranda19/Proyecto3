@@ -16,6 +16,7 @@ function closePopup() {
 }
 
 function loadNuevoProductoPopup() {
+    
     var popupContainer = document.getElementById("popupNuevoProducto");
     var popupContent = popupContainer.querySelector(".popup-content");
 
