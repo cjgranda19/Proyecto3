@@ -31,3 +31,22 @@ function loadPopupContent(contentUrl) {
     xhr.send();
 }
 
+function populateFields() {
+    var selectedProductId = $("#producto").val();
+
+    $.ajax({
+        type: "POST",
+        url: "ajax.php", // Replace with the actual path to your ajax.php file
+        data: { action: "getProducts", id: selectedProductId },
+        dataType: "json",
+        success: function (response) {
+            if (response.length > 0) {
+                var product = response[0];
+                $("#codproducto").val(product.codproducto);
+                $("#proveedor").val(product.proveedor); // Corrected this line
+                $("#precio").val(product.precio);
+                $("#cantidad").val(product.cantidad);
+            }
+        }
+    });
+}

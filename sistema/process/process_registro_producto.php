@@ -4,7 +4,7 @@ include "../../conexion.php";
 
 if ($_SESSION['rol'] != 1) {
     header("location: ./");
-    exit(); 
+    exit();
 }
 
 $alert = '';
@@ -18,15 +18,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($producto) || empty($proveedor) || empty($precio) || empty($cantidad) || $precio <= 0 || $cantidad <= 0) {
         $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
     } else {
-        
+
         $query_insert = "INSERT INTO producto (descripcion, proveedor, precio, existencia) VALUES ('$producto', '$proveedor', '$precio', '$cantidad')";
         $result = mysqli_query($conection, $query_insert);
 
         if ($result) {
-            header("location: ../");
+            $_SESSION['popup_message'] = 'Inserción exitosa.';
         } else {
-            $alert = '<p class="msg_error">Error al guardar producto: ' . mysqli_error($conection) . '</p>';
+            $_SESSION['popup_message'] = 'Error al guardar producto: ' . mysqli_error($conection);
         }
+        header("location: ../");
+        exit();
     }
 }
 

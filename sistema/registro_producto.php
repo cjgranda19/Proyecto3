@@ -35,7 +35,7 @@ include "../conexion.php";
 				<label for="proveedor">Proveedor</label>
 				<select name="proveedor" id="proveedor" required>
 					<?php
-					$query_proveedor = mysqli_query($conection, "SELECT id_supplier, proveedor FROM proveedor WHERE estatus = 1 ORDER BY proveedor ASC");
+					$query_proveedor = mysqli_query($conection, "SELECT id_supplier, proveedor FROM proveedor WHERE codproducto = $codproducto ");
 					while ($proveedor = mysqli_fetch_array($query_proveedor)) {
 						echo '<option value="' . $proveedor['id_supplier'] . '">' . $proveedor['proveedor'] . '</option>';
 					}

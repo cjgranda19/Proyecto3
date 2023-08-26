@@ -1,38 +1,34 @@
 <?php
 session_start();
 if ($_SESSION['rol'] != 1) {
-    header("location: ./");
+    header("location: ../");
 }
 include "../conexion.php";
 
-$codproducto = ""; // Define el valor inicial del código del producto
-$producto = "";    // Define el valor inicial del nombre del producto
+// Consulta para obtener todos los productos
+$query_producto = mysqli_query($conection, "SELECT * FROM producto");
 
-if (isset($_GET['codproducto'])) {
-    // Obtener el ID del producto desde la URL
-    $codproducto = $_GET['codproducto'];
+// Consulta para obtener todos los proveedores activos
+$query_proveedor = mysqli_query($conection, "SELECT * FROM proveedor WHERE estatus = 1 ORDER BY proveedor ASC");
 
-    // Obtener los datos del producto desde la base de datos
-    $query_producto = mysqli_query($conection, "SELECT * FROM producto WHERE codproducto = $codproducto");
-    $result_producto = mysqli_fetch_assoc($query_producto);
+// Realizar la consulta para obtener la información de precio y proveedor
+$producto_info = array(); // Array para almacenar la información de precio y proveedor por producto
 
-    // Asignar los valores de la base de datos a las variables
-    if ($result_producto) {
-        $producto = $result_producto['nombre_producto'];
-        // Puedes obtener otros valores aquí si es necesario
-    }
+$query_info = mysqli_query($conection, "SELECT codproducto, precio, id_proveedor FROM producto");
+while ($info = mysqli_fetch_assoc($query_info)) {
+    $producto_info[$info['codproducto']] = array('precio' => $info['precio'], 'proveedor' => $info['id_proveedor']);
 }
 
-$query_proveedor = mysqli_query($conection, "SELECT id_supplier, proveedor FROM proveedor WHERE estatus = 1 ORDER BY proveedor ASC");
+mysqli_close($conection);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <title>Ingreso a Bodega</title>
-    <!-- Tus estilos y enlaces a archivos CSS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/popup.js"></script>
 </head>
 
 <body>
@@ -46,33 +42,39 @@ $query_proveedor = mysqli_query($conection, "SELECT id_supplier, proveedor FROM 
             <span class="close-button" onclick="closePopup()">&times;</span>
 
             <form id="entryForm" action="process/process_entry_product.php" method="post">
-                <input type="hidden" name="codproducto" id="codproducto" value="<?php echo $codproducto; ?>">
+                <input type="hidden" name="codproducto" id="codproducto" value="">
                 <label for="producto">Producto: </label>
-                <input type="text" name="producto" id="producto" placeholder="Nombre del producto"
-                    value="<?php echo $producto; ?>">
+                <select name="producto" id="producto" required onchange="populateFields()">
+                    <option value="" disabled selected>Selecciona un producto</option>
+                    <?php
+                    while ($producto = mysqli_fetch_array($query_producto)) {
+                        echo '<option value="' . $producto['codproducto'] . '">' . $producto['descripcion'] . '</option>';
+                    }
+                    ?>
+                </select>
+
+
+
                 <label for="proveedor">Proveedor</label>
                 <select name="proveedor" id="proveedor" required>
                     <option value="" disabled selected>Selecciona un proveedor</option>
                     <?php
                     while ($proveedor = mysqli_fetch_array($query_proveedor)) {
-                        $selected = ($proveedor['id_supplier'] == $result_producto['proveedor_id']) ? 'selected' : '';
-                        echo "<option value='{$proveedor['id_supplier']}' $selected>{$proveedor['proveedor']}</option>";
+                        echo '<option value="' . $proveedor['id_supplier'] . '">' . $proveedor['proveedor'] . '</option>';
                     }
                     ?>
                 </select>
                 <label for="precio">Precio: </label>
-                <input type="number" name="precio" id="precio" step="0.01"
-                    value="<?php echo isset($result_producto['precio']) ? $result_producto['precio'] : ''; ?>"
-                    required>
+                <input type="number" name="precio" id="precio" step="0.01" readonly>
                 <label for="cantidad">Cantidad: </label>
-                <!-- El campo de cantidad solo se puede aumentar -->
-                <input type="number" name="cantidad" id="cantidad" placeholder="Stock" min="0" required>
+                <input type="number" name="cantidad" id="cantidad" placeholder="Stock" min="0" required readonly>
                 <div class="button-container">
                     <input type="submit" name="submit" value="Enviar" class="btn_save">
                 </div>
             </form>
         </div>
     </section>
+
 </body>
 
 </html>
