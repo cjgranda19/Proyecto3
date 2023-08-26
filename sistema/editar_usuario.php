@@ -5,7 +5,7 @@ if ($_SESSION['rol'] != 1) {
     exit;
 }
 include "../conexion.php";
-include "includes/session_timeout.php";
+//include "includes/session_timeout.php";
 
 
 $nombre = "";
@@ -50,7 +50,7 @@ if (!empty($_POST)) {
         }
     }
 
-    mysqli_close($conection);
+   // mysqli_close($conection);
 }
 
 if (empty($_REQUEST['id'])) {
