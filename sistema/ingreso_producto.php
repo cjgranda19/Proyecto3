@@ -16,7 +16,7 @@ $producto_info = array(); // Array para almacenar la información de precio y pr
 
 $query_info = mysqli_query($conection, "SELECT codproducto, precio, proveedor FROM producto");
 while ($info = mysqli_fetch_assoc($query_info)) {
-    $producto_info[$info['codproducto']] = array('precio' => $info['precio'], 'proveedor' => $info['id_proveedor']);
+    $producto_info[$info['codproducto']] = array('precio' => $info['precio'], 'proveedor' => $info['proveedor']);
 }
 
 mysqli_close($conection);
