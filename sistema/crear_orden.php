@@ -1,6 +1,6 @@
 <?php
 
-include(dirname(__DIR__) . '../conexion.php');
+include('../conexion.php');
 
 global $conection;
 
