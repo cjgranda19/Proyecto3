@@ -12,8 +12,10 @@ include "../conexion.php";
     <?php include "includes/scripts.php"; ?>
     <title>Lista Productos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style_tables.css">
     <link rel="stylesheet" type="text/css" href="css/popup.css">
+    <link rel="stylesheet" type="text/css" href="css/style_tables.css">
+    <link rel="icon" type="image/jpg" href="img/favicon.png" />
+
 </head>
 
 <body>
@@ -22,14 +24,12 @@ include "../conexion.php";
         <h1>Lista de Productos</h1>
 
         <?php if ($_SESSION['rol'] == 1) { ?>
-            <a href="javascript:void(0);" onclick="loadNuevoProductoPopup(); confirmClosePopup('popupNuevoProducto');"
-                class="btn_new">Nuevo producto</a>
-        <?php } ?>
+            <a href="javascript:void(0);" onclick="loadPopupContent('registro_producto.php',event);" class="btn_new">Nuevo
+                producto</a>
 
-        <!-- Add this button to open the Ingreso Producto popup -->
-        <?php if ($_SESSION['rol'] == 1) { ?>
-            <a href="javascript:void(0);" onclick="loadIngresoProductoPopup(); confirmClosePopup('popupIngresoProducto');"
-                class="btn_new">Ingreso Producto</a>
+            <a href="javascript:void(0);" onclick="loadPopupContent('ingreso_producto.php',event);" class="btn_new">Ingreso
+                Producto</a>
+
         <?php } ?>
 
         <form action="buscar_producto.php" method="get" class="form_search">
@@ -134,19 +134,14 @@ include "../conexion.php";
         </div>
 
     </section>
-    <div class="popup-container" id="popupNuevoProducto">
-        <div class="popup-content">
-            <!-- Content from registro_producto.php will be loaded here -->
+    <div class="popup-container" id="popupContainer">
+        <div class="popup-content" id="popupContent">
         </div>
+        <span class="close-button" onclick="closePopup()">&times;</span>
     </div>
 
-    <div class="popup-container" id="popupIngresoProducto">
-        <div class="popup-content">
-            <!-- Content from ingreso_producto.php will be loaded here -->
-        </div>
-    </div>
-    <?php include "includes/footer.php"; ?>
-    <script src="popup.js"></script>
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+
 </body>
 
 </html>

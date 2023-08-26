@@ -1,13 +1,12 @@
 <?php
+
 session_start();
 if ($_SESSION['rol'] != 1) {
-	header("location: ./");
+    header("location: ./");
 }
-
 include "../conexion.php";
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,16 +18,15 @@ include "../conexion.php";
 
 <body>
 	<section id="container-2">
-	<div class="overlay" id="overlay" onclick="closePopup()"></div>
+	<span class="close-button" onclick="closePopup()">&times;</span>
 
 		<div class="form_register">
 			<hr>
 			<div class="alert">
 				<?php echo isset($alert) ? $alert : ''; ?>
 			</div>
-            <span class="close-button" onclick="closePopup()">&times;</span>
 
-			<form id="registroForm" action="process_registro_producto.php" method="post">
+			<form id="registroForm" action="process/process_registro_producto.php" method="post">
 				<h1>Registro Producto</h1>
 
 				<label for="producto">Producto: </label>

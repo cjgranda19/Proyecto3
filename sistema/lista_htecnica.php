@@ -42,36 +42,8 @@ while ($row = $query->fetch_assoc()) {
     <meta charset="UTF-8">
     <?php include "includes/scripts.php"; ?>
     <title>Hoja Tecnica</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <style>
-        .recipe-thumbnail {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-        }
-
-        .ingredients-list {
-            display: flex;
-            flex-direction: column;
-            font-size: 0.9em;
-        }
-
-        .ingredients-list > .ingredient {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .ingredients-list > .ingredient > .name {
-            font-weight: bold;
-        }
-
-        .ingredients-list > .ingredient > .quantity {
-            margin-left: 10px;
-        }
-
-        
-    </style>
+    <link rel="icon" type="image/jpg" href="img/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="css/style_tables.css">
 </head>
 <body>
 <?php include(__DIR__ . '/includes/header.php'); ?>

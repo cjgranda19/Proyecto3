@@ -142,3 +142,29 @@ table td {
 .btn_search:hover {
     transform: scale(1.02);
 }
+
+.recipe-thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.ingredients-list {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9em;
+}
+
+.ingredients-list > .ingredient {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ingredients-list > .ingredient > .name {
+    font-weight: bold;
+}
+
+.ingredients-list > .ingredient > .quantity {
+    margin-left: 10px;
+}

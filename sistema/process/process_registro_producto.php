@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../conexion.php";
+include "../../conexion.php";
 
 if ($_SESSION['rol'] != 1) {
     header("location: ./");

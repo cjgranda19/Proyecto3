@@ -27,15 +27,7 @@
 		<?php } ?>
 		<li class="principal">
 			<a href="lista_producto.php"><i class="fa-solid fa-box-open"></i> Productos</a>
-			<ul>
-				<li><a href="lista_producto.php"><i class="fa-solid fa-boxes-stacked"></i> Lista de Productos</a></li>
-
-				<?php
-				if ($_SESSION['rol'] == 1) {
-					?>
-					<li><a href="registro_producto.php"><i class="fa-solid fa-dolly"></i> Nuevo Producto</a></li>
-				<?php } ?>
-			</ul>
+			
 		</li>
 		<li class="principal">
 			<a href="lista_htecnica.php"><i class="fa-solid fa-clipboard-list"></i> Hoja Tecnica</a>
