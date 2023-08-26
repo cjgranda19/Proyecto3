@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include(dirname(__DIR__) . '/conexion.php');
+include(dirname(__DIR__) . '../conexion.php');
 global $conection;
 
 $error = null;
@@ -29,7 +29,7 @@ foreach ($recipes as $recipe) {
 
     $stmt = mysqli_query(
         $conection,
-        "SELECT p.codproducto, p.existencia, p.medida_pro, rp.cantidad, p.descripcion
+        "SELECT p.codproducto, p.existencia, rp.cantidad, p.descripcion
          FROM rule_recipe as rp
          LEFT JOIN producto as p ON(p.codproducto = rp.id_recipe)
          WHERE rp.id_recipe = {$recipe_id}"
@@ -66,7 +66,7 @@ $stmt->close();
 $order_id = mysqli_insert_id($conection);
 
 foreach ($recipes as $recipe) {
-    $stmt = mysqli_prepare($conection, "INSERT INTO ordenes_recetas(orden_id, id_recipe, quantity) VALUES(?, ?, ?)");
+    $stmt = mysqli_prepare($conection, "INSERT INTO ordenes_recetas(orden_id, receta_id, quantity) VALUES(?, ?, ?)");
     $recipe_id = intval($recipe['id']);
     $quantity = intval($recipe['quantity']);
     $stmt->bind_param('iid', $order_id, $recipe_id, $quantity);
@@ -75,7 +75,7 @@ foreach ($recipes as $recipe) {
 
     $stmt2 = mysqli_query(
         $conection,
-        "SELECT p.codproducto, p.existencia, p.medida_pro, rp.cantidad
+        "SELECT p.codproducto, p.existencia, rp.cantidad
          FROM rule_recipe as rp
          LEFT JOIN producto as p ON(p.codproducto = rp.id_product_rule
          WHERE rp.id_recipe = {$recipe_id}"
