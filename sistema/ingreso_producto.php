@@ -59,9 +59,9 @@ mysqli_close($conection);
                     ?>
                 </select>
                 <label for="precio">Precio: </label>
-                <input type="number" name="precio" id="precio" step="0.01">
+                <input type="number" name="precio" id="precio" step="0.01" min="0">
                 <label for="cantidad">Cantidad: </label>
-                <input type="number" name="cantidad" id="cantidad" placeholder="Stock" min="0" required>
+                <input type="number" name="cantidad" id="cantidad" placeholder="Stock" min="0">
                 <div class="button-container">
                     <input type="submit" name="submit" value="Enviar" class="btn_save">
                 </div>
