@@ -58,7 +58,7 @@ $product = [
 
 
 if ($id == null) {
-    $stmt = mysqli_prepare($conection, "INSERT INTO id_recipe(user_id, name, price, created_at, updated_at) VALUES(?, ?, ?, ?, ?)");
+    $stmt = mysqli_prepare($conection, "INSERT INTO recipe(user_id, name, price, created_at, updated_at) VALUES(?, ?, ?, ?, ?)");
 
     if (!$stmt) {
         $error = mysqli_error($conection);

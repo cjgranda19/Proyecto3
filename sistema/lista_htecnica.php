@@ -96,7 +96,9 @@ while ($row = $query->fetch_assoc()) {
                                 <?php foreach ($recipe['ingredients'] as $ingredient): ?>
                                     <div class="ingredient">
                                         <div class="name"><?php echo $ingredient['descripcion']; ?></div>
+                                        
                                         <div class="quantity"><?php echo $ingredient['cantidad']; ?></div>
+
                                     </div>
                                 <?php endforeach; ?>
                             </div>

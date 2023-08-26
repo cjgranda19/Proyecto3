@@ -122,6 +122,10 @@ table td {
     border-radius: 10px;
 }
 
+.form_register {
+   height: 100%;
+}
+
 .form_search .btn_search {
     background: rgb(107, 2, 46);
     color: #fff;
