@@ -19,7 +19,7 @@ $second_date = $_GET['second_date'] ?? '';
 </head>
 
 <body>
-<?php include "includes/header.php"; ?>
+	<?php include "includes/header.php"; ?>
 
 	<style>
 		.date-fields-container {
@@ -30,6 +30,20 @@ $second_date = $_GET['second_date'] ?? '';
 		.date-fields-container label,
 		.date-fields-container input {
 			margin-right: 10px;
+		}
+
+		.IO {
+			position: fixed;
+			bottom: 60px;
+			right: 10px;
+			border: 2px solid #eb4d4b;
+			background: linear-gradient(to right, rgb(243, 37, 51), rgb(179, 0, 75));
+			padding: 5px 10px;
+		}
+
+		.BT_IO {
+			color: white;
+			text-decoration: none;
 		}
 	</style>
 	<section id="container">
@@ -43,12 +57,14 @@ $second_date = $_GET['second_date'] ?? '';
 				<div>
 					<h4>Hasta</h4>
 					<label for="second_date">Fecha de Fin:</label>
-					<input type="datetime-local" name="second_date" id="second_date"
-						value="<?php echo $second_date; ?>">
+					<input type="datetime-local" name="second_date" id="second_date" value="<?php echo $second_date; ?>">
 				</div>
 			</div>
-			<input type="submit" value="Generar Reporte">
-			<input type="" value="Generar PDF">
+			<input type="submit" value="Buscar">
+			<div class="IO">
+				<a class="BT_IO" target="_blank" href="factura/reporte_InventarioProducto.php?first_date=<?php echo urlencode($first_date); ?>&second_date=<?php echo urlencode($second_date); ?>">Generar Reporte</a>
+			</div>
+
 		</form>
 
 		<table>
@@ -100,7 +116,7 @@ $second_date = $_GET['second_date'] ?? '';
 				$avg_data = mysqli_fetch_array($avg_query);
 				$average_price = $avg_data['average_price'];
 
-				?>
+			?>
 				<tr>
 					<td>
 						<?php echo $data['name']; ?>
@@ -124,7 +140,7 @@ $second_date = $_GET['second_date'] ?? '';
 						<?php echo $data['tendencia']; ?>
 					</td>
 				</tr>
-				<?php
+			<?php
 			}
 			?>
 
@@ -134,10 +150,10 @@ $second_date = $_GET['second_date'] ?? '';
 			<ul>
 				<?php
 				if ($pagina != 1) {
-					?>
+				?>
 					<li><a href="?pagina=1">&laquo;&laquo;</a></li>
 					<li><a href="?pagina=<?php echo $pagina - 1; ?>">&laquo;</a></li>
-					<?php
+				<?php
 				}
 				for ($i = 1; $i <= $total_paginas; $i++) {
 					if ($i == $pagina) {
@@ -148,13 +164,14 @@ $second_date = $_GET['second_date'] ?? '';
 				}
 
 				if ($pagina != $total_paginas) {
-					?>
+				?>
 					<li><a href="?pagina=<?php echo $pagina + 1; ?>">>></a></li>
 					<li><a href="?pagina=<?php echo $total_paginas; ?> ">>|</a></li>
 				<?php } ?>
 			</ul>
 		</div>
 	</section>
+
 </body>
 
 </html>
