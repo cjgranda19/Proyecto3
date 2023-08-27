@@ -17,14 +17,37 @@ include "../conexion.php";
 	<?php include "includes/scripts.php"; ?>
 	<title>Lista Usuarios</title>
 	<link href="css/lista_usuarios.css" rel="stylesheet" type="text/css">
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+
 
 </head>
 
 <body>
 	<?php include "includes/header.php"; ?>
 	<section id="container">
+		<div class="alert">
+			<?php
+			echo isset($alert) ? $alert : '';
+			echo isset($_SESSION['popup_message']) ? '<p class="msg_info" id="popupMessage">' . $_SESSION['popup_message'] . '</p>' : '';
+			unset($_SESSION['popup_message']);
+			?>
+		</div>
+
+		<script>
+			setTimeout(function () {
+				var popupMessage = document.getElementById("popupMessage");
+				if (popupMessage) {
+					popupMessage.style.display = "none";
+				}
+			}, 4000);
+		</script>
+
 		<h1>Lista de usuarios</h1>
-		<a href="registro_usuario.php" class="btn_new">Crear usuario</a>
+		<?php if ($_SESSION['rol'] == 1) { ?>
+			<a href="javascript:void(0);" onclick="loadPopupContent('registro_usuario.php',event);" class="btn_new">Nuevo
+				producto</a>
+
+		<?php } ?>
 
 		<form action="buscar_usuario.php" method="get" class="form_search">
 			<input type="text" name="busqueda" id="busqueda" placeholder="Buscar">
@@ -123,7 +146,13 @@ include "../conexion.php";
 		</div>
 
 	</section>
-	<?php include "includes/footer.php"; ?>
+	<div class="popup-container" id="popupContainer">
+		<div class="popup-content" id="popupContent">
+		</div>
+		<span class="close-button" onclick="closePopup()">&times;</span>
+	</div>
+
+	<div class="overlay" id="overlay" onclick="closePopup()"></div>
 </body>
 
 </html>

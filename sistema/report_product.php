@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../../conexion.php";
+include "../conexion.php";
 
 // Variables para filtrar por fechas
 $first_date = $_GET['first_date'] ?? '';
@@ -13,13 +13,13 @@ $second_date = $_GET['second_date'] ?? '';
 <head>
 	<meta charset="utf-8">
 	<title>Documento sin título</title>
-	<link rel="stylesheet" type="text/css" href="../css/style_tables.css">
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
 
 <body>
-<?php include "../includes/header.php"; ?>
+<?php include "includes/header.php"; ?>
 
 	<style>
 		.date-fields-container {

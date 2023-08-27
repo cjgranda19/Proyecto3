@@ -4,71 +4,6 @@ session_start();
 include "../conexion.php";
 
 
-if (!empty($_POST)) {
-
-    $alert = '';
-
-    if (empty($_POST['cedula']) || empty($_POST['nombre']) || empty($_POST['telefono']) || empty($_POST['direccion'])) {
-        $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
-    } else {
-
-        $cedula = $_POST['cedula'];
-        $nombre = $_POST['nombre'];
-        $telefono = $_POST['telefono'];
-        $direccion = $_POST['direccion'];
-        $usuario_id = $_SESSION['idUser'];
-
-        if (!isValidCI($cedula)) {
-            $alert = '<p class="msg_error">El número de cédula no es válido. Debe ser un número real</p>';
-        } else {
-
-            $query = mysqli_query($conection, "SELECT * FROM cliente WHERE cedula = '$cedula' ");
-            $result = mysqli_fetch_array($query);
-
-            if ($result > 0) {
-                $alert = '<p class="msg_error">El número de cédula ya existe.</p>';
-            } else {
-                $query_insert = mysqli_query($conection, "INSERT INTO cliente(cedula,nombre,telefono,direccion,usuario_id) VALUES('$cedula','$nombre','$telefono','$direccion','$usuario_id')");
-
-                if ($query_insert) {
-                    $alert = '<p class="msg_save">Cliente guardado correctamente.</p>';
-                } else {
-                    $alert = '<p class="msg_error">Error al guardar cliente.</p>';
-                }
-            }
-        }
-    }
-    mysqli_close($conection);
-}
-
-// Función para validar cédula
-function isValidCI($ci) {
-    if (!is_numeric($ci)) {
-        return false;
-    }
-
-    if (strlen($ci) !== 10) {
-        return false;
-    }
-
-    $total = 0;
-    $coeficientes = array(2, 1, 2, 1, 2, 1, 2, 1, 2);
-
-    for ($i = 0; $i < 9; $i++) {
-        $temp = $ci[$i] * $coeficientes[$i];
-        if ($temp > 9) {
-            $temp -= 9;
-        }
-        $total += $temp;
-    }
-
-    $verificador = 10 - ($total % 10);
-    if ($verificador === 10) {
-        $verificador = 0;
-    }
-
-    return $ci[9] == $verificador;
-}
 ?>
 
 <!DOCTYPE html>
@@ -77,19 +12,17 @@ function isValidCI($ci) {
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
 	<title>Registro Destinatario</title>
-	<link href="css/style_create.css" rel="stylesheet">
 </head>
 
 <body>
-	<?php include "includes/header.php"; ?>
-	<section id="container">
-		
+	<section id="container-2">
+    <span class="close-button" onclick="closePopup()">&times;</span>
+
 		<div class="form_register">
 			<h1>Registro destinatario</h1>
 			<hr>
 			<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-
-			<form action="" method="post">
+			<form id="registroForm" action="process/process_register_client.php" method="post">
 				<label for="cedula">Cédula: </label>
 				<input type="text" name="cedula" id="cedula" placeholder="Número de CI">
 				<div id="cedula" style="color: red;"></div>
@@ -101,13 +34,13 @@ function isValidCI($ci) {
 				<div id="mensajeErrorTelefono" style="color: red;"></div>			
 				<label for="direccion">Dirección: </label>
 				<input type="text" name="direccion" id="direccion" placeholder="Dirección completa">
+                <div class="button-container">
+
 				<input type="submit" value="Guardar destinatario" class="btn_save" id="btn_sb">
+                </div>
 			</form>
 		</div>
-		<script src="js/validacion.js"></script>
-		<script src="../js/validacion.js"></script>
 	</section>
-	<?php include "includes/footer.php"; ?>
 	
 	
 </body>

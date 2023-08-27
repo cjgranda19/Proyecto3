@@ -12,6 +12,9 @@ include "../conexion.php";
 	<?php include "includes/scripts.php"; ?>
 	<title>Lista Clientes</title>
 	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
+	<link rel="stylesheet" type="text/css" href="css/popup.css">
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+
 
 </head>
 
@@ -19,9 +22,28 @@ include "../conexion.php";
 <body>
 	<?php include "includes/header.php"; ?>
 	<section id="container">
-		<h1>Lista de Clientes </h1>
-		<a href="registro_cliente.php" class="btn_new">Nuevo Cliente</a>
+		<div class="alert">
+			<?php
+			echo isset($alert) ? $alert : '';
+			echo isset($_SESSION['popup_message']) ? '<p class="msg_info" id="popupMessage">' . $_SESSION['popup_message'] . '</p>' : '';
+			unset($_SESSION['popup_message']);
+			?>
+		</div>
 
+		<script>
+			setTimeout(function () {
+				var popupMessage = document.getElementById("popupMessage");
+				if (popupMessage) {
+					popupMessage.style.display = "none";
+				}
+			}, 4000);
+		</script>
+
+		<h1>Lista de Clientes </h1>
+		<?php if ($_SESSION['rol'] == 1) { ?> <a href="javascript:void(0);"
+				onclick="loadPopupContent('registro_cliente.php',event);" class="btn_new">Nuevo
+				cliente</a>
+		<?php } ?>
 		<form action="buscar_cliente.php" method="get" class="form_search">
 			<input type="text" name="busqueda" id="busqueda" placeholder="Buscar">
 			<input type="submit" class="btn_search">
@@ -121,7 +143,13 @@ include "../conexion.php";
 		</div>
 
 	</section>
-	<?php include "includes/footer.php"; ?>
+	<div class="popup-container" id="popupContainer">
+		<div class="popup-content" id="popupContent">
+		</div>
+		<span class="close-button" onclick="closePopup()">&times;</span>
+	</div>
+
+	<div class="overlay" id="overlay" onclick="closePopup()"></div>
 </body>
 
 </html>

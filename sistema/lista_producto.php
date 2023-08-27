@@ -13,14 +13,31 @@ include "../conexion.php";
     <title>Lista Productos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="css/popup.css">
-    <link rel="stylesheet" type="text/css" href="css/style_tables.css">
     <link rel="icon" type="image/jpg" href="img/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="css/style_tables.css">
 
 </head>
 
 <body>
     <?php include "includes/header.php"; ?>
     <section id="container">
+        <div class="alert">
+            <?php
+            echo isset($alert) ? $alert : '';
+            echo isset($_SESSION['popup_message']) ? '<p class="msg_info" id="popupMessage">' . $_SESSION['popup_message'] . '</p>' : '';
+            unset($_SESSION['popup_message']); 
+            ?>
+        </div>
+
+        <script>
+            setTimeout(function () {
+                var popupMessage = document.getElementById("popupMessage");
+                if (popupMessage) {
+                    popupMessage.style.display = "none";
+                }
+            }, 4000);
+        </script>
+
         <h1>Lista de Productos</h1>
 
         <?php if ($_SESSION['rol'] == 1) { ?>

@@ -6,10 +6,7 @@
 			?>
 			<li class="principal">
 				<a href="lista_usuarios.php"><i class="fa-solid fa-user"></i> Usuarios</a>
-				<ul>
-					<li><a href="lista_usuarios.php"><i class="fa-solid fa-users"></i> Lista de Usuarios</a></li>
-					<li><a href="registro_usuario.php"><i class="fa-solid fa-user-plus"></i> Nuevo Usuario</a></li>
-				</ul>
+				
 			</li>
 		<?php } ?>
 		<?php
@@ -19,10 +16,7 @@
 			<li class="principal">
 
 				<a href="lista_proveedor.php"><i class="fa-solid fa-truck-field"></i> Proveedores</a>
-				<ul>
-					<li><a href="lista_proveedor.php"><i class="fa-solid fa-users"></i> Lista de Proveedores</a></li>
-					<li><a href="registro_proveedor.php"><i class="fa-solid fa-user-plus"></i> Nuevo Proveedor</a></li>
-				</ul>
+				
 			</li>
 		<?php } ?>
 		<li class="principal">
@@ -57,8 +51,6 @@
 				?>
 				<a href="lista_clientes.php"><i class="fa-solid fa-person"></i> Clientes</a>
 				<ul>
-					<li><a href="buscar_cliente.php">Clientes</a></li>
-					<li><a href="registro_cliente.php">Registro Cliente</a></li>
 
 				<?php } ?>
 			</ul>
@@ -71,7 +63,7 @@
 				<a href="lista_clientes.php"><i class="fa-solid fa-person"></i> Reportes</a>
 				<ul>
 					<li><a href="inventario_original.php">Inventario original</a></li>
-					<li><a href="report/report_producto.php">Reporte Producto</a></li>
+					<li><a href="report_product.php">Reporte Producto</a></li>
 
 				<?php } ?>
 			</ul>

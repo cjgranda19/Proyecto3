@@ -2,4 +2,5 @@
 	<script type="text/javascript" src="js/popup.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/functions.js"></script>
+	<script type="text/javascript" src="../js/validacion.js"></script>
 	<?php include "functions.php"; ?>

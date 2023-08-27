@@ -30,6 +30,14 @@ const elements = {
         errorMessages: {
             regex: "La contraseña debe tener al menos 8 caracteres y contener al menos una letra, un número y un carácter especial (@, $, !, %, *, #, ?, &, .)."
         }
+    },
+    proveedor: {
+        input: document.querySelector('input[name="proveedor"]'),
+        regex: /^[A-Za-z]+\s[A-Za-z]+$/,
+        mensajeError: document.getElementById("mensajeErrorProveedor"),
+        errorMessages: {
+            regex: "La contraseña debe tener al menos 8 caracteres y contener al menos una letra, un número y un carácter especial (@, $, !, %, *, #, ?, &, .)."
+        }
     }
 };
 

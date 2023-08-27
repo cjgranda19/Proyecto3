@@ -43,6 +43,8 @@ while ($row = mysqli_fetch_assoc($stmt)) {
     <?php include "includes/scripts.php"; ?>
     <title>Lista de ordenes</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" type="image/jpg" href="img/favicon.png" />
+
     <style>
         .order-container {
             max-width: 900px;

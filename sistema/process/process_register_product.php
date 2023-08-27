@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $_SESSION['popup_message'] = 'Error al guardar producto: ' . mysqli_error($conection);
         }
-        header("location: ../");
+        header("location: ../lista_producto.php");
         exit();
     }
 }

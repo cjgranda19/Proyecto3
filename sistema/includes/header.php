@@ -16,9 +16,7 @@ if (empty($_SESSION['active'])) {
 	.user-profile-popup {
 		position: absolute;
 		top: calc(100% + 3px);
-		/* Ajusta la distancia entre la imagen y la ventana emergente */
 		right: 0;
-		/* Ajusta el valor según tus necesidades */
 		background-color: #fff;
 		border: 1px solid #ccc;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

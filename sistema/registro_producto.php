@@ -26,7 +26,7 @@ include "../conexion.php";
 				<?php echo isset($alert) ? $alert : ''; ?>
 			</div>
 
-			<form id="registroForm" action="process/process_registro_producto.php" method="post">
+			<form id="registroForm" action="process/process_register_product.php" method="post">
 				<h1>Registro Producto</h1>
 
 				<label for="producto">Producto: </label>

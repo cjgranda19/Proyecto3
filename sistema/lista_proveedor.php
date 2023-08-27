@@ -13,158 +13,37 @@ include "../conexion.php";
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
 	<title>Lista Proveedores</title>
+	<link rel="stylesheet" type="text/css" href="css/popup.css">
+	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+
 </head>
-
-<style>
-	#container h1 {
-		font-size: 35px;
-		display: inline-block;
-	}
-
-	.btn_new {
-		display: inline-block;
-		background: rgb(107, 2, 46);
-		color: #fff;
-		padding: 5px 25px;
-		border-radius: 4px;
-		margin: 20px;
-	}
-
-	.btn_new {
-		transition: transform 0.3s ease-in-out;
-	}
-
-	.btn_new:hover {
-		transform: scale(1.02);
-	}
-
-	form {
-		background: #fff;
-		margin: auto;
-		padding: 20px 50px;
-		border: 1px solid #d1d1d1;
-	}
-
-	input,
-	select {
-		display: block;
-		width: 100%;
-		font-size: 13pt;
-		padding: 5px;
-		border: 1px solid #85929e;
-		border-radius: 5px;
-	}
-
-
-	table {
-		border-collapse: collapse;
-		font-size: 12pt;
-		font-family: 'GothamBook';
-		width: 100%;
-	}
-
-	table th {
-		text-align: left;
-		padding: 10px;
-		background: rgb(192, 27, 96);
-		color: #fff;
-	}
-
-	table tr:nth-child(odd) {
-		background: #fff;
-	}
-
-	table td {
-		padding: 10px;
-	}
-
-	.link_edit {
-		color: #0ca4ce;
-	}
-
-	.link_delete {
-		color: #f26b6b;
-	}
-
-	.link_edit:hover {
-		color: #13a727;
-	}
-
-	.link_delete:hover {
-		color: #fc0101;
-	}
-
-	.paginador ul {
-		padding: 15px;
-		list-style: none;
-		background: #fff;
-		margin-top: 15px;
-		display: -webkit-flex;
-		display: -moz-flex;
-		display: -ms-flex;
-		display: flex;
-		justify-content: flex-end;
-	}
-
-	.paginador a,
-	.pageSelected {
-		color: #428bca;
-		border: 1px solid #ddd;
-		display: 5px;
-		display: inline-block;
-		font-size: 14px;
-		text-align: center;
-		width: 35px;
-	}
-
-	.paginador a:hover {
-		background: #ddd;
-	}
-
-	.pageSelected {
-		color: #fff;
-		background: #428bca;
-		border: 1px solid #428bca;
-	}
-
-	.form_search {
-		display: -webkit-flex;
-		display: -moz-flex;
-		display: -ms-flex;
-		display: -o-flex;
-		display: flex;
-		float: right;
-		background: initial;
-		padding: 10px;
-		border-radius: 10px;
-	}
-
-	.form_search .btn_search {
-		background: rgb(107, 2, 46);
-		color: #fff;
-		padding: 0 20px;
-		border: 0;
-		cursor: pointer;
-		margin-left: 10px;
-	}
-
-	.btn_search {
-		transition: transform 0.3s ease-in-out;
-	}
-
-	.btn_search:hover {
-		transform: scale(1.02);
-	}
-</style>
 
 <body>
 	<?php include "includes/header.php"; ?>
 	<section id="container">
-		<h1>Lista de proveedores</h1>
-		<?php
-		if ($_SESSION['rol'] == 1) {
+		<div class="alert">
+			<?php
+			echo isset($alert) ? $alert : '';
+			echo isset($_SESSION['popup_message']) ? '<p class="msg_info" id="popupMessage">' . $_SESSION['popup_message'] . '</p>' : '';
+			unset($_SESSION['popup_message']);
 			?>
-			<a href="registro_proveedor.php" class="btn_new">Nuevo proveedor</a>
+		</div>
+
+		<script>
+			setTimeout(function () {
+				var popupMessage = document.getElementById("popupMessage");
+				if (popupMessage) {
+					popupMessage.style.display = "none";
+				}
+			}, 4000);
+		</script>
+
+		<h1>Lista de proveedores</h1>
+		<?php if ($_SESSION['rol'] == 1) { ?>
+			<a href="javascript:void(0);" onclick="loadPopupContent('registro_proveedor.php',event);" class="btn_new">Nuevo
+				producto</a>
+
 		<?php } ?>
 		<form action="buscar_proveedor.php" method="get" class="form_search">
 			<input type="text" name="busqueda" id="busqueda" placeholder="Buscar">
@@ -271,7 +150,13 @@ include "../conexion.php";
 		</div>
 
 	</section>
-	<?php include "includes/footer.php"; ?>
+	<div class="popup-container" id="popupContainer">
+		<div class="popup-content" id="popupContent">
+		</div>
+		<span class="close-button" onclick="closePopup()">&times;</span>
+	</div>
+
+	<div class="overlay" id="overlay" onclick="closePopup()"></div>
 </body>
 
 </html>

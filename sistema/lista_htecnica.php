@@ -40,6 +40,7 @@ while ($row = $query->fetch_assoc()) {
     <?php include "includes/scripts.php"; ?>
     <title>Hoja Tecnica</title>
     <link rel="icon" type="image/jpg" href="img/favicon.png"/>
+    
     <link rel="stylesheet" type="text/css" href="css/style_tables.css">
 </head>
 <body>
