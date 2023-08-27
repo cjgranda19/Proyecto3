@@ -155,7 +155,6 @@ if ($_SESSION['rol'] != 1) {
 		</div>
 
 	</section>
-	<?php include "includes/footer.php"; ?>
 </body>
 
 </html>

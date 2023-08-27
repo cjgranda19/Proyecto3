@@ -89,7 +89,6 @@ while ($row = $query->fetch_assoc()) {
         </div>
     </div>
 </main>
-<?php include(__DIR__ . '/includes/footer.php'); ?>
 <script>
 </script>
 </body>

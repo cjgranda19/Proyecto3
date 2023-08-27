@@ -161,7 +161,6 @@ include "includes/session_timeout.php";
 			</div>
 		<?php } ?>
 	</section>
-	<?php include "includes/footer.php"; ?>
 </body>
 
 </html>

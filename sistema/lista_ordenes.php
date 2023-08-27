@@ -146,7 +146,6 @@ while ($row = mysqli_fetch_assoc($stmt)) {
         <?php endforeach; ?>
 
     </main>
-    <?php include(__DIR__ . '/includes/footer.php'); ?>
 </body>
 
 </html>

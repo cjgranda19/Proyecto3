@@ -123,7 +123,7 @@ if ($_SESSION['rol'] != 1) {
 
 		<?php
 
-		if (total_registro != 0) {
+		if ($total_registro != 0) {
 			?>
 
 			<div class="paginador">
@@ -155,7 +155,6 @@ if ($_SESSION['rol'] != 1) {
 			</div>
 		<?php } ?>
 	</section>
-	<?php include "includes/footer.php"; ?>
 </body>
 
 </html>

@@ -17,6 +17,7 @@ include "../conexion.php";
 	<?php include "includes/scripts.php"; ?>
 	<title>Lista Usuarios</title>
 	<link href="css/lista_usuarios.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="css/popup.css">
 	<link rel="icon" type="image/jpg" href="img/favicon.png" />
 
 

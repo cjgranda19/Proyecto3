@@ -16,6 +16,5 @@
 	<section id="container">
 		<h1>Arreglar esto ta vacio</h1>
 	</section>
-	<?php include "includes/footer.php"; ?>
 </body>
 </html>
