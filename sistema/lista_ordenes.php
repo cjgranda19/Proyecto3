@@ -62,14 +62,30 @@ while ($row = mysqli_fetch_assoc($stmt)) {
             margin-bottom: 15px;
             display: block;
         }
-        
+
+        .RT {
+            position: fixed;
+            top: 60px;
+            right: 10px;
+            border: 2px solid #eb4d4b;
+            background: linear-gradient(to right, rgb(243, 37, 51), rgb(179, 0, 75));
+            padding: 5px 10px;
+        }
+
+        .BT_RT {
+            color: white;
+            text-decoration: none;
+        }
     </style>
 </head>
 
 <body>
     <?php include(__DIR__ . '/includes/header.php'); ?>
     <main id="container" class="ui-container">
-        <?php foreach ($orders as $order): ?>
+        <div class="RT">
+            <a class="BT_RT" target="_blank" href="factura/generate_invoice.php?order_id=<?php echo $order['id']; ?>">Reporte General</a>
+        </div>
+        <?php foreach ($orders as $order) : ?>
             <div class="ui-box order-container">
                 <h3 class="ui-box-title">Orden #
                     <?php echo str_pad($order['id'], 7, "0", STR_PAD_LEFT) ?>
@@ -91,7 +107,7 @@ while ($row = mysqli_fetch_assoc($stmt)) {
                                 <div class="column min-width">Total</div>
                             </div>
                             <?php $subtotal = 0; ?>
-                            <?php foreach ($order['recipes'] as $recipe): ?>
+                            <?php foreach ($order['recipes'] as $recipe) : ?>
                                 <div class="row">
                                     <div class="column name">
                                         <?php echo $recipe['name']; ?>
@@ -121,15 +137,14 @@ while ($row = mysqli_fetch_assoc($stmt)) {
                     <span>$
                         <?php echo $subtotal; ?>
                     </span>
-                    <a target="_blank" href="factura/generate_invoice_individual.php?order_id=<?php echo $order['id']; ?>" class="button">Factura</a>
-                    
+                    <a target="_blank" href="factura/generate_invoice_individual.php?order_id=<?php echo $order['id']; ?>" class="button">Reporte</a>
                 </div>
             </div>
+
         <?php endforeach; ?>
+
     </main>
     <?php include(__DIR__ . '/includes/footer.php'); ?>
-    <script>
-    </script>
 </body>
 
 </html>

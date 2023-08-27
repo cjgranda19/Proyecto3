@@ -12,6 +12,13 @@ if (!$stmt) {
     exit;
 }
 
+// Crear el documento XML unificado
+$xml = new DOMDocument("1.0", "UTF-8");
+$xml->formatOutput = true;
+
+$ordersElement = $xml->createElement("orders");
+$xml->appendChild($ordersElement);
+
 while ($row = mysqli_fetch_assoc($stmt)) {
     $stmt2 = mysqli_query(
         $conection,
@@ -20,100 +27,85 @@ while ($row = mysqli_fetch_assoc($stmt)) {
         LEFT JOIN recipe as r ON r.id = ordenes_recetas.receta_id
         WHERE orden_id = {$row['id']}"
     );
-    $recipes = [];
-    $totalPrice = 0; // Inicializar la variable para almacenar el total
-
-    while ($row2 = mysqli_fetch_assoc($stmt2)) {
-        $recipes[] = $row2;
-        $totalPrice += $row2['total']; // Sumar al total el valor calculado
-    }
-
-    $row['recipes'] = $recipes;
-    $row['totalPrice'] = $totalPrice;
-
-    // Crear el documento XML para esta orden
-    $xml = new DOMDocument("1.0", "UTF-8");
-    $xml->formatOutput = true;
 
     $orderElement = $xml->createElement("order");
-    $xml->appendChild($orderElement);
+    
+    $totalPrice = 0;
+    $recipesElement = $xml->createElement("recipes");
 
+    while ($row2 = mysqli_fetch_assoc($stmt2)) {
+        $recipeElement = $xml->createElement("recipe");
+        foreach ($row2 as $recipeKey => $recipeValue) {
+            $recipeField = $xml->createElement($recipeKey, $recipeValue);
+            $recipeElement->appendChild($recipeField);
+        }
+        $recipesElement->appendChild($recipeElement);
+        $totalPrice += $row2['total'];
+    }
+
+    $orderElement->appendChild($recipesElement);
     $totalElement = $xml->createElement("total", $totalPrice);
     $orderElement->appendChild($totalElement);
 
     foreach ($row as $key => $value) {
-        if ($key == 'recipes') {
-            $recipesElement = $xml->createElement("recipes");
-            foreach ($value as $recipe) {
-                $recipeElement = $xml->createElement("recipe");
-                foreach ($recipe as $recipeKey => $recipeValue) {
-                    $recipeField = $xml->createElement($recipeKey, $recipeValue);
-                    $recipeElement->appendChild($recipeField);
-                }
-                $recipesElement->appendChild($recipeElement);
-            }
-            $orderElement->appendChild($recipesElement);
-        } else {
-            $field = $xml->createElement($key, $value);
-            $orderElement->appendChild($field);
-        }
+        $field = $xml->createElement($key, $value);
+        $orderElement->appendChild($field);
     }
 
-    $xmlFilePath = "reporte_global/ordenes/orden_" . $row['id'] . ".xml";
-    $xml->save($xmlFilePath);
-
-
-    // Crear una instancia de FPDF
-    $pdf = new FPDF();
-    $pdf->AddPage();
-    $pdf->SetFont('Courier', '', 12);
-
-    // Leer el archivo XML correspondiente
-    $xml = simplexml_load_file($xmlFilePath);
-    $pdf->Image('../img/favicon.png', 165, 12, 35, 35, 'PNG');
-
-    // Encabezado
-    $pdf->SetFont('Courier', 'B', 16);
-    $pdf->Cell(0, 10, utf8_decode("Orden de producción"), 0, 1, 'C');
-    $pdf->SetFont('Courier', 'B', 12);
-    $pdf->Cell(0, 10, utf8_decode("Cliente: " . $xml->customer_name), 0, 1);
-    $pdf->Cell(0, 10, utf8_decode("Fecha de pedido: " . $xml->created_at), 0, 1);
-    $pdf->Cell(155); 
-    $pdf->Cell(35, 7, utf8_decode("Orden Nro. " . $xml->id), 0, 0, 'R');
-
-
-    $pdf->Ln(10);
-
-    // Tabla de productos
-    $pdf->SetFont('Courier', 'B', 12);
-    $pdf->SetFillColor(179, 0, 75); // Color de fondo azul claro
-    $pdf->Cell(80, 10, utf8_decode("Producto"), 1, 0, 'C', 1);
-    $pdf->Cell(40, 10, utf8_decode("Precio"), 1, 0, 'C', 1);
-    $pdf->Cell(30, 10, utf8_decode("Cantidad"), 1, 0, 'C', 1);
-    $pdf->Cell(40, 10, utf8_decode("Total"), 1, 1, 'C', 1);
-
-    $pdf->SetFont('Courier', '', 12);
-    foreach ($xml->recipes->recipe as $recipe) {
-        $pdf->Cell(80, 10, utf8_decode($recipe->name), 1);
-        $pdf->Cell(40, 10, utf8_decode("$" . $recipe->price), 1, 0, 'R');
-        $pdf->Cell(30, 10, utf8_decode($recipe->quantity), 1, 0, 'C');
-        $pdf->Cell(40, 10, utf8_decode("$" . $recipe->total), 1, 1, 'R');
-    }
-    $pdf->SetFont('Courier', 'B', 12);
-    $pdf->Cell(155); 
-    $pdf->Cell(0, 10, utf8_decode("Total: $" . $row['totalPrice']), 0, 1, 'C');
-
-    // Pie de página
-    $pdf->Ln(10);
-    $pdf->SetFont('Courier', 'BI', 10);
-    $fechaHoraActual = date("d/m/Y H:i:s");
-    $pdf->Cell(0, 10, utf8_decode("¡Fin de reporte!"), 0, 1, 'C');
-    $pdf->Cell(0, 10, utf8_decode($fechaHoraActual), 0, 1, 'C');
-
-
-    // Guardar o mostrar el PDF
-    $pdfFilePath = "reporte_global/ordenes/factura_" . $row['id'] . ".pdf";
-    $pdf->Output($pdfFilePath, "I"); // "F" para guardar el PDF en el servidor
-    $pdf->Output($pdfFilePath, "F"); 
-
+    $ordersElement->appendChild($orderElement);
 }
+
+$xmlFilePath = "reporte_global/ordenes/factura_general.xml";
+$xml->save($xmlFilePath);
+
+// Crear una instancia de FPDF
+$pdf = new FPDF();
+$pdf->AddPage();
+$pdf->SetFont('Arial', 'B', 16);
+$pdf->Cell(40, 10, 'Factura General');
+
+// Leer el archivo XML unificado
+$xml = simplexml_load_file($xmlFilePath);
+
+// Generar el contenido del PDF utilizando los datos del XML
+foreach ($xml->order as $order) {
+    $pdf->SetFont('Arial', 'B', 14);
+    $pdf->Ln(10);
+
+    $pdf->Image('../img/favicon.png', 165, 12, 35, 35, 'PNG');
+    $pdf->Cell(35, 7, utf8_decode("Orden Nro. " . $order->id), 0, 0, 'R');
+    $pdf->Ln(10);
+    
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(0, 10, 'Cliente: ' . $order->customer_name, 0, 1);
+    $pdf->Cell(0, 10, 'Fecha de pedido: ' . $order->created_at, 0, 1);
+    $pdf->Cell(0, 10, 'Total: $' . $order->total, 0, 1);
+
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->SetFillColor(179, 0, 75); // Color de fondo para encabezados de tabla
+    $pdf->Cell(60, 10, 'Producto', 1, 0, 'C', 1);
+    $pdf->Cell(40, 10, 'Precio', 1, 0, 'C', 1);
+    $pdf->Cell(30, 10, 'Cantidad', 1, 0, 'C', 1);
+    $pdf->Cell(40, 10, 'Total', 1, 1, 'C', 1);
+    $pdf->SetFont('Arial', '', 12);
+
+    foreach ($order->recipes->recipe as $recipe) {
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(60, 10, $recipe->name, 1);
+        $pdf->Cell(40, 10, '$' . $recipe->price, 1);
+        $pdf->Cell(30, 10, $recipe->quantity, 1);
+        $pdf->Cell(40, 10, '$' . $recipe->total, 1);
+        $pdf->Ln();
+    }
+
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(130, 10, 'Total:', 1);
+    $pdf->Cell(40, 10, '$' . $order->total, 1);
+    $pdf->Ln(15);
+}
+
+// Descargar el PDF
+$pdfFilePath = "reporte_global/ordenes/factura_general.pdf";
+$pdf->Output($pdfFilePath, "I");
+$pdf->Output($pdfFilePath, "F");
+?>
