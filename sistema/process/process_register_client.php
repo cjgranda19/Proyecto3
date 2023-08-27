@@ -31,7 +31,7 @@ if (empty($_POST['cedula']) || empty($_POST['nombre']) || empty($_POST['telefono
             } else {
                 $_SESSION['popup_message'] = 'Error al guardar';
             }
-            header("location: ../lista_cliente.php");
+            header("location: ../lista_clientes.php");
 
         }
     }
