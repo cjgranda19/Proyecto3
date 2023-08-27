@@ -116,110 +116,127 @@ while ($row = $query->fetch_assoc()) {
         crossorigin="anonymous"></script>
     <script
         src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
-    <script>
-        const recipes = <?php echo json_encode($recipes); ?>;
-        const addedRecipes = [];
-        let currentRecipe = null;
+   <script>
+    const recipes = <?php echo json_encode($recipes); ?>;
+    const addedRecipes = [];
+    let currentRecipe = null;
 
-        $('#recipe-item').autoComplete({
-            resolver: 'custom',
-            events: {
-                search: function (qry, callback) {
-                    const filtered = recipes
-                        .filter(recipe => recipe.name.toLowerCase().includes(qry.toLowerCase()))
-                        .map(recipe => ({
-                            value: recipe.id,
-                            text: recipe.name
-                        }));
-                    callback(filtered);
-                }
+    $('#recipe-item').autoComplete({
+        resolver: 'custom',
+        events: {
+            search: function (qry, callback) {
+                const filtered = recipes
+                    .filter(recipe => recipe.name.toLowerCase().includes(qry.toLowerCase()))
+                    .map(recipe => ({
+                        value: recipe.id,
+                        text: recipe.name
+                    }));
+                callback(filtered);
             }
-        });
+        }
+    });
 
-        $('#recipe-item').on('autocomplete.select', function (evt, item) {
-            currentRecipe = item;
-            return false;
-        });
+    $('#recipe-item').on('autocomplete.select', function (evt, item) {
+        currentRecipe = item;
+        return false;
+    });
 
-        const addRecipeButton = document.querySelector('#add-recipe');
+    const addRecipeButton = document.querySelector('#add-recipe');
 
-        addRecipeButton.addEventListener('click', () => {
-            if (currentRecipe === null) {
-                return;
-            }
+    addRecipeButton.addEventListener('click', () => {
+        if (currentRecipe === null) {
+            return;
+        }
 
-            const quantity = parseInt(document.querySelector('#recipe-quantity').value);
+        const quantity = parseInt(document.querySelector('#recipe-quantity').value);
 
-            if (quantity <= 0) {
-                return;
-            }
+        if (quantity <= 0) {
+            return;
+        }
 
-            const recipe = addedRecipes.find(recipe => recipe.id === currentRecipe.value);
+        const recipe = addedRecipes.find(recipe => recipe.id === currentRecipe.value);
 
-            if (recipe) {
-                const index = addedRecipes.findIndex(addedRecipe => addedRecipe.id === recipe.id);
-                addedRecipes[index].quantity += quantity;
-            } else {
+        if (recipe) {
+            const index = addedRecipes.findIndex(addedRecipe => addedRecipe.id === recipe.id);
+            addedRecipes[index].quantity += quantity;
+        } else {
+            // Check material availability before adding the recipe
+            const materialsAvailable = checkMaterialAvailability(currentRecipe.value, quantity);
+            
+            if (materialsAvailable) {
                 addedRecipes.push({
                     id: currentRecipe.value,
                     name: currentRecipe.text,
                     quantity: quantity
                 });
+            } else {
+                const errorDiv = document.querySelector('.ui-alert.error');
+                errorDiv.textContent = 'No hay suficientes materiales disponibles para esta receta.';
+                return;
             }
+        }
 
-            updateRecipesFields();
-            updateRecipeItems();
-            console.log($('#recipe-item').autoComplete('get'));
+        updateRecipesFields();
+        updateRecipeItems();
+    });
+
+    function checkMaterialAvailability(recipeId, quantity) {
+        // Implement the logic to check material availability for the given recipe and quantity
+        // Retrieve recipe materials and available quantities from the database
+        // Compare required material quantities with available quantities
+        // Return true if materials are available, false otherwise
+        return true; // Replace with your actual logic
+    }
+
+    function updateRecipesFields() {
+        const recipesFields = document.querySelector('#recipes-fields');
+        let index = 0;
+
+        recipesFields.innerHTML = '';
+
+        addedRecipes.forEach(recipe => {
+            const inputId = document.createElement('input');
+            const inputQuantity = document.createElement('input');
+
+            inputId.type = 'hidden';
+            inputId.name = `recipes[${index}][id]`;
+            inputId.value = recipe.id;
+
+            inputQuantity.type = 'hidden';
+            inputQuantity.name = `recipes[${index}][quantity]`;
+            inputQuantity.value = recipe.quantity;
+
+            recipesFields.appendChild(inputId);
+            recipesFields.appendChild(inputQuantity);
+            index++;
         });
+    }
 
-        function updateRecipesFields() {
-            const recipesFields = document.querySelector('#recipes-fields');
-            let index = 0;
+    function updateRecipeItems() {
+        const table = document.querySelector('.ui-table.recipes-added');
 
-            recipesFields.innerHTML = '';
+        const rows = table.querySelectorAll('.row:not(.header)');
+        rows.forEach(row => row.remove());
 
-            addedRecipes.forEach(recipe => {
-                const inputId = document.createElement('input');
-                const inputQuantity = document.createElement('input');
+        for (const recipe of addedRecipes) {
+            const template = document.querySelector('#added-recipes-table-template');
+            const clone = template.content.cloneNode(true);
 
-                inputId.type = 'hidden';
-                inputId.name = `recipes[${index}][id]`;
-                inputId.value = recipe.id;
+            clone.querySelector('.name').textContent = recipe.name;
+            clone.querySelector('.quantity').textContent = recipe.quantity;
+            table.appendChild(clone);
 
-                inputQuantity.type = 'hidden';
-                inputQuantity.name = `recipes[${index}][quantity]`;
-                inputQuantity.value = recipe.quantity;
-
-                recipesFields.appendChild(inputId);
-                recipesFields.appendChild(inputQuantity);
-                index++;
+            const deleteButton = table.querySelector('.delete:last-child');
+            deleteButton.addEventListener('click', () => {
+                const index = addedRecipes.findIndex(addedRecipe => addedRecipe.id === recipe.id);
+                addedRecipes.splice(index, 1);
+                updateRecipesFields();
+                updateRecipeItems();
             });
         }
+    }
+</script>
 
-        function updateRecipeItems() {
-            const table = document.querySelector('.ui-table.recipes-added');
-
-            const rows = table.querySelectorAll('.row:not(.header)');
-            rows.forEach(row => row.remove());
-
-            for (const recipe of addedRecipes) {
-                const template = document.querySelector('#added-recipes-table-template');
-                const clone = template.content.cloneNode(true);
-
-                clone.querySelector('.name').textContent = recipe.name;
-                clone.querySelector('.quantity').textContent = recipe.quantity;
-                table.appendChild(clone);
-
-                const deleteButton = table.querySelector('.delete:last-child');
-                deleteButton.addEventListener('click', () => {
-                    const index = addedRecipes.findIndex(addedRecipe => addedRecipe.id === recipe.id);
-                    addedRecipes.splice(index, 1);
-                    updateRecipesFields();
-                    updateRecipeItems();
-                });
-            }
-        }
-    </script>
 </body>
 
 </html>
