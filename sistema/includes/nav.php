@@ -24,7 +24,7 @@
 			
 		</li>
 		<li class="principal">
-			<a href="lista_htecnica.php"><i class="fa-solid fa-clipboard-list"></i> Hoja Tecnica</a>
+			<a href="#"><i class="fa-solid fa-clipboard-list"></i> Hoja Tecnica</a>
 			<ul>
 				<li><a href="lista_htecnica.php"><i class="fa-solid fa-list"></i> Lista</a></li>
 
@@ -36,7 +36,7 @@
 			</ul>
 		</li>
 		<li class="principal">
-			<a href="lista_ordenes.php"><i class="fa-solid fa-arrow-up-wide-short"></i> Órdenes</a>
+			<a href="#"><i class="fa-solid fa-arrow-up-wide-short"></i> Órdenes</a>
 			<ul>
 				<li><a href="lista_ordenes.php"><i class="fa-solid fa-list"></i> Lista de órdenes</a></li>
 				<li><a href="crear_orden.php"><i class="fa-solid fa-list"></i> Crear</a></li>
@@ -60,7 +60,7 @@
 			<?php
 			if ($_SESSION['rol'] == 1) {
 				?>
-				<a href="lista_clientes.php"><i class="fa-solid fa-person"></i> Reportes</a>
+				<a href="#"><i class="fa-solid fa-person"></i> Reportes</a>
 				<ul>
 					<li><a href="inventario_original.php">Inventario original</a></li>
 					<li><a href="report_product.php">Reporte Producto</a></li>
