@@ -61,7 +61,7 @@ $xml->save($xmlFilePath);
 // Crear una instancia de FPDF
 $pdf = new FPDF();
 $pdf->AddPage();
-$pdf->SetFont('Arial', 'B', 16);
+$pdf->SetFont('Courier', 'B', 16);
 $pdf->Cell(40, 10, 'Factura General');
 
 // Leer el archivo XML unificado
@@ -69,28 +69,28 @@ $xml = simplexml_load_file($xmlFilePath);
 
 // Generar el contenido del PDF utilizando los datos del XML
 foreach ($xml->order as $order) {
-    $pdf->SetFont('Arial', 'B', 14);
+    $pdf->SetFont('Courier', 'B', 14);
     $pdf->Ln(10);
 
     $pdf->Image('../img/favicon.png', 165, 12, 35, 35, 'PNG');
     $pdf->Cell(35, 7, utf8_decode("Orden Nro. " . $order->id), 0, 0, 'R');
     $pdf->Ln(10);
     
-    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetFont('Courier', '', 12);
     $pdf->Cell(0, 10, 'Cliente: ' . $order->customer_name, 0, 1);
     $pdf->Cell(0, 10, 'Fecha de pedido: ' . $order->created_at, 0, 1);
     $pdf->Cell(0, 10, 'Total: $' . $order->total, 0, 1);
 
-    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->SetFont('Courier', 'B', 12);
     $pdf->SetFillColor(179, 0, 75); // Color de fondo para encabezados de tabla
     $pdf->Cell(60, 10, 'Producto', 1, 0, 'C', 1);
     $pdf->Cell(40, 10, 'Precio', 1, 0, 'C', 1);
     $pdf->Cell(30, 10, 'Cantidad', 1, 0, 'C', 1);
     $pdf->Cell(40, 10, 'Total', 1, 1, 'C', 1);
-    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetFont('Courier', '', 12);
 
     foreach ($order->recipes->recipe as $recipe) {
-        $pdf->SetFont('Arial', '', 12);
+        $pdf->SetFont('Courier', '', 12);
         $pdf->Cell(60, 10, $recipe->name, 1);
         $pdf->Cell(40, 10, '$' . $recipe->price, 1);
         $pdf->Cell(30, 10, $recipe->quantity, 1);
@@ -98,7 +98,7 @@ foreach ($xml->order as $order) {
         $pdf->Ln();
     }
 
-    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->SetFont('Courier', 'B', 12);
     $pdf->Cell(130, 10, 'Total:', 1);
     $pdf->Cell(40, 10, '$' . $order->total, 1);
     $pdf->Ln(15);
