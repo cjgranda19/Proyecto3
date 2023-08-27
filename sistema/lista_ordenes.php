@@ -121,8 +121,8 @@ while ($row = mysqli_fetch_assoc($stmt)) {
                     <span>$
                         <?php echo $subtotal; ?>
                     </span>
-                    <a href="factura/generate_invoice.php?order_id=<?php echo $order['id']; ?>" class="button">Factura</a>
-
+                    <a target="_blank" href="factura/generate_invoice_individual.php?order_id=<?php echo $order['id']; ?>" class="button">Factura</a>
+                    
                 </div>
             </div>
         <?php endforeach; ?>

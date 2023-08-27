@@ -2,23 +2,29 @@
 include(dirname(__DIR__) . '../../conexion.php');
 global $conection;
 
-require "fpdf.php";
 
-$stmt = mysqli_query($conection, "SELECT * FROM ordenes");
+require('fpdf.php');
 
-if (!$stmt) {
-    $error = mysqli_error($conection);
-    echo $error;
-    exit;
-}
+if (isset($_GET['order_id'])) {
+    $order_id = $_GET['order_id'];
 
-while ($row = mysqli_fetch_assoc($stmt)) {
+    // Consulta para obtener los detalles de la orden seleccionada
+    $stmt = mysqli_query($conection, "SELECT * FROM ordenes WHERE id = $order_id");
+
+    if (!$stmt) {
+        $error = mysqli_error($conection);
+        echo $error;
+        exit;
+    }
+
+    $row = mysqli_fetch_assoc($stmt);
+
     $stmt2 = mysqli_query(
         $conection,
         "SELECT r.*, ordenes_recetas.quantity as quantity, ordenes_recetas.quantity * r.price as total
         FROM ordenes_recetas
         LEFT JOIN recipe as r ON r.id = ordenes_recetas.receta_id
-        WHERE orden_id = {$row['id']}"
+        WHERE orden_id = $order_id"
     );
     $recipes = [];
     $totalPrice = 0; // Inicializar la variable para almacenar el total
@@ -59,8 +65,11 @@ while ($row = mysqli_fetch_assoc($stmt)) {
         }
     }
 
-    $xmlFilePath = "reporte_global/ordenes/orden_" . $row['id'] . ".xml";
+    $xmlFilePath = "reporte_individual/ordenes/orden_" . $row['id'] . ".xml";
     $xml->save($xmlFilePath);
+
+   // echo "XML file generated for order ID {$row['id']}.\n";
+
 
 
     // Crear una instancia de FPDF
@@ -78,7 +87,7 @@ while ($row = mysqli_fetch_assoc($stmt)) {
     $pdf->SetFont('Courier', 'B', 12);
     $pdf->Cell(0, 10, utf8_decode("Cliente: " . $xml->customer_name), 0, 1);
     $pdf->Cell(0, 10, utf8_decode("Fecha de pedido: " . $xml->created_at), 0, 1);
-    $pdf->Cell(155); 
+    $pdf->Cell(155);
     $pdf->Cell(35, 7, utf8_decode("Orden Nro. " . $xml->id), 0, 0, 'R');
 
 
@@ -100,7 +109,7 @@ while ($row = mysqli_fetch_assoc($stmt)) {
         $pdf->Cell(40, 10, utf8_decode("$" . $recipe->total), 1, 1, 'R');
     }
     $pdf->SetFont('Courier', 'B', 12);
-    $pdf->Cell(155); 
+    $pdf->Cell(155);
     $pdf->Cell(0, 10, utf8_decode("Total: $" . $row['totalPrice']), 0, 1, 'C');
 
     // Pie de página
@@ -112,8 +121,11 @@ while ($row = mysqli_fetch_assoc($stmt)) {
 
 
     // Guardar o mostrar el PDF
-    $pdfFilePath = "reporte_global/ordenes/factura_" . $row['id'] . ".pdf";
+    $pdfFilePath = "reporte_individual/ordenes/factura_" . $row['id'] . ".pdf";
     $pdf->Output($pdfFilePath, "I"); // "F" para guardar el PDF en el servidor
     $pdf->Output($pdfFilePath, "F"); 
-
+    
 }
+
+?>
+
