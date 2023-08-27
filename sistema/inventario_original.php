@@ -19,7 +19,7 @@ include "../conexion.php";
     <style>
         .IO {
             position: fixed;
-            top: 60px;
+            bottom: 40px;
             right: 10px;
             border: 2px solid #eb4d4b;
             background: linear-gradient(to right, rgb(243, 37, 51), rgb(179, 0, 75));

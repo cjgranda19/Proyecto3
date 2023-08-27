@@ -104,6 +104,13 @@ foreach ($xml->order as $order) {
     $pdf->Ln(15);
 }
 
+$pdf->Ln(15);
+$pdf->SetFont('Courier', 'BI', 10);
+date_default_timezone_set("America/Guayaquil");
+$fechaHoraActual = date("d/m/Y H:i:s");
+$pdf->Cell(0, 10, utf8_decode("¡Fin de reporte!"), 0, 1, 'C');
+$pdf->Cell(0, 10, utf8_decode($fechaHoraActual), 0, 1, 'C');
+
 // Descargar el PDF
 $pdfFilePath = "reporte_global/ordenes/factura_general.pdf";
 $pdf->Output($pdfFilePath, "I");

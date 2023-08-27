@@ -115,6 +115,7 @@ if (isset($_GET['order_id'])) {
     // Pie de página
     $pdf->Ln(10);
     $pdf->SetFont('Courier', 'BI', 10);
+    date_default_timezone_set("America/Guayaquil");
     $fechaHoraActual = date("d/m/Y H:i:s");
     $pdf->Cell(0, 10, utf8_decode("¡Fin de reporte!"), 0, 1, 'C');
     $pdf->Cell(0, 10, utf8_decode($fechaHoraActual), 0, 1, 'C');

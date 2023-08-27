@@ -34,8 +34,8 @@ $second_date = $_GET['second_date'] ?? '';
 
 		.IO {
 			position: fixed;
-			bottom: 60px;
-			right: 10px;
+			bottom: 10px;
+			left: 265px;
 			border: 2px solid #eb4d4b;
 			background: linear-gradient(to right, rgb(243, 37, 51), rgb(179, 0, 75));
 			padding: 5px 10px;

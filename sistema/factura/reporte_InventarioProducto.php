@@ -4,9 +4,6 @@ global $conection;
 
 require "fpdf.php";
 
-$first_date = $_GET['first_date'] ?? '';
-$second_date = $_GET['second_date'] ?? '';
-
 // Crear el documento XML unificado
 $xml = new DOMDocument("1.0", "UTF-8");
 $xml->formatOutput = true;
@@ -14,66 +11,61 @@ $xml->formatOutput = true;
 $productsElement = $xml->createElement("products");
 $xml->appendChild($productsElement);
 
-$where_condition = '';
-if (!empty($first_date) && !empty($second_date)) {
-    $formatted_first_date = date('Y-m-d H:i:s', strtotime($first_date));
-    $formatted_second_date = date('Y-m-d H:i:s', strtotime($second_date));
-    $where_condition = "WHERE date_add BETWEEN '$formatted_first_date' AND '$formatted_second_date'";
-}
-
-$query = "SELECT * FROM product_i $where_condition";
+$query = "SELECT * FROM product_i";
 $result = mysqli_query($conection, $query);
 
+$allProducts = array(); // Un array para almacenar todos los productos
+
 while ($row = mysqli_fetch_assoc($result)) {
-    $productElement = $xml->createElement("product");
-
-    foreach ($row as $key => $value) {
-        $field = $xml->createElement($key, $value);
-        $productElement->appendChild($field);
-    }
-
-    $productsElement->appendChild($productElement);
+    $allProducts[] = $row; // Agregar cada producto al array
 }
 
-$xmlFilePath = "reporte_global/inventario/inventario.xml";
+$xmlFilePath = "reporte_global/inventario/inventarioProdcutos.xml";
 $xml->save($xmlFilePath);
 
-// Crear una instancia de FPDF
-$pdf = new FPDF();
+// Crear una instancia de FPDF con orientación horizontal
+$pdf = new FPDF('L');
 $pdf->AddPage();
-$pdf->SetFont('Arial', 'B', 16);
+$pdf->SetFont('Courier', 'B', 16);
 $pdf->Cell(0, 10, 'Reporte de Inventario Inicial', 0, 1, 'C');
+$pdf->Cell(0, 10, 'Citaviso', 0, 1, 'C');
 
 // Leer el archivo XML unificado
 $xml = simplexml_load_file($xmlFilePath);
+$pdf->Image('../img/favicon.png', 165, 12, 35, 35, 'PNG');
+$pdf->Ln(15);
 
-// Generar el contenido del PDF utilizando los datos del XML
-foreach ($xml->product as $product) {
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->SetFillColor(179, 0, 75); 
-    $pdf->Cell(60, 10, 'Campo', 1, 0, 'C', 1);
-    $pdf->Cell(0, 10, 'Valor', 1, 1, 'C', 1);
-    $pdf->SetFont('Arial', '', 12);
+// Generar una sola tabla con todos los productos
+$pdf->SetFont('Courier', 'B', 12);
+$pdf->SetFillColor(179, 0, 75); // Color de fondo para encabezados de tabla
+$pdf->Cell(40, 10, 'Codigo', 1);
+$pdf->Cell(40, 10, 'Nombre', 1);
+$pdf->Cell(40, 10, 'Proveedor', 1);
+$pdf->Cell(30, 10, 'Precio Actual', 1);
+$pdf->Cell(30, 10, 'Stock', 1);
+$pdf->Cell(50, 10, 'Fecha Registro', 1);
+$pdf->Ln();
 
-    $dataRows = array(
-        array('Codigo', utf8_decode($product->id_producto)),
-        array('Nombre', utf8_decode($product->name)),
-        array('Proveedor', utf8_decode($product->supplier)),
-        array('Precio', '$' . $product->price),
-        array('Stock', utf8_decode($product->stock)),
-        array('Fecha Registro', utf8_decode($product->date_add))
-    );
+$pdf->SetFont('Courier', '', 12);
 
-    foreach ($dataRows as $row) {
-        $pdf->Cell(60, 10, $row[0], 1);
-        $pdf->Cell(0, 10, $row[1], 1, 1);
-    }
-
-    $pdf->Ln(15);
+foreach ($allProducts as $product) {
+    $pdf->Cell(40, 10, utf8_decode($product['id_producto']), 1);
+    $pdf->Cell(40, 10, utf8_decode($product['name']), 1);
+    $pdf->Cell(40, 10, utf8_decode($product['supplier']), 1);
+    $pdf->Cell(30, 10, '$' . $product['price'], 1);
+    $pdf->Cell(30, 10, utf8_decode($product['stock']), 1);
+    $pdf->Cell(50, 10, utf8_decode($product['date_add']), 1);
+    $pdf->Ln();
 }
 
+$pdf->SetFont('Courier', 'BI', 10);
+date_default_timezone_set("America/Guayaquil");
+$fechaHoraActual = date("d/m/Y H:i:s");
+$pdf->Cell(0, 10, utf8_decode("¡Fin de reporte!"), 0, 1, 'C');
+$pdf->Cell(0, 10, utf8_decode($fechaHoraActual), 0, 1, 'C');
+
 // Descargar el PDF
-$pdfFilePath = "reporte_global/inventario/inventario.pdf";
+$pdfFilePath = "reporte_global/inventario/inventarioProductos.pdf";
 $pdf->Output($pdfFilePath, "I");
 $pdf->Output($pdfFilePath, "F");
 ?>
