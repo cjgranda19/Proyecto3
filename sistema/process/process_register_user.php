@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 $_SESSION['popup_message'] = 'Error al guardar producto: ' . mysqli_error($conection);
             }
-            header("location: ../lista_usuario.php");
+            header("location: ../lista_usuarios.php");
 
             mysqli_close($conection);
 
