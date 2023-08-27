@@ -51,7 +51,7 @@ include "../conexion.php";
                 <?php } ?>
             </tr>
             <?php
-            $sql_registe = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM product-i");
+            $sql_registe = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM product_i");
             $result_register = mysqli_fetch_array($sql_registe);
             $total_registro = $result_register['total_registro'];
 
@@ -66,7 +66,7 @@ include "../conexion.php";
             $desde = ($pagina - 1) * $por_pagina;
             $total_paginas = ceil($total_registro / $por_pagina);
 
-            $query = "SELECT p.id_producto, p.name, p.supplier, p.price, p.stock, p.date_add FROM product-i p ORDER BY p.codproducto ASC LIMIT $desde,$por_pagina";
+            $query = "SELECT p.id_producto, p.name, p.supplier, p.price, p.stock, p.date_add FROM product_i p ORDER BY p.id_producto ASC LIMIT $desde,$por_pagina";
 
             $result = mysqli_query($conection, $query);
 
