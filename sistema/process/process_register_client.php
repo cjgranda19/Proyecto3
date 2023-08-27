@@ -22,15 +22,17 @@ if (empty($_POST['cedula']) || empty($_POST['nombre']) || empty($_POST['telefono
         $result = mysqli_fetch_array($query);
 
         if ($result > 0) {
-            $alert = '<p class="msg_error">El número de cédula ya existe.</p>';
+            $_SESSION['popup_message'] = 'El usuario ya existe.';
         } else {
             $query_insert = mysqli_query($conection, "INSERT INTO cliente(cedula,nombre,telefono,direccion,usuario_id) VALUES('$cedula','$nombre','$telefono','$direccion','$usuario_id')");
 
             if ($query_insert) {
-                $alert = '<p class="msg_save">Cliente guardado correctamente.</p>';
+                $_SESSION['popup_message'] = 'Insercion exitosa';
             } else {
-                $alert = '<p class="msg_error">Error al guardar cliente.</p>';
+                $_SESSION['popup_message'] = 'Error al guardar';
             }
+            header("location: ../lista_cliente.php");
+
         }
     }
 }

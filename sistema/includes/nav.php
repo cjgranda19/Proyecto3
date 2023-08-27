@@ -64,7 +64,7 @@
 				<ul>
 					<li><a href="inventario_original.php">Inventario original</a></li>
 					<li><a href="report_product.php">Reporte Producto</a></li>
-
+					<li><a href="report_cliente.php">Reporte Cliente</a></li>
 				<?php } ?>
 			</ul>
 		</li>

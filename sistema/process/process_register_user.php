@@ -7,8 +7,8 @@ if ($_SESSION['rol'] != 1) {
     header("location: ./");
     exit();
 }
-$alert = '';
 
+$alert = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -18,34 +18,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $clave = md5($_POST['clave']);
     $rol = $_POST['rol'];
 
-    if (empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['usuario']) || empty($_POST['clave']) || empty($_POST['rol'])) {
+    if (empty($nombre) || empty($email) || empty($user) || empty($clave) || empty($rol)) {
         $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
     } else {
 
+        $query = "SELECT * FROM usuario WHERE usuario = '$user' OR correo = '$email'";
+        $result = mysqli_query($conection, $query);
 
-
-        $query = mysqli_query($conection, "SELECT * FROM usuario WHERE usuario = '$user' OR correo = '$email' ");
-        $result = mysqli_num_rows($query);
-
-        if ($result > 0) {
-            $alert = '<p class="msg_error">El correo o el usuario ya existe.</p>';
-        } else {
-            $query_insert = mysqli_query($conection, "INSERT INTO usuario(nombre,correo,usuario,clave,rol) VALUES('$nombre','$email','$user','$clave','$rol')");
-
-            $result = mysqli_query($conection, $query_insert);
-
-            if ($result) {
-                $_SESSION['popup_message'] = 'Inserción exitosa.';
-            } else {
-                $_SESSION['popup_message'] = 'Error al guardar producto: ' . mysqli_error($conection);
-            }
+        if ($result && mysqli_num_rows($result) > 0) {
+            $_SESSION['popup_message'] = 'Ya existe el usuario o correo';
             header("location: ../lista_usuarios.php");
 
-            mysqli_close($conection);
+        } else {
+            $query_insert = "INSERT INTO usuario(nombre, correo, usuario, clave, rol) VALUES('$nombre', '$email', '$user', '$clave', '$rol')";
+            $result_insert = mysqli_query($conection, $query_insert);
+
+            if ($result_insert) {
+                $_SESSION['popup_message'] = 'Inserción exitosa.';
+                header("location: ../lista_usuarios.php");
+
+            } else {
+                $_SESSION['popup_message'] = 'Error al guardar producto: ' . mysqli_error($conection);
+                header("location: ../lista_usuarios.php");
+
+            }
 
         }
+
+        mysqli_close($conection);
     }
 }
-echo $alert;
 
+echo $alert;
 ?>

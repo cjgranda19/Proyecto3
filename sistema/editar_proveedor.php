@@ -50,6 +50,7 @@ if($result_sql == 0){
 	while ($data = mysqli_fetch_array($sql)){
 		$idproveedor = $data['id_supplier'];
 		$proveedor = $data['proveedor'];
+		$correo = $data['correo'];
 		$contacto = $data['contacto'];
 		$telefono = $data['telefono'];
 		$direccion = $data['direccion'];
@@ -155,6 +156,10 @@ if($result_sql == 0){
 				<input type="text" name="proveedor" id="proveedor" placeholder="Nombre del proveedor" onkeyup="this.value=Letras(this.value)" value="<?php echo $proveedor; ?>">
 				<label for="contacto">Contacto: </label>
 				<input type="text" name="contacto" id="contacto"placeholder="Nombre completo del contacto" onkeyup="this.value=Letras(this.value)"  value="<?php echo $contacto; ?>">
+				<label for="email">Email: </label>
+				<input type="email" name="correo" id="correo" placeholder="texto@dominio.com" value="<?php echo $correo; ?>"
+					pattern="[a-zA-Z0-9!#$%&'*\/=?^_`\{\|\}~\+\-]([\.]?[a-zA-Z0-9!#$%&'*\/=?^_`\{\|\}~\+\-])+@[a-zA-Z0-9]([^@&%$\/\(\)=?¿!\.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?"
+					title="Ingresa un correo con dominio .com o .net válido" required>
 				<label for="telefono">Teléfono: </label>
 				<input type="text" name="telefono" id="telefono" placeholder="Teléfono" maxlength="10" minlength="10" onkeyup="this.value=Numeros(this.value)"  value="<?php echo $telefono; ?>">
 				<label for="direccion">Dirección: </label>

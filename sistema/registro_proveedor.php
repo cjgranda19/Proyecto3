@@ -34,19 +34,19 @@ include "../conexion.php";
 			</div>
 			<form id="registroForm" action="process/process_register_supplier.php" method="post">
 				<label for="proveedor">Proveedor: </label>
+				
 				<input type="text" name="proveedor" id="proveedor" placeholder="Nombre del proveedor">
-				<div id="mensajeErrorProveedor" style="color: red;"></div>
 				<label for="cedula">DNI: </label>
 				<input type="text" name="cedula" id="cedula" placeholder="Número de CI">
 				<div id="cedula" style="color: red;"></div>
 				<label for="contacto">Nombre: </label>
-				<input type="text" name="contacto" id="contacto" placeholder="Nombre completo del contacto">
-				<div id="mensajeErrorNombre" style="color: red;"></div>
+				<input type="text" id="contacto" name="contacto" placeholder="Nombre Apellido"
+					pattern="^[A-Za-z]+\s[A-Za-z]+$" title="El formato debe ser 'Nombre Apellido'" required>
 				<label for="telefono">Teléfono: </label>
-				<input type="text" name="telefono" id="telefono" placeholder="Teléfono">
+				<input type="text" name="telefono" id="telefono" placeholder="Teléfono" required>
 				<div id="mensajeErrorTelefono" style="color: red;"></div>
 				<label for=correo>Correo electónico: </label>
-				<input type="email" name="correo" id="correo" placeholder="texto@dominio.com">
+				<input type="email" name="correo" id="correo" placeholder="texto@dominio.com" required>
 				<div id="mensajeError" style="color: red;"></div>
 				<label for="direccion">Dirección: </label>
 				<input type="text" name="direccion" id="direccion" placeholder="Dirección completa">
