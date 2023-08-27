@@ -16,26 +16,32 @@ include "../conexion.php";
     <link rel="stylesheet" type="text/css" href="css/style_tables.css">
     <link rel="icon" type="image/jpg" href="img/favicon.png" />
 
+    <style>
+        .IO {
+            position: fixed;
+            top: 60px;
+            right: 10px;
+            border: 2px solid #eb4d4b;
+            background: linear-gradient(to right, rgb(243, 37, 51), rgb(179, 0, 75));
+            padding: 5px 10px;
+        }
+
+        .BT_IO {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+
 </head>
 
 <body>
     <?php include "includes/header.php"; ?>
     <section id="container">
-        <h1>Lista de Productos</h1>
+        <h1>Inventario inicial</h1>
 
-        <?php if ($_SESSION['rol'] == 1) { ?>
-            <a href="javascript:void(0);" onclick="loadPopupContent('registro_producto.php',event);" class="btn_new">Nuevo
-                producto</a>
-
-            <a href="javascript:void(0);" onclick="loadPopupContent('ingreso_producto.php',event);" class="btn_new">Ingreso
-                Producto</a>
-
-        <?php } ?>
-
-        <form action="buscar_producto.php" method="get" class="form_search">
-            <input type="text" name="busqueda" id="busqueda" placeholder="Buscar">
-            <input type="submit" class="btn_search">
-        </form>
+        <div class="IO">
+            <a class="BT_IO" target="_blank" href="factura/reporte_inventarioInicial.php">Reporte General</a>
+        </div>
 
         <table>
             <tr>
@@ -44,11 +50,7 @@ include "../conexion.php";
                 <th>Proveedor</th>
                 <th>Precio</th>
                 <th>Stock</th>
-                <?php
-                if ($_SESSION['rol'] == 1) {
-                    ?>
-                    <th>Acciones</th>
-                <?php } ?>
+                <th>Fecha Registro</th>
             </tr>
             <?php
             $sql_registe = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM product_i");
@@ -75,7 +77,7 @@ include "../conexion.php";
             }
 
             while ($data = mysqli_fetch_array($result)) {
-                ?>
+            ?>
                 <tr>
                     <td>
                         <?php echo $data['id_producto']; ?>
@@ -97,17 +99,17 @@ include "../conexion.php";
                     </td>
                 </tr>
             <?php } ?>
-            
+
         </table>
 
         <div class="paginador">
             <ul>
                 <?php
                 if ($pagina != 1) {
-                    ?>
+                ?>
                     <li><a href="?pagina=<?php echo 1; ?>"><i class="fa-solid fa-backward-step"></i></a></li>
                     <li><a href="?pagina=<?php echo $pagina - 1; ?>"><i class="fa-solid fa-backward"></i></a></li>
-                    <?php
+                <?php
                 }
                 for ($i = 1; $i <= $total_paginas; $i++) {
                     if ($i == $pagina) {
@@ -118,7 +120,7 @@ include "../conexion.php";
                 }
 
                 if ($pagina != $total_paginas) {
-                    ?>
+                ?>
                     <li><a href="?pagina=<?php echo $pagina + 1; ?>"><i class="fa-solid fa-forward"></i></a></li>
                     <li><a href="?pagina=<?php echo $total_paginas; ?> "><i class="fa-solid fa-forward-step"></i></a></li>
                 <?php } ?>

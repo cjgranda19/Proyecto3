@@ -70,7 +70,7 @@
 				?>
 				<a href="lista_clientes.php"><i class="fa-solid fa-person"></i> Reportes</a>
 				<ul>
-					<li><a href="inventario_original.php">Inventario original</a></li>
+					<li><a href="inventario_original.php">Inventario inicial</a></li>
 					<li><a href="registro_cliente.php">Reportess</a></li>
 
 				<?php } ?>
