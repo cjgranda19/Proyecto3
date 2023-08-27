@@ -7,8 +7,7 @@ function getOldAndNewValues($conection, $codproducto, $precio, $proveedor, $cant
 {
     $query_producto = mysqli_query($conection, "SELECT * FROM producto WHERE codproducto = $codproducto");
     $result_producto = mysqli_fetch_assoc($query_producto);
-    $precio = isset($_POST['precio']) ? floatval($_POST['precio']) : 0;
-    $cantidad = isset($_POST['cantidad']) ? intval($_POST['cantidad']) : 0;
+
 
     $old_price = $result_producto['precio'];
     $new_price = $precio;
@@ -39,71 +38,70 @@ if (!empty($_POST)) {
     $alert = '';
 
     $codproducto = $_POST['codproducto'];
-
     $proveedor = $_POST['proveedor'];
     $precio = $_POST['precio'];
     $cantidad = $_POST['cantidad'];
     $usuario_id = $_SESSION['idUser'];
+    $values = getOldAndNewValues($conection, $codproducto, $precio, $proveedor, $cantidad);
 
 
-    $query_update = mysqli_query($conection, "UPDATE producto SET precio ='$precio', usuario_id= '$usuario_id', existencia = existencia + '$cantidad'  WHERE  codproducto = $codproducto");
+    $changes = array();
+
+    if ($values['new_price'] != $values['old_price']) {
+        $changes['precio'] = array(
+            'anterior' => $values['old_price'],
+            'nuevo' => $values['new_price']
+        );
+    } else {
+        $changes['precio'] = array(
+            'anterior' => $values['old_price'],
+            'nuevo' => $values['old_price']
+        );
+    }
+
+    if ($values['new_supplier'] != $values['old_supplier']) {
+        $changes['proveedor'] = array(
+            'anterior' => $values['old_supplier'],
+            'nuevo' => $values['new_supplier']
+        );
+    } else {
+        $changes['proveedor'] = array(
+            'anterior' => $values['old_supplier'],
+            'nuevo' => $values['old_supplier']
+        );
+    }
+
+
+
+    if ($values['new_stock'] != $values['old_stock']) {
+        $changes['stock'] = array(
+            'anterior' => $values['old_stock'],
+            'nuevo' => $values['new_stock']
+        );
+    } else {
+        $changes['stock'] = array(
+            'anterior' => $values['old_stock'],
+            'nuevo' => $values['old_stock']
+        );
+    }
+
+    if (!empty($changes)) {
+        $changes_json = json_encode($changes);
+
+
+        $query_audit = mysqli_query($conection, "INSERT INTO product_log_update (producto_id, usuario_id,cambios, old_price, new_price, old_supplier, new_supplier, old_stock, new_stock) VALUES ('$codproducto', '$usuario_id', '$changes_json', '{$values['old_price']}', '{$values['new_price']}', '{$values['old_supplier']}', '{$values['new_supplier']}', '{$values['old_stock']}', '{$values['new_stock']}')");
+        if (!$query_audit) {
+
+        }
+    }
+
+    $query_update = mysqli_query($conection, "UPDATE producto SET proveedor='$proveedor', precio ='$precio', usuario_id= '$usuario_id', existencia = existencia + '$cantidad'  WHERE  codproducto = $codproducto");
 
     if ($query_update) {
         $alert = '<p class="msg_save">Producto editado correctamente.</p>';
 
 
-        $values = getOldAndNewValues($conection, $codproducto, $precio, $proveedor, $cantidad);
-
-
-        $changes = array();
-
-        if ($values['new_price'] != $values['old_price']) {
-            $changes['precio'] = array(
-                'anterior' => $values['old_price'],
-                'nuevo' => $values['new_price']
-            );
-        } else {
-            $changes['precio'] = array(
-                'anterior' => $values['old_price'],
-                'nuevo' => $values['old_price']
-            );
-        }
-
-        if ($values['new_supplier'] != $values['old_supplier']) {
-            $changes['proveedor'] = array(
-                'anterior' => $values['old_supplier'],
-                'nuevo' => $values['new_supplier']
-            );
-        } else {
-            $changes['proveedor'] = array(
-                'anterior' => $values['old_supplier'],
-                'nuevo' => $values['old_supplier']
-            );
-        }
-
-
-
-        if ($values['new_stock'] != $values['old_stock']) {
-            $changes['stock'] = array(
-                'anterior' => $values['old_stock'],
-                'nuevo' => $values['new_stock']
-            );
-        } else {
-            $changes['stock'] = array(
-                'anterior' => $values['old_stock'],
-                'nuevo' => $values['old_stock']
-            );
-        }
-
-        if (!empty($changes)) {
-            $changes_json = json_encode($changes);
-
-
-            $query_audit = mysqli_query($conection, "INSERT INTO product_log_update (producto_id, usuario_id,cambios, old_price, new_price, old_supplier, new_supplier, old_stock, new_stock) VALUES ('$codproducto', '$usuario_id', '$changes_json', '{$values['old_price']}', '{$values['new_price']}', '{$values['old_supplier']}', '{$values['new_supplier']}', '{$values['old_stock']}', '{$values['new_stock']}')");
-            if (!$query_audit) {
-
-            }
-        }
+        
 
         header("location: ../lista_producto.php");
     } else {
