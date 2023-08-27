@@ -160,17 +160,53 @@ while ($row = $query->fetch_assoc()) {
                 const index = addedRecipes.findIndex(addedRecipe => addedRecipe.id === recipe.id);
                 addedRecipes[index].quantity += quantity;
             } else {
-                addedRecipes.push({
-                    id: currentRecipe.value,
-                    name: currentRecipe.text,
-                    quantity: quantity
-                });
+                const materialsAvailable = checkMaterialAvailability(currentRecipe.value, quantity);
+
+                if (materialsAvailable) {
+                    addedRecipes.push({
+                        id: currentRecipe.value,
+                        name: currentRecipe.text,
+                        quantity: quantity
+                    });
+                } else {
+                    const errorDiv = document.querySelector('.ui-alert.error');
+                    errorDiv.textContent = 'No hay suficientes materiales disponibles para esta receta.';
+                    return;
+                }
             }
 
             updateRecipesFields();
             updateRecipeItems();
-            console.log($('#recipe-item').autoComplete('get'));
         });
+
+        function checkMaterialAvailability($recipeId, $quantity) {
+            global $conection;
+
+            $query = mysqli_query($conection, "SELECT id_product_rule, cantidad FROM rule_recipe WHERE recipe_id = $recipeId");
+            $recipeMaterials = [];
+
+            while ($row = $query -> fetch_assoc()) {
+                $recipeMaterials[$row['id_product_rule']] = $row['quantity_required'] * $quantity;
+            }
+
+            foreach($recipeMaterials as $materialId => $requiredQuantity) {
+                $query = mysqli_query($conection, "SELECT existencia FROM producto WHERE id = $materialId");
+
+                if ($query) {
+                    $row = $query -> fetch_assoc();
+                    $availableQuantity = $row['existencia'];
+
+                    if ($requiredQuantity > $availableQuantity) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
 
         function updateRecipesFields() {
             const recipesFields = document.querySelector('#recipes-fields');
@@ -220,6 +256,7 @@ while ($row = $query->fetch_assoc()) {
             }
         }
     </script>
+
 </body>
 
 </html>
