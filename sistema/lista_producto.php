@@ -1,7 +1,10 @@
 <?php
 session_start();
 include "../conexion.php";
-
+if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
+    header("location: ./");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +28,7 @@ include "../conexion.php";
             <?php
             echo isset($alert) ? $alert : '';
             echo isset($_SESSION['popup_message']) ? '<p class="msg_info" id="popupMessage">' . $_SESSION['popup_message'] . '</p>' : '';
-            unset($_SESSION['popup_message']); 
+            unset($_SESSION['popup_message']);
             ?>
         </div>
 
@@ -40,7 +43,7 @@ include "../conexion.php";
 
         <h1>Lista de Productos</h1>
 
-        <?php if ($_SESSION['rol'] == 1) { ?>
+        <?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) { ?>
             <a href="javascript:void(0);" onclick="loadPopupContent('registro_producto.php',event);" class="btn_new">Nuevo
                 producto</a>
 

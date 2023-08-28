@@ -1,8 +1,10 @@
 <?php
 session_start();
-if ($_SESSION['rol'] != 1) {
+if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
 	header("location: ./");
+	exit;
 }
+
 include "../conexion.php";
 ?>
 
@@ -40,7 +42,7 @@ include "../conexion.php";
 		</script>
 
 		<h1>Lista de proveedores</h1>
-		<?php if ($_SESSION['rol'] == 1) { ?>
+		<?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) { ?>
 			<a href="javascript:void(0);" onclick="loadPopupContent('registro_proveedor.php',event);" class="btn_new">Nuevo
 				producto</a>
 

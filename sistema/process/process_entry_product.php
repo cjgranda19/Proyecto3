@@ -26,7 +26,7 @@ function getOldAndNewValues($conection, $codproducto, $precio, $proveedor, $cant
 }
 
 session_start();
-if ($_SESSION['rol'] != 1) {
+if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
     header("location: ../");
 }
 include "../../conexion.php";

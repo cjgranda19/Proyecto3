@@ -2,8 +2,9 @@
 session_start();
 include "../../conexion.php";
 
-if ($_SESSION['rol'] != 1) {
-    header("location: ./");
+if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
+	header("location: ./");
+	exit;
 }
 
 $alert = '';

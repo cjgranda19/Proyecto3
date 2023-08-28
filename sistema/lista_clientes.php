@@ -1,7 +1,6 @@
 <?php
 session_start();
 include "../conexion.php";
-
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +40,7 @@ include "../conexion.php";
 		</script>
 
 		<h1>Lista de Clientes </h1>
-		<?php if ($_SESSION['rol'] == 1) { ?> <a href="javascript:void(0);"
+		<?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 5)  { ?> <a href="javascript:void(0);"
 				onclick="loadPopupContent('registro_cliente.php',event);" class="btn_new">Nuevo
 				cliente</a>
 				<a href="javascript:void(0);"

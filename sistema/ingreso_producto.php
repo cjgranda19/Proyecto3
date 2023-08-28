@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['rol'] != 1) {
+if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
     header("location: ../");
 }
 include "../conexion.php";
@@ -31,7 +31,6 @@ mysqli_close($conection);
     <section id="container-2">
         <div class="form_register">
             <h1>Ingreso a bodega</h1>
-            <hr>
             <div class="alert">
                 <?php echo isset($alert) ? $alert : ''; ?>
             </div>

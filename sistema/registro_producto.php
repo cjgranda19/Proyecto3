@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if ($_SESSION['rol'] != 1) {
+if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
     header("location: ./");
 }
 include "../conexion.php";
@@ -23,7 +23,7 @@ include "../conexion.php";
 	<span class="close-button" onclick="closePopup()">&times;</span>
 
 		<div class="form_register">
-			<hr>
+			
 			<div class="alert">
 				<?php echo isset($alert) ? $alert : ''; ?>
 			</div>
