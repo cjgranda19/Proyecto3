@@ -25,6 +25,7 @@ if ($_SESSION['rol'] != 1) {
 	<?php include "includes/scripts.php"; ?>
 	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
 	<title>Lista Productos</title>
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
 </head>
 
 <body>

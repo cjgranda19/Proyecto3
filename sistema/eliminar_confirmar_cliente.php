@@ -52,6 +52,7 @@
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
 	<title>ELiminar cliente</title>
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
 </head>
 
 <style>

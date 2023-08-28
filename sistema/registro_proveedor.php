@@ -17,6 +17,8 @@ include "../conexion.php";
 	<?php include "includes/scripts.php"; ?>
 	<title>Registro Proveedor</title>
 	<link rel="stylesheet" type="text/css" href="css/popup.css">
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+
 
 </head>
 

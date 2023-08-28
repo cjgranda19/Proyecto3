@@ -30,6 +30,7 @@ while ($row = $query->fetch_assoc()) {
     <?php include "includes/scripts.php"; ?>
     <title>Crear orden</title>
     <link rel="stylesheet" href="./css/crear_orden.css">
+    <link rel="icon" type="image/jpg" href="img/favicon.png" />
 
 </head>
 

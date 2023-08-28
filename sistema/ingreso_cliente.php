@@ -22,6 +22,8 @@ mysqli_close($conection);
     <meta charset="UTF-8">
     <title>Editar Cliente</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" type="image/jpg" href="img/favicon.png" />
+
 </head>
 
 <body>

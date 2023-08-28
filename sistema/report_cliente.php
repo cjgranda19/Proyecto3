@@ -12,9 +12,11 @@ $second_date_mysql = date('Y-m-d H:i:s', strtotime($second_date));
 
 <head>
 	<meta charset="utf-8">
-	<title>Documento sin título</title>
+	<title>Reporte Cliente</title>
 	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+
 </head>
 
 <body>

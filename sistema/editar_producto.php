@@ -61,6 +61,7 @@
     <?php include "includes/scripts.php"; ?>
     <title>Actualizar Producto</title>
     <link rel="stylesheet" href="css/editar_producto.css">
+    <link rel="icon" type="image/jpg" href="img/favicon.png" />
 </head>
 <body>
     <?php include "includes/header.php"; ?>
@@ -102,6 +103,5 @@
             </form>
         </div>
     </section>
-    <?php include "includes/footer.php"; ?>
 </body>
 </html>

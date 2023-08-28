@@ -21,6 +21,8 @@ $result_rol = mysqli_num_rows($query_rol);
 	<script src="js/validacion.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="css/popup.css">
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+
 </head>
 
 <body>

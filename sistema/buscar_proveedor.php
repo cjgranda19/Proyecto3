@@ -14,6 +14,7 @@
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
 	<title>Lista de proveedores</title>
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
 	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
 
 </head>

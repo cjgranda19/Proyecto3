@@ -14,6 +14,8 @@ include "../conexion.php";
 	<meta charset="UTF-8">
 	<title>Registro Producto</title>
 	<link rel="stylesheet" href="css/popup.css">
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+
 </head>
 
 <body>

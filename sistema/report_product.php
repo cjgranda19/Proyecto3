@@ -12,9 +12,11 @@ $second_date = $_GET['second_date'] ?? '';
 
 <head>
 	<meta charset="utf-8">
-	<title>Documento sin título</title>
+	<title>Reporte Producto</title>
 	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+
 
 </head>
 

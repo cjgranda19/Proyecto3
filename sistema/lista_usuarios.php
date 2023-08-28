@@ -45,7 +45,7 @@ include "../conexion.php";
 		<h1>Lista de usuarios</h1>
 		<?php if ($_SESSION['rol'] == 1) { ?>
 			<a href="javascript:void(0);" onclick="loadPopupContent('registro_usuario.php',event);" class="btn_new">Nuevo
-				producto</a>
+				usuario</a>
 
 		<?php } ?>
 

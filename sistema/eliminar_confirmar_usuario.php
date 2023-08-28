@@ -53,6 +53,7 @@
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
 	<title>ELiminar usuario</title>
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
 </head>
 
 <style>

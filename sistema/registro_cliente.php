@@ -12,6 +12,8 @@ include "../conexion.php";
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
 	<title>Registro Destinatario</title>
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+
 </head>
 
 <body>

@@ -87,6 +87,7 @@ if ($result_sql == 0) {
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
 	<title>Actualizar Usuario</title>
+	<link rel="icon" type="image/jpg" href="img/favicon.png" />
 </head>
 
 <style>

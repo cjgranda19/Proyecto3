@@ -51,6 +51,8 @@ if ($update_id) {
     <title>Hoja Tecnica - Registro
     </title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" type="image/jpg" href="img/favicon.png" />
+
     <style>
         .ingredients-list {
             background: #c3e6ff;
