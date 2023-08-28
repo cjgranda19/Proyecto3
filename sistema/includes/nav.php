@@ -29,7 +29,7 @@
 
 
 
-		<?php if ($_SESSION['rol'] == 3) { ?>
+		<?php if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 1 ) { ?>
 			<li class="principal">
 				<a href="lista_htecnica.php"><i class="fa-solid fa-clipboard-list"></i> Hoja Técnica</a>
 				<ul>
