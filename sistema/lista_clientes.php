@@ -11,6 +11,7 @@ include "../conexion.php";
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
 	<title>Lista Clientes</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
 	<link rel="stylesheet" type="text/css" href="css/popup.css">
 	<link rel="icon" type="image/jpg" href="img/favicon.png" />
@@ -42,6 +43,9 @@ include "../conexion.php";
 		<h1>Lista de Clientes </h1>
 		<?php if ($_SESSION['rol'] == 1) { ?> <a href="javascript:void(0);"
 				onclick="loadPopupContent('registro_cliente.php',event);" class="btn_new">Nuevo
+				cliente</a>
+				<a href="javascript:void(0);"
+				onclick="loadPopupContent('ingreso_cliente.php',event);" class="btn_new">Editar
 				cliente</a>
 		<?php } ?>
 		<form action="buscar_cliente.php" method="get" class="form_search">
@@ -99,9 +103,7 @@ include "../conexion.php";
 							<?php echo $data['direccion']; ?>
 						</td>
 						<td>
-							<a class="link_edit" href="editar_cliente.php?id=<?php echo $data['id_cliente']; ?>"><i
-									class="fa-solid fa-pen-to-square"></i> Editar</a>
-
+							
 							<?php if ($_SESSION['rol'] == 1) { ?>
 								<a class="link_delete"
 									href="eliminar_confirmar_cliente.php?id=<?php echo $data['id_cliente']; ?>"><i

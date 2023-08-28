@@ -41,7 +41,6 @@ if (!empty($_POST)) {
     $usuario_id = $_SESSION['idUser'];
     $values = getOldAndNewValues($conection, $codproducto, $precio, $proveedor, $cantidad);
 
-
     $changes = array();
 
     if ($values['new_price'] != $values['old_price']) {
@@ -84,10 +83,9 @@ if (!empty($_POST)) {
 
     if (!empty($changes)) {
         $changes_json = json_encode($changes);
-
-
         $query_audit = mysqli_query($conection, "INSERT INTO product_log_update (producto_id, usuario_id,cambios, old_price, new_price, old_supplier, new_supplier, old_stock, new_stock) VALUES ('$codproducto', '$usuario_id', '$changes_json', '{$values['old_price']}', '{$values['new_price']}', '{$values['old_supplier']}', '{$values['new_supplier']}', '{$values['old_stock']}', '{$values['new_stock']}')");
         if (!$query_audit) {
+            $alert = '<p class="msg_save">Producto editado correctamente.</p>';
 
         }
     }
@@ -96,10 +94,6 @@ if (!empty($_POST)) {
 
     if ($query_update) {
         $alert = '<p class="msg_save">Producto editado correctamente.</p>';
-
-
-        
-
         header("location: ../lista_producto.php");
     } else {
         $alert = '<p class="msg_error">Error al editar producto.</p>';

@@ -31,22 +31,44 @@ function loadPopupContent(contentUrl) {
     xhr.send();
 }
 
-function populateFields() {
+function populateFieldsProductos() {
     var selectedProductId = $("#producto").val();
 
     $.ajax({
         type: "POST",
-        url: "ajax.php", // Replace with the actual path to your ajax.php file
+        url: "ajax.php", // Reemplaza con la ruta real hacia tu archivo ajax.php
         data: { action: "getProducts", id: selectedProductId },
         dataType: "json",
         success: function (response) {
             if (response.length > 0) {
                 var product = response[0];
                 $("#codproducto").val(product.codproducto);
-                $("#proveedor").val(product.proveedor); // Corrected this line
+                $("#proveedor").val(product.proveedor); // Corregida esta línea
                 $("#precio").val(product.precio);
                 $("#cantidad").val(product.cantidad);
             }
         }
     });
 }
+
+function populateFieldsClientes() {
+    var selectedClienteId = $("#cliente").val();
+
+    $.ajax({
+        type: "POST",
+        url: "ajax.php", 
+        data: { action: "getClientes", id_cliente: selectedClienteId },
+        dataType: "json",
+        success: function (response) {
+            if (response.length > 0) {
+                var cliente = response[0];
+                $("#id_cliente").val(cliente.id_cliente);
+                $("#nombre").val(cliente.nombre);
+                $("#cedula").val(cliente.cedula);
+                $("#telefono").val(cliente.telefono);
+                $("#direccion").val(cliente.direccion);
+            }
+        }
+    });
+}
+

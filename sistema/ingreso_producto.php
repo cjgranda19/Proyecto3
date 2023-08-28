@@ -7,7 +7,7 @@ include "../conexion.php";
 
 $query_producto = mysqli_query($conection, "SELECT * FROM producto");
 $query_proveedor = mysqli_query($conection, "SELECT * FROM proveedor WHERE estatus = 1 ORDER BY proveedor ASC");
-$producto_info = array(); 
+$producto_info = array();
 
 $query_info = mysqli_query($conection, "SELECT codproducto, precio, proveedor FROM producto");
 while ($info = mysqli_fetch_assoc($query_info)) {
@@ -38,7 +38,7 @@ mysqli_close($conection);
             <form id="entryForm" action="process/process_entry_product.php" method="post">
                 <input type="hidden" name="codproducto" id="codproducto" value="">
                 <label for="producto">Producto: </label>
-                <select name="producto" id="producto" required onchange="populateFields()">
+                <select name="producto" id="producto" required onchange="populateFieldsProductos()">
                     <option value="" disabled selected>Selecciona un producto</option>
                     <?php
                     while ($producto = mysqli_fetch_array($query_producto)) {

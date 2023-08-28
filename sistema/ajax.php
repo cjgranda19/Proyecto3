@@ -23,6 +23,24 @@ if (!empty($_POST)) {
 		exit;
 	}
 
+	if ($_POST['action'] == 'getClientes') {
+		$id_cliente = intval($_POST['id_cliente'] ?? 0);
+		$query = mysqli_query($conection, "SELECT * FROM cliente " . ($id_cliente > 0 ? "WHERE id_cliente = $id_cliente" : ""));
+
+		mysqli_close($conection);
+		$result = mysqli_num_rows($query);
+		$clientes = [];
+
+		if ($result > 0) {
+			while ($row = mysqli_fetch_assoc($query)) {
+				$clientes[] = $row;
+			}
+		}
+
+		echo json_encode($clientes, JSON_UNESCAPED_UNICODE);
+		exit;
+	}
+
 	if ($_POST['action'] == 'infoProducto') {
 		$producto_id = $_POST['producto'];
 
@@ -40,7 +58,8 @@ if (!empty($_POST)) {
 		exit;
 	}
 
-	// Buscar cliente
+
+
 	if ($_POST['action'] == 'searchCliente') {
 		if (!empty($_POST['cliente'])) {
 			$cedula = $_POST['cliente'];
@@ -62,12 +81,12 @@ if (!empty($_POST)) {
 
 	}
 
-	
+
 	// Buscar Producto
 	if ($_POST['action'] == 'searchProduct') {
 		if (!empty($_POST['producto'])) {
 			$producto = $_POST['producto'];
-			
+
 			$query = mysqli_query($conection, "SELECT * FROM producto WHERE descripcion LIKE '%$producto%' AND estatus = 1 ");
 			mysqli_close($conection);
 			$result = mysqli_num_rows($query);
@@ -85,7 +104,7 @@ if (!empty($_POST)) {
 
 	}
 }
-			
+
 exit;
 
 ?>

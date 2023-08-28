@@ -1,4 +1,3 @@
-@import url(../fonts/GothamBook.css);
 @import url(../fonts/GothamBold.css);
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&display=swap');
 
@@ -168,13 +167,12 @@ nav a {
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: background .5s;
-    border-bottom: 1px solid #319B8F;
+    border-bottom: 1px solid #ededed;
     text-align: left;
     width: 100%;
 }
 
 nav .principal>a {
-    background: url(../images/arrow_bottom.png) no-repeat;
     background-size: 10px;
     background-position: 94% center;
 }
@@ -604,9 +602,6 @@ input[type="submit"]:hover {
 
 .alert {
     padding: 10px;
-    background-color: #f3f3f3;
-    border: 1px solid #ccc;
-    border-radius: 5px;
     margin-bottom: 20px;
     position: relative;
 }
