@@ -32,7 +32,7 @@ input, select{
 table{
     border-collapse: collapse;
     font-size: 12pt;
-    font-family: 'GothamBook';
+    font-family: 'Roboto', sans-serif;
     width: 100%;
 }
 

@@ -96,7 +96,7 @@ if($result_sql == 0){
 	label{
 		display: block;
 		font-size: 12pt;
-		font-family: 'GothamBook';
+		font-family: 'Roboto', sans-serif;
 		margin: 15px auto 5px auto;
 	}
 

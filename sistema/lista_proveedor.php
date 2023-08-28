@@ -55,6 +55,7 @@ include "../conexion.php";
 				<th>ID</th>
 				<th>Proveedor</th>
 				<th>Contacto</th>
+				<th>Cedula</th>
 				<th>Teléfono</th>
 				<th>Dirección</th>
 				<th>Fecha</th>
@@ -98,6 +99,8 @@ include "../conexion.php";
 						<td>
 							<?php echo $data['contacto']; ?>
 						</td>
+						<td>
+							<?php echo $data['cedula']; ?>
 						<td>
 							<?php echo $data['telefono']; ?>
 						</td>
