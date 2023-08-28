@@ -40,7 +40,7 @@ include "../conexion.php";
         <h1>Inventario inicial</h1>
 
         <div class="IO">
-            <a class="BT_IO" target="_blank" href="factura/reporte_inventarioInicial.php">Reporte General</a>
+            <a class="BT_IO" target="_blank" href="factura/reporte_InventarioInicial.php">Reporte General</a>
         </div>
 
         <table>
