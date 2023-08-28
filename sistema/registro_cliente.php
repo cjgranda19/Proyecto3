@@ -25,9 +25,9 @@ include "../conexion.php";
 			<form id="registroForm" action="process/process_register_client.php" method="post">
 				<label for="cedula">Cédula: </label>
 				<input type="text" name="cedula" id="cedula" placeholder="Número de CI">
-				<div id="cedula" style="color: red;"></div>
 				<label for="nombre">Nombre: </label>
-				<input type="text" name="nombre" placeholder="Nombre Apellido">
+				<input type="text" id="nombre" name="nombre" placeholder="Nombre Apellido"
+					pattern="^[A-Za-z]+\s[A-Za-z]+$" title="El formato debe ser 'Nombre Apellido'" required>
 				<div id="mensajeErrorNombre" style="color: red;"></div>			
 				<label for="telefono">Teléfono: </label>
 				<input type="text" name="telefono" id="telefono" placeholder="Teléfono">

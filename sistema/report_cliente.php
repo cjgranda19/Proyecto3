@@ -4,7 +4,8 @@ include "../conexion.php";
 
 $first_date = $_GET['first_date'] ?? '';
 $second_date = $_GET['second_date'] ?? '';
-
+$first_date_mysql = date('Y-m-d H:i:s', strtotime($first_date));
+$second_date_mysql = date('Y-m-d H:i:s', strtotime($second_date));
 ?>
 <!doctype html>
 <html>
@@ -14,11 +15,10 @@ $second_date = $_GET['second_date'] ?? '';
 	<title>Documento sin título</title>
 	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-
 </head>
 
 <body>
-<?php include "includes/header.php"; ?>
+	<?php include "includes/header.php"; ?>
 
 	<style>
 		.date-fields-container {
@@ -47,80 +47,94 @@ $second_date = $_GET['second_date'] ?? '';
 				</div>
 			</div>
 			<input type="submit" value="Generar Reporte">
-			<input type="" value="Generar PDF">
 		</form>
 
 		<table>
 			<tr>
-				<th>Nombre</th>
-				<th>Precio Actual</th>
-				<th>Promedio Precio</th>
-				<th>Stock</th>
-				<th>Tendencia</th>
+				<th>Cliente ID</th>
+				<th>Primer Nombre</th>
+				<th>Nombre Anterior</th>
+				<th>Nuevo Nombre</th>
+				<th>Primera Cedula</th>
+				<th>Cedula Anterior</th>
+				<th>Nueva Cedula</th>
+				<th>Primer Telefono</th>
+				<th>Telefono Anterior</th>
+				<th>Nuevo Telefono</th>
+				<th>Primera Direccion</th>
+				<th>Direccion Anterior</th>
+				<th>Nueva Direccion</th>
+				<th>Fecha de Cambio</th>
 			</tr>
 			<?php
-
-			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM client_i ");
-			$result_registre = mysqli_fetch_array($sql_registre);
-			$total_registro = $result_registre['total_registro'];
-
-			$por_pagina = 10;
-
-			if (empty($_GET['pagina'])) {
-				$pagina = 1;
-			} else {
-				$pagina = $_GET['pagina'];
-			}
-
-			$desde = ($pagina - 1) * $por_pagina;
-			$total_paginas = ceil($total_registro / $por_pagina);
-
-			$where_condition = '';
-
-			if (!empty($first_date) && !empty($second_date)) {
-				// Convierte las fechas a formato válido para la consulta
-				$formatted_first_date = date('Y-m-d H:i:s', strtotime($first_date));
-				$formatted_second_date = date('Y-m-d H:i:s', strtotime($second_date));
-				$where_condition = "WHERE p.date_add BETWEEN '$formatted_first_date' AND '$formatted_second_date'";
-			}
-
-			$query = mysqli_query($conection, "SELECT p.*, AVG(l.new_price) as average_price, COUNT(r.id_product_rule) as tendencia FROM product_i p
-                                    LEFT JOIN product_log_update l ON p.id_producto = l.producto_id
-                                    LEFT JOIN rule_recipe r ON p.id_producto = r.id_product_rule
-                                    $where_condition
-                                    GROUP BY p.id_producto
-                                    ORDER BY p.id_producto ASC LIMIT $desde, $por_pagina");
-
+			$query = mysqli_query($conection, "SELECT
+		   c.id_cliente,
+		   c.nombre AS primer_nombre,
+		   lu.old_name AS nombre_anterior,
+		   lu.new_name AS nuevo_nombre,
+		   c.cedula AS primera_cedula,
+		   lu.old_cedula AS cedula_anterior,
+		   lu.new_cedula AS nueva_cedula,
+		   c.telefono AS primer_telefono,
+		   lu.old_tel AS telefono_anterior,
+		   lu.new_tel AS nuevo_telefono,
+		   c.direccion AS primera_direccion,
+		   lu.old_dir AS direccion_anterior,
+		   lu.new_dir AS nueva_direccion,
+		   lu.dateadd AS fecha_cambio
+	   FROM
+		   cliente c
+	   LEFT JOIN
+		   client_log_update lu ON c.id_cliente = lu.id_client
+	   WHERE
+		   lu.dateadd BETWEEN '$first_date_mysql' AND '$second_date_mysql'  
+	   ORDER BY
+		   c.id_cliente, lu.dateadd");
 
 			while ($data = mysqli_fetch_array($query)) {
-				$product_id = $data['id_producto'];
-
-				$avg_query = mysqli_query($conection, "SELECT AVG(new_price) as average_price FROM product_log_update WHERE producto_id = $product_id ");
-				$avg_data = mysqli_fetch_array($avg_query);
-				$average_price = $avg_data['average_price'];
-
 				?>
 				<tr>
 					<td>
-						<?php echo $data['name']; ?>
+						<?php echo $data['id_cliente']; ?>
 					</td>
 					<td>
-						<?php echo $data['price']; ?>
+						<?php echo $data['primer_nombre']; ?>
 					</td>
 					<td>
-						<?php
-						if ($average_price > 0) {
-							echo number_format($average_price, 2);
-						} else {
-							echo "No hay cambios";
-						}
-						?>
+						<?php echo $data['nombre_anterior']; ?>
 					</td>
 					<td>
-						<?php echo $data['stock']; ?>
+						<?php echo $data['nuevo_nombre']; ?>
 					</td>
 					<td>
-						<?php echo $data['tendencia']; ?>
+						<?php echo $data['primera_cedula']; ?>
+					</td>
+					<td>
+						<?php echo $data['cedula_anterior']; ?>
+					</td>
+					<td>
+						<?php echo $data['nueva_cedula']; ?>
+					</td>
+					<td>
+						<?php echo $data['primer_telefono']; ?>
+					</td>
+					<td>
+						<?php echo $data['telefono_anterior']; ?>
+					</td>
+					<td>
+						<?php echo $data['nuevo_telefono']; ?>
+					</td>
+					<td>
+						<?php echo $data['primera_direccion']; ?>
+					</td>
+					<td>
+						<?php echo $data['direccion_anterior']; ?>
+					</td>
+					<td>
+						<?php echo $data['nueva_direccion']; ?>
+					</td>
+					<td>
+						<?php echo $data['fecha_cambio']; ?>
 					</td>
 				</tr>
 				<?php
