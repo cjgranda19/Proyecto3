@@ -173,7 +173,6 @@ if ($result_sql == 0) {
 			</form>
 
 	</section>
-	<?php include "includes/footer.php"; ?>
 </body>
 
 </html>

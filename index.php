@@ -27,6 +27,7 @@ if (!empty($_SESSION['active'])) {
         $_SESSION['nombre'] = $data['nombre'];
         $_SESSION['email'] = $data['correo'];
         $_SESSION['user'] = $data['usuario'];
+        $_SESSION['cargo'] = $data['cargo'];
         $_SESSION['rol'] = $data['rol'];
 
         $accion = "Inicio sesión";
@@ -34,7 +35,7 @@ if (!empty($_SESSION['active'])) {
         $usuario_id = $_SESSION['idUser'];
         $user_ip = $_SERVER['REMOTE_ADDR'];
         if ($user_ip == '::1' || $user_ip == '127.0.0.1') {
-          $user_ip = 'Loopback';
+          $user_ip = 'local';
         }
 
 

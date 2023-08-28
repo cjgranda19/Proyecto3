@@ -3,7 +3,6 @@ session_start();
 
 include "../conexion.php";
 
-session_start();
 if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 5) {
 	header("location: ./");
 	exit;

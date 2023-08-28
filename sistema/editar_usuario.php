@@ -222,7 +222,6 @@ if ($result_sql == 0) {
 	</section>
 	<script src="js/validacion.js"></script>
 
-	<?php include "includes/footer.php"; ?>
 </body>
 
 </html>

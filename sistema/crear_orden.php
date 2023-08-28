@@ -100,7 +100,6 @@ while ($row = $query->fetch_assoc()) {
             </div>
         </form>
     </main>
-    <?php include(__DIR__ . '/includes/footer.php'); ?>
     <template id="added-recipes-table-template">
         <div class="row">
             <div class="column name"></div>

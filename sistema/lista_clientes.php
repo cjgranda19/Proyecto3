@@ -30,15 +30,6 @@ include "../conexion.php";
 			?>
 		</div>
 
-		<script>
-			setTimeout(function () {
-				var popupMessage = document.getElementById("popupMessage");
-				if (popupMessage) {
-					popupMessage.style.display = "none";
-				}
-			}, 4000);
-		</script>
-
 		<h1>Lista de Clientes </h1>
 		<?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 5)  { ?> <a href="javascript:void(0);"
 				onclick="loadPopupContent('registro_cliente.php',event);" class="btn_new">Nuevo

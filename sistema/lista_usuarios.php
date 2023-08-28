@@ -19,7 +19,6 @@ include "../conexion.php";
 	<link rel="stylesheet" type="text/css" href="css/popup.css">
 	<link rel="icon" type="image/jpg" href="img/favicon.png" />
 
-
 </head>
 
 <body>
@@ -32,15 +31,6 @@ include "../conexion.php";
 			unset($_SESSION['popup_message']);
 			?>
 		</div>
-
-		<script>
-			setTimeout(function () {
-				var popupMessage = document.getElementById("popupMessage");
-				if (popupMessage) {
-					popupMessage.style.display = "none";
-				}
-			}, 4000);
-		</script>
 
 		<h1>Lista de usuarios</h1>
 		<?php if ($_SESSION['rol'] == 1) { ?>
@@ -60,7 +50,7 @@ include "../conexion.php";
 				<th>Nombre</th>
 				<th>Correo</th>
 				<th>Usuario</th>
-				<th>Rol</th>
+				<th>Cargo</th>
 				<th>Acciones</th>
 			</tr>
 			<?php
@@ -80,7 +70,12 @@ include "../conexion.php";
 			$desde = ($pagina - 1) * $por_pagina;
 			$total_paginas = ceil($total_registro / $por_pagina);
 
-			$query = mysqli_query($conection, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE estatus = 1 ORDER BY idusuario ASC LIMIT $desde,$por_pagina");
+			$query = mysqli_query($conection, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, u.cargo
+			FROM usuario u 
+			INNER JOIN rol r ON u.rol = r.idrol 
+			WHERE estatus = 1 
+			ORDER BY idusuario ASC 
+			LIMIT $desde, $por_pagina");
 
 			mysqli_close($conection);
 			$result = mysqli_num_rows($query);
@@ -100,8 +95,9 @@ include "../conexion.php";
 						<td>
 							<?php echo $data['usuario']; ?>
 						</td>
+						
 						<td>
-							<?php echo $data['rol']; ?>
+							<?php echo $data['cargo'] ?>
 						</td>
 						<td>
 							<a class="link_edit" href="editar_usuario.php?id=<?php echo $data['idusuario']; ?>"><i
@@ -113,7 +109,6 @@ include "../conexion.php";
 							<?php } ?>
 						</td>
 					</tr>
-
 					<?php
 				}
 			}
