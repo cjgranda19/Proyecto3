@@ -1,10 +1,7 @@
 <?php
-include(dirname(__DIR__) . '/conexion.php');
+include('../conexion.php');
 global $conection;
-if (!isset($_SESSION['permisos']['permiso_ver_hojas_tecnicas']) || $_SESSION['permisos']['permiso_ver_hojas_tecnicas'] != 1) {
-	header("location: index.php");
-	exit();
-}
+
 
 $totals = [];
 
