@@ -2,7 +2,13 @@
 session_start();
 include "../conexion.php";
 include "includes/session_timeout.php";
-
+if (
+	!isset($_SESSION['permisos']['permiso_ver_usuarios']) || $_SESSION['permisos']['permiso_ver_usuarios'] != 1 ||
+	!isset($_SESSION['permisos']['permiso_crear_usuarios']) || $_SESSION['permisos']['permiso_crear_usuarios'] != 1
+) {
+	header("location: index.php");
+	exit();
+}
 
 ?>
 

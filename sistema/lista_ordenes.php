@@ -1,14 +1,13 @@
 <?php
 session_start();
 
-include(dirname(__DIR__) . '/conexion.php');
 global $conection;
 
 if (!isset($_SESSION['permisos']['permiso_ver_ordenes']) || $_SESSION['permisos']['permiso_ver_ordenes'] != 1) {
 	header("location: index.php");
 	exit();
 }
-include "../../conexion.php";
+include "../conexion.php";
 
 $orders = [];
 

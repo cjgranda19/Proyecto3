@@ -2,7 +2,10 @@
 session_start();
 include "../conexion.php";
 include "includes/session_timeout.php";
-
+if (!isset($_SESSION['permisos']['permiso_crear_clientes']) || $_SESSION['permisos']['permiso_crear_clientes'] != 1) {
+	header("location: index.php");
+	exit();
+}
 
 if (!empty($_POST)) {
 

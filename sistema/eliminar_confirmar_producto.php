@@ -1,7 +1,8 @@
 <?php
 	session_start();
-	if($_SESSION['rol'] != 1){
-		header("location: ./");
+	if (!isset($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1) {
+		header("location: index.php");
+		exit();
 	}
 	include "../conexion.php";
 	

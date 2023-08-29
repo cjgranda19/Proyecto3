@@ -1,13 +1,14 @@
 <?php
 	session_start();
-	if($_SESSION['rol'] != 1){
-		header("location: ./");
+	include "../../conexion.php";
+	if (
+		!isset($_SESSION['permisos']['permiso_ver_proveedores']) || $_SESSION['permisos']['permiso_ver_proveedores'] != 1 ||
+		!isset($_SESSION['permisos']['permiso_crear_proveedor']) || $_SESSION['permisos']['permiso_crear_proveedor'] != 1
+	) {
+		header("location: index.php");
+		exit();
 	}
-	include "../conexion.php";
-	include "includes/session_timeout.php";
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

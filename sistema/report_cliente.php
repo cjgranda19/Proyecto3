@@ -1,7 +1,10 @@
 <?php
 session_start();
 include "../conexion.php";
-
+if (!isset($_SESSION['permisos']['permiso_ver_reportes']) || $_SESSION['permisos']['permiso_ver_reportes'] != 1) {
+    header("location: index.php");
+    exit();
+}
 $first_date = $_GET['first_date'] ?? '';
 $second_date = $_GET['second_date'] ?? '';
 $first_date_mysql = date('Y-m-d H:i:s', strtotime($first_date));

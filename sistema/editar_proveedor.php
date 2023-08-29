@@ -1,11 +1,11 @@
 <?php
 	session_start();
-	if($_SESSION['rol'] != 1){
-		header("location: ./");
-	}
 	include "../conexion.php";
 	include "includes/session_timeout.php";
-
+	if (!isset($_SESSION['permisos']['permiso_crear_proveedor']) || $_SESSION['permisos']['permiso_crear_proveedor'] != 1) {
+		header("location: index.php");
+		exit();
+	}
 
 	if(!empty($_POST)){
 

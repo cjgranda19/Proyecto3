@@ -2,8 +2,10 @@
 session_start();
 include "../conexion.php";
 
-// Variables para filtrar por fechas
-$first_date = $_GET['first_date'] ?? '';
+if (!isset($_SESSION['permisos']['permiso_ver_reportes']) || $_SESSION['permisos']['permiso_ver_reportes'] != 1) {
+    header("location: index.php");
+    exit();
+}$first_date = $_GET['first_date'] ?? '';
 $second_date = $_GET['second_date'] ?? '';
 
 ?>

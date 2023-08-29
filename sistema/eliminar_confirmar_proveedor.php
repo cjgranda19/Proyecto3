@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['permisos']['permiso_crear_proveedores']) || $_SESSION['permisos']['permiso_crear_proveedores'] != 1) {
+if (!isset($_SESSION['permisos']['permiso_crear_proveedor']) || $_SESSION['permisos']['permiso_crear_proveedor'] != 1) {
 	header("location: index.php");
 	exit();
 }

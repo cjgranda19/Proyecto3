@@ -6,16 +6,6 @@ if (!isset($_SESSION['permisos']['permiso_crear_usuarios']) || $_SESSION['permis
 }
 
 
-$permisos = [
-	'Ver clientes' => ['Ver clientes', 'Crear clientes'],
-	'Ver proveedores' => ['Ver proveedores', 'Crear proveedor'],
-	'Ver productos' => ['Ver productos', 'Crear productos', 'Agregar productos'],
-	'Ver hojas técnicas' => ['Ver hojas técnicas', 'Crear hoja técnica'],
-	'Ver órdenes' => ['Ver órdenes', 'Crear órdenes'],
-	'Ver reportes' => ['Ver reportes']
-];
-
-
 include "../conexion.php";
 
 

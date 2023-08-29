@@ -4,7 +4,10 @@
 		header("location: ./");
 	}
 	include "../conexion.php";
-	
+	if (!isset($_SESSION['permisos']['permiso_crear_clientes']) || $_SESSION['permisos']['permiso_crear_clientes'] != 1) {
+		header("location: index.php");
+		exit();
+	}
 
 	if(!empty($_POST)){
 
@@ -14,7 +17,6 @@
 		}
 
 		$id_cliente = $_POST['id_cliente'];
-		// $query_delete = mysqli_query($conection, "DELETE FROM usuario WHERE idusuario=$idusuario ");
 		$query_delete = mysqli_query($conection, "UPDATE cliente SET estatus = 0 WHERE id_cliente = $id_cliente ");
 		mysqli_close($conection);
 		if($query_delete){

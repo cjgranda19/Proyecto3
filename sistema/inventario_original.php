@@ -1,7 +1,10 @@
 <?php
 session_start();
 include "../conexion.php";
-
+if (!isset($_SESSION['permisos']['permiso_ver_reportes']) || $_SESSION['permisos']['permiso_ver_reportes'] != 1) {
+    header("location: index.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>

@@ -1,5 +1,11 @@
 <?php
+session_start();
 
+include "../../conexion.php";
+if (!isset($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1) {
+    header("location: index.php");
+    exit();
+}
 function getOldAndNewValues($conection, $codproducto, $precio, $proveedor, $cantidad)
 {
     $query_producto = mysqli_query($conection, "SELECT * FROM producto WHERE codproducto = $codproducto");
@@ -25,11 +31,7 @@ function getOldAndNewValues($conection, $codproducto, $precio, $proveedor, $cant
     );
 }
 
-session_start();
-if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
-    header("location: ../");
-}
-include "../../conexion.php";
+
 
 if (!empty($_POST)) {
     $alert = '';

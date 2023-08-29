@@ -3,15 +3,12 @@ session_start();
 include "../conexion.php";
 include "includes/session_timeout.php";
 
-
-if ($_SESSION['rol'] != 1) {
-	if ($_SESSION['rol'] == 3) {
-		header("location: index.php");
-	} elseif ($_SESSION['rol'] == 2) {
-		header("location: index.php");
-	} else {
-		header("location: ./");
-	}
+if (
+	!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permisos']['permiso_ver_productos'] != 1 ||
+	!isset($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1
+) {
+	header("location: index.php");
+	exit();
 }
 
 

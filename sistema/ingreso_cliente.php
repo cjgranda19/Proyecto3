@@ -1,10 +1,10 @@
 <?php
 session_start();
-if ($_SESSION['rol'] != 1) {
-    header("location: ../");
-}
 include "../conexion.php";
-
+if (!isset($_SESSION['permisos']['permiso_crear_clientes']) || $_SESSION['permisos']['permiso_crear_clientes'] != 1) {
+    header("location: index.php");
+    exit();
+}
 $query_cliente = mysqli_query($conection, "SELECT * FROM cliente");
 $cliente_info = array();
 

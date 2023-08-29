@@ -1,13 +1,10 @@
 <?php
-	
+
 session_start();
-
-if (!isset($_SESSION['rol'])) {
-    header('location: ../index.php');
-} else if ($_SESSION['rol'] != 1) {
-    header('location: ../index.php');
+if (!isset($_SESSION['permisos']['permiso_crear_hoja_tecnica']) || $_SESSION['permisos']['permiso_crear_hoja_tecnica'] != 1) {
+    header("location: index.php");
+    exit();
 }
-
 $id = intval($_GET['id']);
 
 if (empty($id)) {
