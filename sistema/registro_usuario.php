@@ -4,17 +4,11 @@ if (!isset($_SESSION['permisos']['permiso_crear_usuarios']) || $_SESSION['permis
 	header("location: index.php");
 	exit();
 }
-
-
 include "../conexion.php";
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
@@ -68,7 +62,10 @@ include "../conexion.php";
 					title="La clave debe tener al menos 8 caracteres, incluir una mayúscula y un carácter especial"
 					required>
 				<label for="cargo">Cargo </label>
-				<input type="text" name="cargo" id="cargo" placeholder="Cargo" pattern="^[A-Za-z]+$">
+				<select>
+					<option value="Administrador">Administrador</option>
+					<option value="Vendedor">Vendedor</option>	
+				</select>
 				<label for="rolesSelect">Rol:</label>
 				<select id="rolesSelect" multiple="multiple" name="roles[]"
 					title="Aplasta Control para seleccionar varios a la vez">
@@ -105,11 +102,7 @@ include "../conexion.php";
 					<input type="submit" name="submit" value="Crear Usuario" class="btn_save">
 				</div>
 			</form>
-
 		</div>
-
 	</section>
-
 </body>
-
 </html>
