@@ -2,9 +2,9 @@
 session_start();
 include "../../conexion.php";
 
-if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
-    header("location: ./");
-    exit();
+if (!isset($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1) {
+	header("location: index.php");
+	exit();
 }
 
 $alert = '';

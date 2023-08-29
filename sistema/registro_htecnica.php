@@ -1,6 +1,10 @@
 <?php
 include(dirname(__DIR__) . '/conexion.php');
 global $conection;
+if (!isset($_SESSION['permisos']['permiso_crear_hoja_tecnica']) || $_SESSION['permisos']['permiso_crear_hoja_tecnica'] != 1) {
+	header("location: index.php");
+	exit();
+}
 
 
 $totals = [];

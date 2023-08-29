@@ -1,6 +1,10 @@
 <?php
 
 include('../conexion.php');
+if (!isset($_SESSION['permisos']['permiso_crear_ordenes']) || $_SESSION['permisos']['permiso_crear_ordenes'] != 1) {
+	header("location: index.php");
+	exit();
+}
 
 global $conection;
 

@@ -1,6 +1,10 @@
 <?php
 session_start();
 include "../conexion.php";
+if (!isset($_SESSION['permisos']['permiso_ver_clientes']) || $_SESSION['permisos']['permiso_ver_clientes'] != 1) {
+	header("location: index.php");
+	exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +35,8 @@ include "../conexion.php";
 		</div>
 
 		<h1>Lista de Clientes </h1>
-		<?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 5)  { ?> <a href="javascript:void(0);"
+		<?php if (isset($_SESSION['permisos']['permiso_crear_clientes']) && $_SESSION['permisos']['permiso_crear_clientes'] == 1) { ?>
+			<a href="javascript:void(0);"
 				onclick="loadPopupContent('registro_cliente.php',event);" class="btn_new">Nuevo
 				cliente</a>
 				<a href="javascript:void(0);"

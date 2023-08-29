@@ -1,12 +1,20 @@
 <?php
-function getOldAndNewValuesCliente($conection, $id_cliente, $cedula, $nombre, $telefono, $direccion){
+
+session_start();
+if (!isset($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1) {
+    header("location: index.php");
+    exit();
+}
+include "../../conexion.php";
+
+function getOldAndNewValuesCliente($conection, $id_cliente, $cedula, $nombre, $telefono, $direccion)
+{
 
     $query_cliente = mysqli_query($conection, "SELECT * FROM cliente WHERE id_cliente = $id_cliente");
     $result_cliente = mysqli_fetch_assoc($query_cliente);
     if (!$query_cliente) {
-        
+
     }
-    // Debugging: Print retrieved data in JavaScript console
     echo "<script>";
     echo "console.log('Retrieved data:', " . json_encode($result_cliente) . ");";
 
@@ -30,13 +38,6 @@ function getOldAndNewValuesCliente($conection, $id_cliente, $cedula, $nombre, $t
         'new_direccion' => $new_direccion
     );
 }
-
-
-session_start();
-if ($_SESSION['rol'] != 1) {
-    header("location: ../");
-}
-include "../../conexion.php";
 
 if (!empty($_POST)) {
     $alert = '';
