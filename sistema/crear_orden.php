@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include('../conexion.php');
 if (!isset($_SESSION['permisos']['permiso_crear_ordenes']) || $_SESSION['permisos']['permiso_crear_ordenes'] != 1) {

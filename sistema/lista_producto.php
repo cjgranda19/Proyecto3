@@ -61,6 +61,7 @@ if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permiso
             <tr>
                 <th>Código</th>
                 <th>Nombre producto</th>
+                <th>Medida</th>
                 <th>Proveedor</th>
                 <th>Precio</th>
                 <th>Stock</th>
@@ -86,7 +87,7 @@ if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permiso
             $desde = ($pagina - 1) * $por_pagina;
             $total_paginas = ceil($total_registro / $por_pagina);
 
-            $query = "SELECT p.codproducto, p.proveedor, p.descripcion, p.precio, p.existencia, pr.proveedor FROM producto p INNER JOIN proveedor pr ON p.proveedor = pr.id_supplier WHERE p.estatus = 1 ORDER BY p.codproducto ASC LIMIT $desde,$por_pagina";
+            $query = "SELECT p.codproducto, p.proveedor, p.descripcion, p.medida, p.precio, p.existencia, pr.proveedor FROM producto p INNER JOIN proveedor pr ON p.proveedor = pr.id_supplier WHERE p.estatus = 1 ORDER BY p.codproducto ASC LIMIT $desde,$por_pagina";
 
             $result = mysqli_query($conection, $query);
 
@@ -104,13 +105,16 @@ if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permiso
                         <?php echo $data['descripcion']; ?>
                     </td>
                     <td>
+                        <?php echo $data['medida'];?>
+                    </td>
+                    <td>
                         <?php echo $data['proveedor']; ?>
                     </td>
                     <td>
                         <?php echo $data['precio']; ?>
                     </td>
                     <td>
-                        <?php echo $data['existencia']; ?>
+                        <?php echo $data['existencia'] . " Unidades"; ?>
                     </td>
 
                     <?php if ($_SESSION['rol'] == 1) { ?>

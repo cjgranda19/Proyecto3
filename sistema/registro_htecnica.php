@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include('../conexion.php');
 global $conection;
 if (!isset($_SESSION['permisos']['permiso_crear_hoja_tecnica']) || $_SESSION['permisos']['permiso_crear_hoja_tecnica'] != 1) {

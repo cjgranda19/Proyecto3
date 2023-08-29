@@ -118,16 +118,17 @@ function populateFieldsUsers() {
         success: function (response) {
             console.log("AJAX Success:", response);
 
-            if (response.length > 0) {
-                var usuario = response[0];
+                var usuario = response;
                 console.log("Usuario Data:", usuario);
 
                 $("#idusuario").val(usuario.idusuario);
+                $("#usuario").val(usuario.usuario);
                 $("#usuario_input").val(usuario.usuario);
                 $("#nombre").val(usuario.nombre);
                 $("#correo").val(usuario.correo);
                 $("#cargo").val(usuario.cargo);
-            }
+                
+            
         },
         error: function (error) {
             console.log("AJAX Error:", error);

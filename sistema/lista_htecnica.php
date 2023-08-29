@@ -2,7 +2,7 @@
 session_start();
 
 include('../conexion.php');
-if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permisos']['permiso_ver_productos'] != 1) {
+if (!isset($_SESSION['permisos']['permiso_ver_hojas_tecnicas']) || $_SESSION['permisos']['permiso_ver_hojas_tecnicas'] != 1) {
     header("location: index.php");
     exit();
 }

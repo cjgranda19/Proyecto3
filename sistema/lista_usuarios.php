@@ -116,9 +116,6 @@ include "../conexion.php";
 
 							<td>
 
-								<a class="link_edit" href="editar_usuario.php?id=<?php echo $data['idusuario']; ?>"><i
-										class="fa-solid fa-pen-to-square"></i> Editar</a>
-
 								<a class="link_delete" href="eliminar_confirmar_usuario.php?id=<?php echo $data['idusuario']; ?>"><i
 										class="fa-solid fa-trash"></i> Eliminar</a>
 							</td>

@@ -48,6 +48,8 @@ mysqli_close($conection);
                     }
                     ?>
                 </select>
+                <label for="usuario">Usuario: </label>
+                <input type="text" name="usuario" id="usuario" placeholder="Usuario" title="El usuario debe tener al menos 4 caracteres" required>
 
                 <label for="nombre">Nombre: </label>
                 <input type="text" id="nombre" name="nombre" placeholder="Nombre Apellido"
@@ -74,8 +76,7 @@ mysqli_close($conection);
 
                 <label for="clave">Clave: </label>
                 <input type="password" name="clave" id="clave" placeholder="Clave de acceso"
-                    title="La clave debe tener al menos 8 caracteres, incluir una mayúscula y un carácter especial"
-                    required>
+                    title="La clave debe tener al menos 8 caracteres, incluir una mayúscula y un carácter especial">
                 <div id="mensajeErrorClave" class="mensaje-error"></div>
 
                 <div class="button-container">
