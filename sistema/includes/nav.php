@@ -11,7 +11,7 @@ session_start();
 			</li>
 		<?php } ?>
 
-		<?php if ($_SESSION['permisos']['permiso_ver_proveedores'] || $_SESSION['permisos']['permiso_crear_proveedores']) { ?>
+		<?php if ($_SESSION['permisos']['permiso_ver_proveedores'] || $_SESSION['permisos']['permiso_ver_proveedores']) { ?>
 			<li class="principal">
 				<a href="lista_proveedor.php"><i class="fa-solid fa-truck-field"></i> Proveedores</a>
 			</li>

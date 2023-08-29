@@ -2,18 +2,13 @@
 session_start();
 include "../conexion.php";
 include "includes/session_timeout.php";
-
-
-if ($_SESSION['rol'] != 1) {
-	if ($_SESSION['rol'] == 3) {
-		header("location: index.php");
-	} elseif ($_SESSION['rol'] == 2) {
-		header("location: index.php");
-	} else {
-		header("location: ./");
-	}
+if (
+	!isset($_SESSION['permisos']['permiso_ver_clientes']) || $_SESSION['permisos']['permiso_ver_clientes'] != 1 ||
+	!isset($_SESSION['permisos']['permiso_crear_clientes']) || $_SESSION['permisos']['permiso_crear_clientes'] != 1
+) {
+	header("location: index.php");
+	exit();
 }
-
 
 ?>
 

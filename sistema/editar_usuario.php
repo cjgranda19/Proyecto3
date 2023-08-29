@@ -1,8 +1,8 @@
 <?php
 session_start();
-if ($_SESSION['rol'] != 1) {
-    header("location: ../");
-    exit;
+if (!isset($_SESSION['permisos']['permiso_crear_usuarios']) || $_SESSION['permisos']['permiso_crear_usuarios'] != 1) {
+	header("location: index.php");
+	exit();
 }
 include "../conexion.php";
 include "includes/session_timeout.php";
@@ -15,48 +15,48 @@ $rol = "";
 $idrol = "";
 $alert = "";
 if (!empty($_POST)) {
-    include "../conexion.php";
+	include "../conexion.php";
 
-    $alert = '';
+	$alert = '';
 
-    if (empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['usuario']) || empty($_POST['rol'])) {
-        $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
-    } else {
-        $idUsuario = $_POST['id'];
-        $nombre = $_POST['nombre'];
-        $email = $_POST['correo'];
-        $user = $_POST['usuario'];
-        $rol = $_POST['rol'];
+	if (empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['usuario']) || empty($_POST['rol'])) {
+		$alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
+	} else {
+		$idUsuario = $_POST['id'];
+		$nombre = $_POST['nombre'];
+		$email = $_POST['correo'];
+		$user = $_POST['usuario'];
+		$rol = $_POST['rol'];
 
-        $query = mysqli_query($conection, "SELECT * FROM usuario WHERE (usuario = '$user' AND idusuario != $idUsuario) OR (correo = '$email' AND idusuario != $idUsuario)");
+		$query = mysqli_query($conection, "SELECT * FROM usuario WHERE (usuario = '$user' AND idusuario != $idUsuario) OR (correo = '$email' AND idusuario != $idUsuario)");
 
-        if (!$query) {
-            $alert = '<p class="msg_error">Error en la consulta.</p>';
-        } else {
-            $resultCount = mysqli_num_rows($query);
+		if (!$query) {
+			$alert = '<p class="msg_error">Error en la consulta.</p>';
+		} else {
+			$resultCount = mysqli_num_rows($query);
 
-            if ($resultCount > 0) {
-                $alert = '<p class="msg_error">El correo o el usuario ya existe.</p>';
-            } else {
-                $updateClause = empty($_POST['clave']) ? "" : ", clave='" . md5($_POST['clave']) . "'";
-                $sql_update = mysqli_query($conection, "UPDATE usuario SET nombre = '$nombre', correo='$email', usuario='$user'$updateClause, rol='$rol' WHERE idusuario=$idUsuario ");
+			if ($resultCount > 0) {
+				$alert = '<p class="msg_error">El correo o el usuario ya existe.</p>';
+			} else {
+				$updateClause = empty($_POST['clave']) ? "" : ", clave='" . md5($_POST['clave']) . "'";
+				$sql_update = mysqli_query($conection, "UPDATE usuario SET nombre = '$nombre', correo='$email', usuario='$user'$updateClause, rol='$rol' WHERE idusuario=$idUsuario ");
 
-                if ($sql_update) {
-                    $alert = '<p class="msg_save">Usuario actualizado correctamente.</p>';
-                } else {
-                    $alert = '<p class="msg_error">Error al actualizar el usuario.</p>';
-                }
-            }
-        }
-    }
+				if ($sql_update) {
+					$alert = '<p class="msg_save">Usuario actualizado correctamente.</p>';
+				} else {
+					$alert = '<p class="msg_error">Error al actualizar el usuario.</p>';
+				}
+			}
+		}
+	}
 
-   // mysqli_close($conection);
+	// mysqli_close($conection);
 }
 
 if (empty($_REQUEST['id'])) {
-    header('Location: lista_usuarios.php');
-    mysqli_close($conection);
-    exit;
+	header('Location: lista_usuarios.php');
+	mysqli_close($conection);
+	exit;
 }
 $iduser = $_REQUEST['id'];
 
@@ -65,18 +65,18 @@ $sql = mysqli_query($conection, "SELECT u.idusuario, u.nombre, u.correo, u.usuar
 $result_sql = mysqli_num_rows($sql);
 
 if ($result_sql == 0) {
-    header('Location: lista_usuarios.php');
-    mysqli_close($conection);
-    exit;
+	header('Location: lista_usuarios.php');
+	mysqli_close($conection);
+	exit;
 } else {
-    while ($data = mysqli_fetch_assoc($sql)) {
-        $iduser = $data['idusuario'];
-        $nombre = $data['nombre'];
-        $correo = $data['correo'];
-        $usuario = $data['usuario'];
-        $rol = $data['rol'];
-        $idrol = $data['idrol'];
-    }
+	while ($data = mysqli_fetch_assoc($sql)) {
+		$iduser = $data['idusuario'];
+		$nombre = $data['nombre'];
+		$correo = $data['correo'];
+		$usuario = $data['usuario'];
+		$rol = $data['rol'];
+		$idrol = $data['idrol'];
+	}
 }
 ?>
 
