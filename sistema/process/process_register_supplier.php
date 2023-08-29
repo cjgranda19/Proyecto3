@@ -1,10 +1,9 @@
 <?php
 session_start();
 include "../../conexion.php";
-
-if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
-	header("location: ./");
-	exit;
+if (!isset($_SESSION['permisos']['permiso_crear_proveedor']) || $_SESSION['permisos']['permiso_crear_proveedor'] != 1) {
+    header("location: index.php");
+    exit();
 }
 
 $alert = '';
@@ -22,7 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['popup_message'] = 'Complete todos los campos';
         header("location: ../lista_proveedor.php");
     } else {
-        // Check if the combination of provider, contact, and phone number already exists
         $query_check = "SELECT * FROM proveedor WHERE proveedor = '$proveedor' AND contacto = '$contacto' AND telefono = '$telefono'";
         $result_check = mysqli_query($conection, $query_check);
 
@@ -36,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($result) {
                 $_SESSION['popup_message'] = 'Inserción exitosa.';
             } else {
-                $error_message = 'Error al guardar proveedor: ' . mysqli_error($conection);
+                $error_message = 'Error al guardar proveedor, reintente de nuevo o contacte con el administrador.';
                 $_SESSION['popup_message'] = $error_message;
             }
         }

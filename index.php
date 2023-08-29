@@ -3,7 +3,6 @@ $alert = "";
 session_start();
 include "conexion.php";
 
-
 if (!empty($_SESSION['active'])) {
   header('location: sistema/');
 } else {
@@ -30,19 +29,24 @@ if (!empty($_SESSION['active'])) {
         $_SESSION['cargo'] = $data['cargo'];
         $_SESSION['rol'] = $data['rol'];
 
-        $accion = "Inicio sesión";
+        $rol_id = $data['rol'];
+        $query_permisos = "SELECT * FROM rol WHERE idrol = $rol_id";
+        $result_permisos = mysqli_query($conection, $query_permisos);
 
+        if ($result_permisos && mysqli_num_rows($result_permisos) > 0) {
+          $permisos_usuario = mysqli_fetch_assoc($result_permisos);
+          $_SESSION['permisos'] = $permisos_usuario;
+        }
+
+        $accion = "Inicio sesión";
         $usuario_id = $_SESSION['idUser'];
         $user_ip = $_SERVER['REMOTE_ADDR'];
         if ($user_ip == '::1' || $user_ip == '127.0.0.1') {
           $user_ip = 'local';
         }
 
-
         $query_insert = mysqli_query($conection, "INSERT INTO login_log (usuario_id, accion, user_ip) VALUES ('$usuario_id', '$accion', '$user_ip')");
-
         header('location: sistema/');
-
       } else {
         $alert = "El usuario o contraseña son incorrectos";
         session_destroy();
@@ -59,7 +63,7 @@ if (!empty($_SESSION['active'])) {
 <head>
   <link rel="shortcut icon" href="img/icono.ico">
   <link rel="stylesheet" href="css/login.css">
-  <link rel="icon" type="image/jpg" href="sistema/img/favicon.png"/>
+  <link rel="icon" type="image/jpg" href="sistema/img/favicon.png" />
 
 </head>
 

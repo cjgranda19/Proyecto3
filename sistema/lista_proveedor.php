@@ -1,8 +1,8 @@
 <?php
 session_start();
-if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
-	header("location: ./");
-	exit;
+if (!isset($_SESSION['permisos']['permiso_ver_proveedores']) || $_SESSION['permisos']['permiso_ver_proveedores'] != 1) {
+	header("location: index.php");
+	exit();
 }
 
 include "../conexion.php";
@@ -42,11 +42,11 @@ include "../conexion.php";
 		</script>
 
 		<h1>Lista de proveedores</h1>
-		<?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) { ?>
-			<a href="javascript:void(0);" onclick="loadPopupContent('registro_proveedor.php',event);" class="btn_new">Nuevo
-				producto</a>
-
+		<?php if (isset($_SESSION['permisos']['permiso_crear_proveedor']) && $_SESSION['permisos']['permiso_crear_proveedor'] == 1) { ?>
+			<a href="javascript:void(0);" onclick="loadPopupContent('registro_proveedor.php', event);" class="btn_new">Nuevo
+				Proveedor</a>
 		<?php } ?>
+
 		<form action="buscar_proveedor.php" method="get" class="form_search">
 			<input type="text" name="busqueda" id="busqueda" placeholder="Buscar">
 			<input type="submit" class="btn_search">
@@ -65,7 +65,6 @@ include "../conexion.php";
 			</tr>
 			<?php
 
-			//paginador
 			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM proveedor WHERE estatus = 1 ");
 			$result_registre = mysqli_fetch_array($sql_registre);
 			$total_registro = $result_registre['total_registro'];
@@ -160,8 +159,6 @@ include "../conexion.php";
 		</div>
 		<span class="close-button" onclick="closePopup()">&times;</span>
 	</div>
-
 	<div class="overlay" id="overlay" onclick="closePopup()"></div>
 </body>
-
 </html>

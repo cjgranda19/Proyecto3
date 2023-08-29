@@ -1,5 +1,4 @@
 function openPopup() {
-    console.log("Opening popup");
     var popupContainer = document.getElementById("popupContainer");
     var overlay = document.getElementById("overlay");
 
@@ -8,14 +7,12 @@ function openPopup() {
 }
 
 function closePopup() {
-    console.log("Closing popup");
     var popupContainer = document.getElementById("popupContainer");
     var overlay = document.getElementById("overlay");
 
     popupContainer.style.display = "none";
     overlay.style.display = "none";
 }
-
 
 function loadPopupContent(contentUrl) {
     var popupContent = document.getElementById("popupContent");
@@ -25,10 +22,28 @@ function loadPopupContent(contentUrl) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             popupContent.innerHTML = xhr.responseText;
+
+            executeScripts(popupContent);
+
             openPopup();
         }
     };
     xhr.send();
+}
+
+function executeScripts(container) {
+    var scripts = container.getElementsByTagName("script");
+    for (var i = 0; i < scripts.length; i++) {
+        var script = scripts[i];
+        var newScript = document.createElement("script");
+        if (script.src) {
+            newScript.src = script.src;
+        } else {
+            newScript.innerHTML = script.innerHTML;
+        }
+        container.appendChild(newScript);
+        script.parentNode.removeChild(script);
+    }
 }
 
 function populateFieldsProductos() {
@@ -36,14 +51,14 @@ function populateFieldsProductos() {
 
     $.ajax({
         type: "POST",
-        url: "ajax.php", // Reemplaza con la ruta real hacia tu archivo ajax.php
+        url: "ajax.php", // Ruta real hacia tu archivo ajax.php
         data: { action: "getProducts", id: selectedProductId },
         dataType: "json",
         success: function (response) {
             if (response.length > 0) {
                 var product = response[0];
                 $("#codproducto").val(product.codproducto);
-                $("#proveedor").val(product.proveedor); // Corregida esta línea
+                $("#proveedor").val(product.proveedor);
                 $("#precio").val(product.precio);
                 $("#cantidad").val(product.cantidad);
             }
@@ -56,7 +71,7 @@ function populateFieldsClientes() {
 
     $.ajax({
         type: "POST",
-        url: "ajax.php", 
+        url: "ajax.php", // Ruta real hacia tu archivo ajax.php
         data: { action: "getClientes", id_cliente: selectedClienteId },
         dataType: "json",
         success: function (response) {
@@ -71,6 +86,3 @@ function populateFieldsClientes() {
         }
     });
 }
-
-
-
