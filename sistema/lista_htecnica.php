@@ -1,7 +1,10 @@
 <?php
 include('../conexion.php');
+if (!isset($_SESSION['permisos']['permiso_ver_hojas_tecnicas']) || $_SESSION['permisos']['permiso_ver_hojas_tecnicas'] != 1) {
+	header("location: index.php");
+	exit();
+}
 global $conection;
-
 
 $totals = [];
 
