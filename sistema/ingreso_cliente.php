@@ -48,13 +48,21 @@ mysqli_close($conection);
                     ?>
                 </select>
                 <label for="nombre">Nombre: </label>
-                <input type="text" name="nombre" id="nombre">
+                <input type="text" id="nombre" name="nombre" placeholder="Dos nombres y dos apellidos" required onchange="validarCliente()">
+				<div id="mensajeErrorNombre" class="mensaje-error"></div>
+
                 <label for="cedula">Cédula: </label>
-                <input type="text" name="cedula" id="cedula">
+                <input type="text" name="cedula" id="cedula" placeholder="Ingrese su número de cédula" onchange="validarCliente()">
+				<div id="mensajeErrorCedula" class="mensaje-error"></div>
+
                 <label for="telefono">Teléfono: </label>
-                <input type="text" name="telefono" id="telefono">
+                <input type="text" name="telefono" id="telefono" placeholder="Ingrese su número celular" onchange="validarCliente()">
+				<div id="mensajeErrorTelefono" class="mensaje-error"></div>
+
                 <label for="direccion">Dirección: </label>
-                <input type="text" name="direccion" id="direccion">
+                <input type="text" name="direccion" id="direccion" placeholder="Dirección completa" onchange="validarCliente()">
+				<div id="mensajeErrorDireccion" class="mensaje-error"></div>
+
                 <div class="button-container">
                     <input type="submit" name="submit" value="Guardar Cambios" class="btn_save">
                 </div>

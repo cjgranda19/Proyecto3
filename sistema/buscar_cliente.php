@@ -73,12 +73,13 @@ if (
 			$total_paginas = ceil($total_registro / $por_pagina);
 
 			$query = mysqli_query($conection, "SELECT * FROM cliente WHERE 
-								cedula LIKE '%$busqueda%' OR 
-								nombre LIKE '%$busqueda%' OR 
-								telefono LIKE '%$busqueda%' OR
-								direccion LIKE '%$busqueda%') 
-								AND 
-								estatus = 1 ORDER BY id_cliente ASC LIMIT $desde, $por_pagina");
+				cedula LIKE '%$busqueda%' OR 
+				nombre LIKE '%$busqueda%' OR 
+				telefono LIKE '%$busqueda%' OR
+				direccion LIKE '%$busqueda%' 
+				AND 
+				estatus = 1 ORDER BY id_cliente ASC LIMIT $desde, $por_pagina");
+
 
 			$result = mysqli_num_rows($query);
 			if ($result > 0) {

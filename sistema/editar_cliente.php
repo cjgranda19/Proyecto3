@@ -152,7 +152,7 @@ if ($result_sql == 0) {
 	<section id="container">
 
 		<div class="form_register">
-			<h1>Actualizar cliente</h1>
+			<h1>Editar cliente</h1>
 			<hr>
 			<div class="alert">
 				<?php echo isset($alert) ? $alert : ''; ?>
@@ -160,18 +160,23 @@ if ($result_sql == 0) {
 
 			<form action="" method="post">
 				<input type="hidden" name="id" value="<?php echo $id_cliente; ?>">
+
+				<label for="nombre">Nombres y Apellidos </label>
+				<input type="text" name="nombre" id="nombre" placeholder="Dos nombres y dos apellidos" required onchange="validarCliente()" value="<?php echo $nombre; ?>">
+				<div id="mensajeErrorNombre" class="mensaje-error"></div>
+
 				<label for="cedula">Cédula: </label>
-				<input type="text" name="cedula" id="cedula" placeholder="Número de CI" maxlength="10" minlength="10"
-					value="<?php echo $cedula; ?>">
-				<label for="nombre">Nombre: </label>
-				<input type="text" name="nombre" id="nombre" placeholder="Nombre completo"
-					value="<?php echo $nombre; ?>">
+				<input type="text" name="cedula" id="cedula" placeholder="Ingrese su número de cédula" onchange="validarCliente()" maxlength="10" minlength="10" value="<?php echo $cedula; ?>">
+				<div id="mensajeErrorCedula" class="mensaje-error"></div>
+
 				<label for="telefono">Teléfono: </label>
-				<input type="text" name="telefono" id="telefono" placeholder="Teléfono" maxlength="10" minlength="10"
-					value="<?php echo $telefono; ?>">
+				<input type="text" name="telefono" id="telefono" placeholder="Ingrese su número celular" onchange="validarCliente()" maxlength="10" minlength="10" value="<?php echo $telefono; ?>">
+				<div id="mensajeErrorTelefono" class="mensaje-error"></div>
+
 				<label for="direccion">Dirección: </label>
-				<input type="text" name="direccion" id="direccion" placeholder="Dirección completa"
-					value="<?php echo $direccion; ?>">
+				<input type="text" name="direccion" id="direccion" placeholder="Dirección completa" onchange="validarCliente()" value="<?php echo $direccion; ?>">
+				<div id="mensajeErrorDireccion" class="mensaje-error"></div>
+
 				<input type="submit" value="Actualizar cliente" class="btn_save">
 			</form>
 
