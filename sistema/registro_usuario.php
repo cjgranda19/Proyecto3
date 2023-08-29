@@ -62,10 +62,8 @@ include "../conexion.php";
 					title="La clave debe tener al menos 8 caracteres, incluir una mayúscula y un carácter especial"
 					required>
 				<label for="cargo">Cargo </label>
-				<select>
-					<option value="Administrador">Administrador</option>
-					<option value="Vendedor">Vendedor</option>	
-				</select>
+				<input type="text" name="cargo" id="cargo" placeholder="Cargo" pattern="^[A-Za-z\s]+$"
+					title="Ingresa un cargo válido" required>
 				<label for="rolesSelect">Rol:</label>
 				<select id="rolesSelect" multiple="multiple" name="roles[]"
 					title="Aplasta Control para seleccionar varios a la vez">
