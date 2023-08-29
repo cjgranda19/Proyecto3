@@ -14,7 +14,7 @@ function closePopup() {
     overlay.style.display = "none";
 }
 
-function loadPopupContent(contentUrl) {
+function as(contentUrl) {
     var popupContent = document.getElementById("popupContent");
 
     var xhr = new XMLHttpRequest();
@@ -29,6 +29,21 @@ function loadPopupContent(contentUrl) {
         }
     };
     xhr.send();
+}
+function loadPopupContentFromLink(contentUrl) {
+    var popupContent = document.getElementById("popupContent");
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", contentUrl, false);  // Cambia a carga síncrona
+    xhr.send();
+
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        popupContent.innerHTML = xhr.responseText;
+
+        executeScripts(popupContent);
+
+        openPopup();
+    }
 }
 
 function executeScripts(container) {
@@ -45,6 +60,7 @@ function executeScripts(container) {
         script.parentNode.removeChild(script);
     }
 }
+
 
 function populateFieldsProductos() {
     var selectedProductId = $("#producto").val();

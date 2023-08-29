@@ -18,7 +18,10 @@ include "../conexion.php";
 	<link rel="stylesheet" type="text/css" href="css/popup.css">
 	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
 	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+	<script src="js/validacion.js">
+	
 
+	</script>
 </head>
 
 <body>
@@ -43,8 +46,10 @@ include "../conexion.php";
 
 		<h1>Lista de proveedores</h1>
 		<?php if (isset($_SESSION['permisos']['permiso_crear_proveedor']) && $_SESSION['permisos']['permiso_crear_proveedor'] == 1) { ?>
-			<a href="javascript:void(0);" onclick="loadPopupContent('registro_proveedor.php', event);" class="btn_new">Nuevo
-				Proveedor</a>
+
+			<a href="registro_proveedor.php" class="btn_new"
+				onclick="loadPopupContentFromLink(this.href); return false;">Nuevo Proveedor</a>
+
 		<?php } ?>
 
 		<form action="buscar_proveedor.php" method="get" class="form_search">
@@ -154,11 +159,15 @@ include "../conexion.php";
 		</div>
 
 	</section>
+
 	<div class="popup-container" id="popupContainer">
 		<div class="popup-content" id="popupContent">
+
 		</div>
 		<span class="close-button" onclick="closePopup()">&times;</span>
 	</div>
 	<div class="overlay" id="overlay" onclick="closePopup()"></div>
+
 </body>
+
 </html>

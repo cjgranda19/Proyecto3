@@ -1,77 +1,100 @@
-const elements = {
-    nombre: {
-        input: document.querySelector('input[name="nombre"]'),
-        regex: /^[A-Za-z]+\s[A-Za-z]+$/,
-        mensajeError: document.getElementById("mensajeErrorNombre"),
-        errorMessages: {
-            regex: "Formato incorrecto."
-        }
-    },
-    correo: {
-        input: document.querySelector('input[name="correo"]'),
-        regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-        mensajeError: document.getElementById("mensajeError"),
-        errorMessages: {
-            regex: "Formato incorrecto."
-        }
-    },
-    usuario: {
-        input: document.querySelector('input[name="usuario"]'),
-        regex: /^[a-z]+$/,
-        mensajeError: document.getElementById("mensajeErrorUsuario"),
-        errorMessages: {
-            regex: "El usuario debe estar compuesto únicamente por letras minúsculas."
-        }
-    },
-    clave: {
-        input: document.querySelector('input[name="clave"]'),
-        regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&.]{8,}$/,
-        mensajeError: document.getElementById("mensajeErrorPassword"),
-        errorMessages: {
-            regex: "La contraseña debe tener al menos 8 caracteres y contener al menos una letra, un número y un carácter especial (@, $, !, %, *, #, ?, &, .)."
-        }
-    },
-    proveedor: {
-        input: document.querySelector('input[name="proveedor"]'),
-        regex: /^[A-Za-z]+\s[A-Za-z]+$/,
-        mensajeError: document.getElementById("mensajeErrorProveedor"),
-        errorMessages: {
-            regex: "La contraseña debe tener al menos 8 caracteres y contener al menos una letra, un número y un carácter especial (@, $, !, %, *, #, ?, &, .)."
-        }
-    }
-};
+function validar() {
+    var validProveedor = validarProveedor();
+    var validCedula = validarCedula();
+    var validNombre = validarNombre();
+    var validTelefono = validarTelefono();
+    var validCorreo = validarCorreo();
+    var validDireccion = validarDireccion();
 
-const botonEnviar = document.getElementById("btn_sb");
-const inputValido = {};
+    var submitButton = document.getElementById("btn_sb");
+    submitButton.disabled = !(validProveedor && validCedula && validNombre && validTelefono && validCorreo && validDireccion);
+}
 
-function validarCampo(inputData) {
-    const valor = inputData.input.value;
+function validarProveedor() {
+    var proveedorInput = document.getElementById("proveedor");
+    var mensajeErrorProveedor = document.getElementById("mensajeErrorProveedor");
 
-    if (inputData.regex.test(valor)) {
-        inputData.mensajeError.textContent = "";
-        inputValido[inputData.input.name] = true;
+    if (proveedorInput.value.trim() === "") {
+        mensajeErrorProveedor.textContent = "El nombre del proveedor es obligatorio";
+        return false;
     } else {
-        inputData.mensajeError.textContent = inputData.errorMessages.regex;
-        inputValido[inputData.input.name] = false;
+        mensajeErrorProveedor.textContent = "";
+        return true;
     }
 }
 
-function mostrarMensajeError(inputData) {
-    inputData.mensajeError.textContent = inputValido[inputData.input.name] ? "" : "Por favor, ingrese un valor válido.";
+function validarCedula() {
+    var cedulaInput = document.getElementById("cedula");
+    var mensajeErrorCedula = document.getElementById("validationMessage");
+
+    if (!/^[0-9]{7,10}$/.test(cedulaInput.value)) {
+        mensajeErrorCedula.textContent = "El número de CI debe contener entre 7 y 10 dígitos";
+        return false;
+    } else {
+        mensajeErrorCedula.textContent = "";
+        return true;
+
+    }
 }
 
-function validarFormulario() {
-    const formularioValido = Object.values(inputValido).every(valido => valido);
-    botonEnviar.disabled = !formularioValido;
+function validarNombre() {
+    var nombreInput = document.getElementById("contacto");
+    var mensajeErrorNombre = document.getElementById("mensajeErrorNombre");
+
+    if (!/^[A-Za-z\s]+$/.test(nombreInput.value)) {
+        mensajeErrorNombre.textContent = "Ingresa un nombre válido";
+        return false;
+
+    } else {
+        mensajeErrorNombre.textContent = "";
+        return true;
+
+    }
 }
 
-Object.values(elements).forEach(campo => {
-    campo.input.addEventListener("input", () => {
-        validarCampo(campo);
-        validarFormulario();
-    });
+function validarTelefono() {
+    var telefonoInput = document.getElementById("telefono");
+    var mensajeErrorTelefono = document.getElementById("mensajeErrorTelefono");
 
-    campo.input.addEventListener("blur", () => {
-        mostrarMensajeError(campo);
-    });
-});
+    if (!/^[0-9]+$/.test(telefonoInput.value)) {
+
+        mensajeErrorTelefono.textContent = "Ingresa un número de teléfono válido";
+        return false;
+    } else {
+        mensajeErrorTelefono.textContent = "";
+        return true;
+
+    }
+}
+
+function validarCorreo() {
+    var correoInput = document.getElementById("correo");
+    var mensajeErrorCorreo = document.getElementById("mensajeErrorCorreo");
+
+    if (!/\S+@\S+\.\S+/.test(correoInput.value)) {
+        mensajeErrorCorreo.textContent = "Ingresa un correo electrónico válido";
+        return false;
+
+    } else {
+        mensajeErrorCorreo.textContent = "";
+        return true;
+
+    }
+}
+
+function validarDireccion() {
+    var direccionInput = document.getElementById("direccion");
+    var mensajeErrorDireccion = document.getElementById("mensajeErrorDireccion");
+
+    if (direccionInput.value.trim() === "") {
+        mensajeErrorDireccion.textContent = "La dirección es obligatoria";
+        return false;
+
+    } else {
+        mensajeErrorDireccion.textContent = "";
+        return true;
+
+    }
+}
+
+validar();

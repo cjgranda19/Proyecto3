@@ -15,9 +15,8 @@ include "../conexion.php";
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
 	<title>Registro Proveedor</title>
-	<link rel="stylesheet" type="text/css" href="css/popup.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="icon" type="image/jpg" href="img/favicon.png" />
-
 
 </head>
 
@@ -39,68 +38,49 @@ include "../conexion.php";
 			<form id="registroForm" action="process/process_register_supplier.php" method="post">
 				<label for="proveedor">Proveedor: </label>
 				<input type="text" name="proveedor" id="proveedor" placeholder="Nombre del proveedor"
-					pattern="[a-zA-Z0-9\s/]+">
+					onchange="validar()">
+				<div id="mensajeErrorProveedor" class="mensaje-error"></div>
+
+
 				<label for="cedula">DNI: </label>
-				<input type="text" name="cedula" id="cedula" placeholder="Número de CI" pattern="\d{10}" required>
+				<input type="text" name="cedula" id="cedula" placeholder="Número de CI" onchange="validar()"
+					required>
+				<div id="validationMessage" class="mensaje-error"></div>
+
+
 				<label for="contacto">Nombre: </label>
-				<input type="text" id="contacto" name="contacto" placeholder="Nombre Apellido"
-					pattern="^[A-Za-z]+\s[A-Za-z]+$" title="El formato debe ser 'Nombre Apellido'" required>
+				<input type="text" id="contacto" name="contacto" onchange="validar()" placeholder="Nombre Apellido"
+					title="El formato debe ser 'Nombre Apellido'" required>
+				<div id="mensajeErrorNombre" class="mensaje-error"></div>
+
 				<label for="telefono">Teléfono: </label>
-				<input type="text" name="telefono" id="telefono" placeholder="Teléfono" required>
-				<div id="mensajeErrorTelefono" style="color: red;"></div>
+				<input type="text" name="telefono" id="telefono" onchange="validar()" placeholder="Teléfono"
+					required>
+				<div id="mensajeErrorTelefono" class="mensaje-error"></div>
+
+
 				<label for="correo">Correo electrónico: </label>
-				<input type="email" name="correo" id="correo" placeholder="texto@dominio.com"
-					pattern="[a-zA-Z0-9!#$%&'*\/=?^_`\{\|\}~\+\-]([\.]?[a-zA-Z0-9!#$%&'*\/=?^_`\{\|\}~\+\-])+@[a-zA-Z0-9]([^@&%$\/\(\)=?¿!\.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?"
+				<input type="email" name="correo" id="correo" placeholder="texto@dominio.com" onchange="validar()"
 					title="Ingresa un correo con dominio .com o .net válido" required>
+
+				<div id="mensajeErrorCorreo" class="mensaje-error"></div>
+
 				<label for="direccion">Dirección: </label>
-				<input type="text" name="direccion" id="direccion" placeholder="Dirección completa"
-					pattern="[a-zA-Z0-9\s/]+">
+				<input type="text" name="direccion" id="direccion" onchange="validar()"
+					placeholder="Dirección completa">
+				<div id="mensajeErrorDireccion" class="mensaje-error"></div>
+
 
 				<div class="button-container">
 
-					<input type="submit" name="submit" value="Registrar" class="btn_save">
+					<input type="submit" name="submit" value="Registrar" id="btn_sb" class="btn_save">
 				</div>
 			</form>
 		</div>
 
+
 	</section>
-	<script>
-		var cedulaInput = document.getElementById("cedula");
-		var validationMessage = document.getElementById("validationMessage");
 
-		cedulaInput.addEventListener("input", function () {
-			var cedulaValue = cedulaInput.value;
-			if (isValidCI(cedulaValue)) {
-				validationMessage.textContent = "";
-			} else {
-				validationMessage.textContent = "El número de DNI no es válido.";
-			}
-		});
-
-		function isValidCI(ci) {
-			if (!/^\d{10}$/.test(ci)) {
-				return false;
-			}
-
-			var total = 0;
-			var coeficientes = [2, 1, 2, 1, 2, 1, 2, 1, 2];
-
-			for (var i = 0; i < 9; i++) {
-				var temp = parseInt(ci[i]) * coeficientes[i];
-				if (temp > 9) {
-					temp -= 9;
-				}
-				total += temp;
-			}
-
-			var verificador = 10 - (total % 10);
-			if (verificador === 10) {
-				verificador = 0;
-			}
-
-			return parseInt(ci[9]) === verificador;
-		}
-	</script>
 </body>
 
 </html>
