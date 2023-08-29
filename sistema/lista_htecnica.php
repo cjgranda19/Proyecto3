@@ -1,7 +1,7 @@
 <?php
 include(dirname(__DIR__) . '/conexion.php');
 global $conection;
-if (!isset($_SESSION['permisos']['permiso_ver_hoja_tecnica']) || $_SESSION['permisos']['permiso_ver_hoja_tecnica'] != 1) {
+if (!isset($_SESSION['permisos']['permiso_ver_hojas_tecnicas']) || $_SESSION['permisos']['permiso_ver_hojas_tecnicas'] != 1) {
 	header("location: index.php");
 	exit();
 }
