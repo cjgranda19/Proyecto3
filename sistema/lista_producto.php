@@ -2,8 +2,8 @@
 session_start();
 include "../conexion.php";
 if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permisos']['permiso_ver_productos'] != 1) {
-	header("location: index.php");
-	exit();
+    header("location: index.php");
+    exit();
 }
 ?>
 
@@ -43,12 +43,11 @@ if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permiso
 
         <h1>Lista de Productos</h1>
 
-		<?php if (isset($_SESSION['permisos']['permiso_crear_productos']) && $_SESSION['permisos']['permiso_crear_productos'] == 1) { ?>
+        <?php if (isset($_SESSION['permisos']['permiso_crear_productos']) && $_SESSION['permisos']['permiso_crear_productos'] == 1) { ?>
 
-            <a href="javascript:void(0);" onclick="loadPopupContent('registro_producto.php',event);" class="btn_new">Nuevo
-                producto</a>
-
-            <a href="javascript:void(0);" onclick="loadPopupContent('ingreso_producto.php',event);" class="btn_new">Ingreso
+            <a href="registro_producto.php" class="btn_new"
+                onclick="loadPopupContentFromLink(this.href); return false;">Nuevo Producto</a>
+            <a href="ingreso_producto.php" class="btn_new" onclick="loadPopupContentFromLink(this.href); return false;">Ingreso
                 Producto</a>
 
         <?php } ?>

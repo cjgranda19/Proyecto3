@@ -22,6 +22,7 @@ include "../conexion.php";
 
 	<link rel="stylesheet" type="text/css" href="css/popup.css">
 	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+	<script src="js/validacion_usuario.js"></script>
 
 </head>
 
@@ -37,9 +38,13 @@ include "../conexion.php";
 		</div>
 
 		<h1>Lista de usuarios</h1>
+
 		<?php if (isset($_SESSION['permisos']['permiso_crear_usuarios']) && $_SESSION['permisos']['permiso_crear_usuarios'] == 1) { ?>
-			<a href="javascript:void(0);" onclick="loadPopupContent('registro_usuario.php', event);" class="btn_new">Nuevo
-				usuario</a>
+
+			<a href="registro_usuario.php" class="btn_new"
+				onclick="loadPopupContentFromLink(this.href); return false;">Nuevo Usuario</a>
+				<a href="edit_user.php" class="btn_new"
+				onclick="loadPopupContentFromLink(this.href); return false;">Editar Usuario</a>
 		<?php } ?>
 
 
@@ -57,7 +62,7 @@ include "../conexion.php";
 				<th>Cargo</th>
 				<?php if (isset($_SESSION['permisos']['permiso_crear_usuarios']) && $_SESSION['permisos']['permiso_crear_usuarios'] == 1) { ?>
 
-				<th>Acciones</th>
+					<th>Acciones</th>
 
 				<?php } ?>
 			</tr>
@@ -109,14 +114,14 @@ include "../conexion.php";
 						</td>
 						<?php if (isset($_SESSION['permisos']['permiso_crear_usuarios']) && $_SESSION['permisos']['permiso_crear_usuarios'] == 1) { ?>
 
-						<td>
+							<td>
 
-							<a class="link_edit" href="editar_usuario.php?id=<?php echo $data['idusuario']; ?>"><i
-									class="fa-solid fa-pen-to-square"></i> Editar</a>
+								<a class="link_edit" href="editar_usuario.php?id=<?php echo $data['idusuario']; ?>"><i
+										class="fa-solid fa-pen-to-square"></i> Editar</a>
 
 								<a class="link_delete" href="eliminar_confirmar_usuario.php?id=<?php echo $data['idusuario']; ?>"><i
 										class="fa-solid fa-trash"></i> Eliminar</a>
-						</td>
+							</td>
 						<?php } ?>
 
 					</tr>

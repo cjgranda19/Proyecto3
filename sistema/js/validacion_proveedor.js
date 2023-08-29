@@ -23,6 +23,7 @@ function validarProveedor() {
     }
 }
 
+
 function validarCedula() {
     var cedulaInput = document.getElementById("cedula");
     var mensajeErrorCedula = document.getElementById("validationMessage");

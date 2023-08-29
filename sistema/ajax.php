@@ -103,6 +103,28 @@ if (!empty($_POST)) {
 		exit;
 
 	}
+
+	//Extraer datos usuarios
+
+	if ($_POST['action'] == 'getUsers') {
+		if (!empty($_POST['idusuario'])) {
+
+			$idusuario = $_POST['idusuario'];
+
+			$query = mysqli_query($conection, "SELECT * FROM usuario " . ($idusuario > 0 ? "WHERE idusuario = $idusuario" : ""));
+			$result = mysqli_num_rows($query);
+
+			if ($result > 0) {
+				$data = mysqli_fetch_assoc($query);
+				echo json_encode($data, JSON_UNESCAPED_UNICODE);
+			} else {
+				echo json_encode(0);
+			}
+
+			mysqli_close($conection);
+		}
+	}
+
 }
 
 exit;

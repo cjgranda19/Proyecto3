@@ -3,7 +3,7 @@ session_start();
 
 include "../conexion.php";
 
-if (!isset($_SESSION['permisos']['permiso_crear_cliente']) || $_SESSION['permisos']['permiso_crear_cliente'] != 1) {
+if (!isset($_SESSION['permisos']['permiso_crear_clientes']) || $_SESSION['permisos']['permiso_crear_clientes'] != 1) {
 	header("location: index.php");
 	exit();
 }

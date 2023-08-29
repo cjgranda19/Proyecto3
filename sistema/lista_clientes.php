@@ -36,12 +36,11 @@ if (!isset($_SESSION['permisos']['permiso_ver_clientes']) || $_SESSION['permisos
 
 		<h1>Lista de Clientes </h1>
 		<?php if (isset($_SESSION['permisos']['permiso_crear_clientes']) && $_SESSION['permisos']['permiso_crear_clientes'] == 1) { ?>
-			<a href="javascript:void(0);"
-				onclick="loadPopupContent('registro_cliente.php',event);" class="btn_new">Nuevo
-				cliente</a>
-				<a href="javascript:void(0);"
-				onclick="loadPopupContent('ingreso_cliente.php',event);" class="btn_new">Editar
-				cliente</a>
+			<a href="registro_cliente.php" class="btn_new"
+				onclick="loadPopupContentFromLink(this.href); return false;">Nuevo Usuario</a>
+				<a href="ingreso_cliente.php" class="btn_new"
+				onclick="loadPopupContentFromLink(this.href); return false;">Editar Usuario</a>
+		
 		<?php } ?>
 		<form action="buscar_cliente.php" method="get" class="form_search">
 			<input type="text" name="busqueda" id="busqueda" placeholder="Buscar">

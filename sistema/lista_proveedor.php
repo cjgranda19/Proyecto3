@@ -18,7 +18,7 @@ include "../conexion.php";
 	<link rel="stylesheet" type="text/css" href="css/popup.css">
 	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
 	<link rel="icon" type="image/jpg" href="img/favicon.png" />
-	<script src="js/validacion.js">
+	<script src="js/validacion_proveedor.js">
 	
 
 	</script>

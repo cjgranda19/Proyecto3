@@ -4,8 +4,8 @@ session_start();
 include "../../conexion.php";
 
 if (!isset($_SESSION['permisos']['permiso_crear_usuarios']) || $_SESSION['permisos']['permiso_crear_usuarios'] != 1) {
-	header("location: index.php");
-	exit();
+    header("location: index.php");
+    exit();
 }
 
 $alert = '';
@@ -16,11 +16,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $_POST['usuario'];
     $clave = md5($_POST['clave']);
     $cargo = $_POST['cargo'];
-    $selectedRoles = $_POST['roles'];
 
-    if (empty($nombre) || empty($email) || empty($user) || empty($clave) || empty($cargo) || empty($selectedRoles)) {
+    if (empty($nombre) || empty($email) || empty($user) || empty($clave) || empty($cargo)) {
         $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
     } else {
+
+        $cargo = $_POST['cargo'];
+
+        if ($cargo === 'Superadmin'){
+            $selectedRoles = array ("Crear usuarios", "Ver usuarios", "Ver proveedores", "Crear proveedor", "Ver productos", "Crear productos", "Agregar productos", "Crear hoja técnica", "Ver hojas técnicas", "Ver órdenes", "Crear órdenes", "Ver clientes", "Crear clientes", "Ver reportes");
+        }else{
+               $selectedRoles =array();
+        }
+
+        if ($cargo === 'Gerente') {
+            $selectedRoles = array("Ver usuarios", "Ver reportes");
+        } else {
+            $selectedRoles = array();
+        }
+
+        if($cargo === 'Vendedor'){
+            $selectedRoles = array("Ver clientes", "Crear clientes", "Ver reportes");
+        }else {
+            $selectedRoles = array();
+        }
+
+        if($cargo === 'Contador'){
+            $selectedRoles = array("Ver reportes");
+        }else{
+            $selectedRoles = array();
+        }
+
+        if($cargo === 'Cliente'){
+            $selectedRoles = array("Ver reportes");
+        }else{
+            $selectedRoles = array();
+        }
+	
+        if ($cargo === ""){
+            $_SESSION['popup_message'] = 'Error al crear usuario, no se recibio el cargo.';
+            header("location: ../lista_usuarios.php");
+            exit();
+        }
 
         $permiso_crear_usuarios = in_array("Crear usuarios", $selectedRoles) ? 1 : 0;
         $permiso_ver_usuarios = in_array("Ver usuarios", $selectedRoles) ? 1 : 0;

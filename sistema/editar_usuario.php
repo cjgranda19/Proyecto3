@@ -60,7 +60,7 @@ if (empty($_REQUEST['id'])) {
 }
 $iduser = $_REQUEST['id'];
 
-$sql = mysqli_query($conection, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, u.rol as idrol, r.rol FROM usuario u INNER JOIN rol r on u.rol = r.idrol WHERE idusuario = $iduser AND estatus=1");
+$sql = mysqli_query($conection, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, u.rol as idrol FROM usuario u INNER JOIN rol r on u.rol = r.idrol WHERE idusuario = $iduser AND estatus=1");
 
 $result_sql = mysqli_num_rows($sql);
 
@@ -190,31 +190,7 @@ if ($result_sql == 0) {
 				<input type="password" name="clave" id="clave" placeholder="Clave de acceso">
 				<label for="rol">Tipo Usuario</label>
 
-				<?php
-				include "../conexion.php";
-				$query_rol = mysqli_query($conection, "SELECT * FROM rol");
-				mysqli_close($conection);
-				$result_rol = mysqli_num_rows($query_rol);
-
-				?>
-
-				<select name="rol" id="rol" class="notItemOne">
-					<?php
-					if ($result_rol > 0) {
-						while ($rol = mysqli_fetch_array($query_rol)) {
-							$optionValue = $rol["idrol"];
-							$optionText = $rol["rol"];
-
-							if ($optionValue == $rol_usuario) {
-								echo '<option value="' . $optionValue . '" selected>' . $optionText . '</option>';
-							} else {
-								echo '<option value="' . $optionValue . '">' . $optionText . '</option>';
-							}
-						}
-					}
-					?>
-				</select>
-
+		
 
 				<input type="submit" value="Actualizar usuario" class="btn_save">
 			</form>

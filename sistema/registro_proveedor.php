@@ -54,8 +54,7 @@ include "../conexion.php";
 				<div id="mensajeErrorNombre" class="mensaje-error"></div>
 
 				<label for="telefono">Teléfono: </label>
-				<input type="text" name="telefono" id="telefono" onchange="validar()" placeholder="Teléfono"
-					required>
+				<input type="text" name="telefono" id="telefono" onchange="validar()" placeholder="Teléfono" required>
 				<div id="mensajeErrorTelefono" class="mensaje-error"></div>
 
 
