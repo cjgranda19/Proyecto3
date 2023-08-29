@@ -70,6 +70,7 @@ if ($result_sql == 0) {
 	<?php include "includes/scripts.php"; ?>
 	<title>Actualizar Proveedor</title>
 	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+	<scrip src="js/validacion_proveedor.js"></scrip>
 </head>
 
 <style>
@@ -158,7 +159,7 @@ if ($result_sql == 0) {
 			<form action="" method="post">
 				<input type="hidden" name="id" value="<?php echo $idproveedor; ?>">
 				<label for="proveedor">Proveedor: </label>
-				<input type="text" name="proveedor" id="proveedor" placeholder="Nombre del proveedor"  value="<?php echo $proveedor; ?>">
+				<input type="text" name="proveedor" id="proveedor" placeholder="Nombre del proveedor" onchange="validar()"  value="<?php echo $proveedor; ?>">
 				<div id="mensajeErrorProveedor" class="mensaje-error"></div>
 
 				<label for="contacto">Nombre y Apellido: </label>
