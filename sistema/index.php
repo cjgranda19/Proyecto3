@@ -17,7 +17,7 @@
 	<section id="container">
 		<img src="img/favicon.png" alt="logo de la empresa citaviso">
 		<h1>Bienvenido al sistema de Citaviso!</h1>
-		<h3>Entraste con la cuenta "<?php echo $_SESSION['user'] ?>"</h3>
+		<h3>Entraste con la cuenta "<?php echo $_SESSION['nombre'] ?>"</h3>
 	</section>
 </body>
 </html>

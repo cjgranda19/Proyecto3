@@ -1,10 +1,8 @@
 <?php
-
-
 session_start();
-if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
-	header("location: ./");
-	exit;
+if (!isset($_SESSION['permisos']['permiso_crear_proveedor']) || $_SESSION['permisos']['permiso_crear_proveedor'] != 1) {
+	header("location: index.php");
+	exit();
 }
 include "../conexion.php";
 

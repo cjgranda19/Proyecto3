@@ -1,9 +1,9 @@
 <?php
 session_start();
 include "../conexion.php";
-if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
-    header("location: ./");
-    exit;
+if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permisos']['permiso_ver_productos'] != 1) {
+	header("location: index.php");
+	exit();
 }
 ?>
 
@@ -43,7 +43,8 @@ if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
 
         <h1>Lista de Productos</h1>
 
-        <?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) { ?>
+		<?php if (isset($_SESSION['permisos']['permiso_crear_productos']) && $_SESSION['permisos']['permiso_crear_productos'] == 1) { ?>
+
             <a href="javascript:void(0);" onclick="loadPopupContent('registro_producto.php',event);" class="btn_new">Nuevo
                 producto</a>
 

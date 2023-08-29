@@ -81,13 +81,13 @@ include "includes/session_timeout.php";
 			$desde = ($pagina - 1) * $por_pagina;
 			$total_paginas = ceil($total_registro / $por_pagina);
 
-			$query = mysqli_query($conection, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol 
+			$query = mysqli_query($conection, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, u.cargo FROM usuario u INNER JOIN rol r ON u.rol = r.idrol 
 								WHERE 
 								(u.idusuario LIKE '%$busqueda%' OR 
 								u.nombre LIKE '%$busqueda%' OR 
 								u.correo LIKE '%$busqueda%' OR 
 								u.usuario LIKE '%$busqueda%' OR
-								r.rol LIKE '%$busqueda%') 
+								u.cargo LIKE '%$busqueda%') 
 								AND 
 								estatus = 1 ORDER BY u.usuario ASC LIMIT $desde, $por_pagina");
 

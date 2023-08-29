@@ -1,6 +1,10 @@
 <?php
 
 include('../conexion.php');
+if (!isset($_SESSION['permisos']['permiso_crear_ordenes']) || $_SESSION['permisos']['permiso_crear_ordenes'] != 1) {
+	header("location: index.php");
+	exit();
+}
 
 global $conection;
 
@@ -100,7 +104,6 @@ while ($row = $query->fetch_assoc()) {
             </div>
         </form>
     </main>
-    <?php include(__DIR__ . '/includes/footer.php'); ?>
     <template id="added-recipes-table-template">
         <div class="row">
             <div class="column name"></div>

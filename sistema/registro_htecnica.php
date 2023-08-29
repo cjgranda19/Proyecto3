@@ -1,6 +1,10 @@
 <?php
 include(dirname(__DIR__) . '/conexion.php');
 global $conection;
+if (!isset($_SESSION['permisos']['permiso_crear_hoja_tecnica']) || $_SESSION['permisos']['permiso_crear_hoja_tecnica'] != 1) {
+	header("location: index.php");
+	exit();
+}
 
 
 $totals = [];
@@ -193,7 +197,6 @@ if ($update_id) {
             <?php endif; ?>
         </form>
     </main>
-    <?php include(__DIR__ . '/includes/footer.php'); ?>
     <script>
     const products = <?php echo json_encode($products); ?>;
     const addIngredientBtn = document.querySelector('#add-ingredient');

@@ -1,7 +1,8 @@
 <?php
 	session_start();
-	if($_SESSION['rol'] != 1){
-		header("location: ./");
+	if (!isset($_SESSION['permisos']['permiso_crear_usuarios']) || $_SESSION['permisos']['permiso_crear_usuarios'] != 1) {
+		header("location: index.php");
+		exit();
 	}
 	include "../conexion.php";
 	
@@ -29,7 +30,7 @@
 		mysqli_close($conection);
 	}else{
 		$idusuario = $_REQUEST['id'];
-		$query = mysqli_query($conection, "SELECT u.nombre, u.usuario, r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.idusuario = $idusuario ");
+		$query = mysqli_query($conection, "SELECT u.nombre, u.usuario, u.cargo FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.idusuario = $idusuario ");
 		mysqli_close($conection);
 		$result = mysqli_num_rows($query);
 
@@ -37,7 +38,7 @@
 			while ($data = mysqli_fetch_array($query)){
 				$nombre = $data['nombre'];
 				$usuario = $data['usuario'];
-				$rol = $data['rol'];
+				$cargo = $data['cargo'];
 			}
 		}else{
 			header("location: lista_usuarios.php");

@@ -3,10 +3,9 @@ session_start();
 
 include "../conexion.php";
 
-session_start();
-if ($_SESSION['rol'] != 1 && $_SESSION['rol'] != 5) {
-	header("location: ./");
-	exit;
+if (!isset($_SESSION['permisos']['permiso_crear_cliente']) || $_SESSION['permisos']['permiso_crear_cliente'] != 1) {
+	header("location: index.php");
+	exit();
 }
 ?>
 

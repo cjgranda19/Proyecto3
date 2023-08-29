@@ -1,8 +1,10 @@
 <?php
 session_start();
-if ($_SESSION['rol'] != 1) {
-	header("location: ./");
+if (!isset($_SESSION['permisos']['permiso_ver_usuarios']) || $_SESSION['permisos']['permiso_ver_usuarios'] != 1) {
+	header("location: index.php");
+	exit();
 }
+
 include "../conexion.php";
 
 ?>
@@ -16,9 +18,10 @@ include "../conexion.php";
 	<?php include "includes/scripts.php"; ?>
 	<title>Lista Usuarios</title>
 	<link href="css/lista_usuarios.css" rel="stylesheet" type="text/css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="css/popup.css">
 	<link rel="icon" type="image/jpg" href="img/favicon.png" />
-
 
 </head>
 
@@ -33,21 +36,12 @@ include "../conexion.php";
 			?>
 		</div>
 
-		<script>
-			setTimeout(function () {
-				var popupMessage = document.getElementById("popupMessage");
-				if (popupMessage) {
-					popupMessage.style.display = "none";
-				}
-			}, 4000);
-		</script>
-
 		<h1>Lista de usuarios</h1>
-		<?php if ($_SESSION['rol'] == 1) { ?>
-			<a href="javascript:void(0);" onclick="loadPopupContent('registro_usuario.php',event);" class="btn_new">Nuevo
+		<?php if (isset($_SESSION['permisos']['permiso_crear_usuarios']) && $_SESSION['permisos']['permiso_crear_usuarios'] == 1) { ?>
+			<a href="javascript:void(0);" onclick="loadPopupContent('registro_usuario.php', event);" class="btn_new">Nuevo
 				usuario</a>
-
 		<?php } ?>
+
 
 		<form action="buscar_usuario.php" method="get" class="form_search">
 			<input type="text" name="busqueda" id="busqueda" placeholder="Buscar">
@@ -60,8 +54,12 @@ include "../conexion.php";
 				<th>Nombre</th>
 				<th>Correo</th>
 				<th>Usuario</th>
-				<th>Rol</th>
+				<th>Cargo</th>
+				<?php if (isset($_SESSION['permisos']['permiso_crear_usuarios']) && $_SESSION['permisos']['permiso_crear_usuarios'] == 1) { ?>
+
 				<th>Acciones</th>
+
+				<?php } ?>
 			</tr>
 			<?php
 
@@ -80,7 +78,12 @@ include "../conexion.php";
 			$desde = ($pagina - 1) * $por_pagina;
 			$total_paginas = ceil($total_registro / $por_pagina);
 
-			$query = mysqli_query($conection, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE estatus = 1 ORDER BY idusuario ASC LIMIT $desde,$por_pagina");
+			$query = mysqli_query($conection, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, u.cargo
+			FROM usuario u 
+			INNER JOIN rol r ON u.rol = r.idrol 
+			WHERE estatus = 1 
+			ORDER BY idusuario ASC 
+			LIMIT $desde, $por_pagina");
 
 			mysqli_close($conection);
 			$result = mysqli_num_rows($query);
@@ -100,20 +103,23 @@ include "../conexion.php";
 						<td>
 							<?php echo $data['usuario']; ?>
 						</td>
+
 						<td>
-							<?php echo $data['rol']; ?>
+							<?php echo $data['cargo'] ?>
 						</td>
+						<?php if (isset($_SESSION['permisos']['permiso_crear_usuarios']) && $_SESSION['permisos']['permiso_crear_usuarios'] == 1) { ?>
+
 						<td>
+
 							<a class="link_edit" href="editar_usuario.php?id=<?php echo $data['idusuario']; ?>"><i
 									class="fa-solid fa-pen-to-square"></i> Editar</a>
 
-							<?php if ($data["idusuario"] != 1) { ?>
 								<a class="link_delete" href="eliminar_confirmar_usuario.php?id=<?php echo $data['idusuario']; ?>"><i
 										class="fa-solid fa-trash"></i> Eliminar</a>
-							<?php } ?>
 						</td>
-					</tr>
+						<?php } ?>
 
+					</tr>
 					<?php
 				}
 			}
