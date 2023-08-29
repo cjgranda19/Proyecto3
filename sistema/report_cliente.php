@@ -2,14 +2,17 @@
 session_start();
 include "../conexion.php";
 if (!isset($_SESSION['permisos']['permiso_ver_reportes']) || $_SESSION['permisos']['permiso_ver_reportes'] != 1) {
-    header("location: index.php");
-    exit();
+	header("location: index.php");
+	exit();
 }
 $first_date = $_GET['first_date'] ?? '';
 $second_date = $_GET['second_date'] ?? '';
 $first_date_mysql = date('Y-m-d H:i:s', strtotime($first_date));
 $second_date_mysql = date('Y-m-d H:i:s', strtotime($second_date));
+
 ?>
+
+
 <!doctype html>
 <html>
 
@@ -47,8 +50,7 @@ $second_date_mysql = date('Y-m-d H:i:s', strtotime($second_date));
 				<div>
 					<h4>Hasta</h4>
 					<label for="second_date">Fecha de Fin:</label>
-					<input type="datetime-local" name="second_date" id="second_date"
-						value="<?php echo $second_date; ?>">
+					<input type="datetime-local" name="second_date" id="second_date" value="<?php echo $second_date; ?>">
 				</div>
 			</div>
 			<input type="submit" value="Generar Reporte">
@@ -97,7 +99,7 @@ $second_date_mysql = date('Y-m-d H:i:s', strtotime($second_date));
 		   c.id_cliente, lu.dateadd");
 
 			while ($data = mysqli_fetch_array($query)) {
-				?>
+			?>
 				<tr>
 					<td>
 						<?php echo $data['id_cliente']; ?>
@@ -142,7 +144,7 @@ $second_date_mysql = date('Y-m-d H:i:s', strtotime($second_date));
 						<?php echo $data['fecha_cambio']; ?>
 					</td>
 				</tr>
-				<?php
+			<?php
 			}
 			?>
 
@@ -151,11 +153,18 @@ $second_date_mysql = date('Y-m-d H:i:s', strtotime($second_date));
 		<div class="paginador">
 			<ul>
 				<?php
+
+				$total_registros = mysqli_num_rows($query);
+				$registros_por_pagina = 10; // Ajusta esto según el número de registros que quieras mostrar por página
+				$total_paginas = ceil($total_registros / $registros_por_pagina);
+
+				// Obtén el número de página actual (si está configurado en la URL)
+				$pagina = isset($_GET['pagina']) ? intval($_GET['pagina']) : 1;
 				if ($pagina != 1) {
-					?>
+				?>
 					<li><a href="?pagina=1">&laquo;&laquo;</a></li>
 					<li><a href="?pagina=<?php echo $pagina - 1; ?>">&laquo;</a></li>
-					<?php
+				<?php
 				}
 				for ($i = 1; $i <= $total_paginas; $i++) {
 					if ($i == $pagina) {
@@ -166,7 +175,7 @@ $second_date_mysql = date('Y-m-d H:i:s', strtotime($second_date));
 				}
 
 				if ($pagina != $total_paginas) {
-					?>
+				?>
 					<li><a href="?pagina=<?php echo $pagina + 1; ?>">>></a></li>
 					<li><a href="?pagina=<?php echo $total_paginas; ?> ">>|</a></li>
 				<?php } ?>

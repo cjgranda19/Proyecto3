@@ -8,6 +8,8 @@
     <stock>1</stock>
     <date_add>2023-08-29 07:56:29</date_add>
     <id_user>1</id_user>
+    <average_price/>
+    <tendencia>0</tendencia>
   </product>
   <product>
     <id_producto>4</id_producto>
@@ -17,5 +19,7 @@
     <stock>2</stock>
     <date_add>2023-08-29 12:18:06</date_add>
     <id_user>1</id_user>
+    <average_price/>
+    <tendencia>0</tendencia>
   </product>
 </products>

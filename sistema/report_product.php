@@ -70,6 +70,7 @@ $second_date = $_GET['second_date'] ?? '';
 			</div>
 
 		</form>
+		
 
 		<table>
 			<tr>

@@ -18,6 +18,7 @@ if (!isset($_SESSION['permisos']['permiso_ver_clientes']) || $_SESSION['permisos
 	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
 	<link rel="stylesheet" type="text/css" href="css/popup.css">
 	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+	<script src="js/validacion_cliente.js"></script>
 
 
 </head>
@@ -37,9 +38,9 @@ if (!isset($_SESSION['permisos']['permiso_ver_clientes']) || $_SESSION['permisos
 		<h1>Lista de Clientes </h1>
 		<?php if (isset($_SESSION['permisos']['permiso_crear_clientes']) && $_SESSION['permisos']['permiso_crear_clientes'] == 1) { ?>
 			<a href="registro_cliente.php" class="btn_new"
-				onclick="loadPopupContentFromLink(this.href); return false;">Nuevo Usuario</a>
+				onclick="loadPopupContentFromLink(this.href); return false;">Nuevo Cliente</a>
 				<a href="ingreso_cliente.php" class="btn_new"
-				onclick="loadPopupContentFromLink(this.href); return false;">Editar Usuario</a>
+				onclick="loadPopupContentFromLink(this.href); return false;">Editar Cliente</a>
 		
 		<?php } ?>
 		<form action="buscar_cliente.php" method="get" class="form_search">
