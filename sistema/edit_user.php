@@ -39,6 +39,7 @@ mysqli_close($conection);
 
             <form id="entryForm" action="process/process_edit_user.php" method="post">
                 <input type="hidden" name="idusuario" id="idusuario" value="">
+
                 <label for="usuario">Selecciona un usuario: </label>
                 <select name="selectedUsuarioId" id="selectedUsuarioId" required onchange="populateFieldsUsers()">
                     <option value="" disabled selected>Selecciona un usuario</option>
@@ -48,16 +49,18 @@ mysqli_close($conection);
                     }
                     ?>
                 </select>
-                <label for="usuario">Usuario: </label>
-                <input type="text" name="usuario" id="usuario" placeholder="Usuario" title="El usuario debe tener al menos 4 caracteres" required>
 
-                <label for="nombre">Nombre: </label>
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre Apellido"
+                <label for="usuario">Usuario: </label>
+                <input type="text" name="usuario" id="usuario" placeholder="usuario" pattern="^[a-z]+$" title="Ingresa un usuario válido con solo minúsculas" onchange="validar()" required>
+                <div id="mensajeErrorUsuario" class="mensaje-error"></div>
+
+                <label for="nombre">Nombre y Apellido </label>
+                <input type="text" id="nombre" placeholder="Nombre Apellido" title="El formato debe ser 'Nombre Apellido'" onchange="validar()" 
                     title="El formato debe ser 'Nombre Apellido'" required>
                 <div id="mensajeErrorNombre" class="mensaje-error"></div>
 
                 <label for="correo">Correo electrónico: </label>
-                <input type="email" name="correo" id="correo" placeholder="texto@dominio.com"
+                <input type="email" name="correo" id="correo" placeholder="texto@dominio.com" onchange="validar()"
                     title="Ingresa un correo con dominio .com o .net válido" required>
                 <div id="mensajeErrorCorreo" class="mensaje-error"></div>
 
@@ -75,7 +78,7 @@ mysqli_close($conection);
                 </select>
 
                 <label for="clave">Clave: </label>
-                <input type="password" name="clave" id="clave" placeholder="Clave de acceso"
+                <input type="password" name="clave" id="clave" placeholder="Clave de acceso" onchange="validar()"
                     title="La clave debe tener al menos 8 caracteres, incluir una mayúscula y un carácter especial">
                 <div id="mensajeErrorClave" class="mensaje-error"></div>
 

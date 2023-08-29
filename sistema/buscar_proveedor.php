@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include "../../conexion.php";
+	include "../conexion.php";
 	if (
 		!isset($_SESSION['permisos']['permiso_ver_proveedores']) || $_SESSION['permisos']['permiso_ver_proveedores'] != 1 ||
 		!isset($_SESSION['permisos']['permiso_crear_proveedor']) || $_SESSION['permisos']['permiso_crear_proveedor'] != 1

@@ -177,20 +177,24 @@ if ($result_sql == 0) {
 
 			<form action="" method="post">
 				<input type="hidden" name="id" value="<?php echo $iduser; ?>">
+				
 				<label for="nombre">Nombre: </label>
+
 				<input type="text" name="nombre" placeholder="Nombre completo" value="<?php echo $nombre; ?>">
 				<label for=correo>Correo electónico: </label>
+
 				<input type="email" name="correo" id="correo" placeholder="Correo electónico"
 					value="<?php echo $correo; ?>">
 				<div id="mensajeError" style="color: red;"></div>
 
 				<label for="usuario">Usuario: </label>
 				<input type="text" name="usuario" id="usuario" placeholder="Usuario" value="<?php echo $usuario; ?>">
+
 				<label for="Clave">Clave</label>
 				<input type="password" name="clave" id="clave" placeholder="Clave de acceso">
+
 				<label for="rol">Tipo Usuario</label>
 
-		
 
 				<input type="submit" value="Actualizar usuario" class="btn_save">
 			</form>

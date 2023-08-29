@@ -14,6 +14,7 @@ function validarCorreo() {
 
     if (!/^[a-zA-Z0-9!#$%&'*\/=?^_`{|}~+\-]+@[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*$/.test(correoInput.value)) {
         mensajeErrorCorreo.textContent = "El correo debe tener el formato: example@dominio.com";
+        mensajeErrorCorreo.style.color = "red";
         return false;
     } else {
         mensajeErrorCorreo.textContent = "";
@@ -30,7 +31,8 @@ function validarNombre() {
     var nombreRegExp = /^^[A-Za-z]+\s[A-Za-z]+$/;
 
     if (!nombreRegExp.test(nombreInput.value)) {
-        mensajeErrorNombre.textContent = "Ingresa un nombre válido";
+        mensajeErrorNombre.textContent = "Ingresa un nombre y un apellido";
+        mensajeErrorNombre.style.color = "red";
         return false;
     } else {
         mensajeErrorNombre.textContent = "";
@@ -44,6 +46,7 @@ function validarUsuario() {
 
     if (usuarioInput.value.trim() === "") {
         mensajeErrorUsuario.textContent = "El usuario es obligatorio";
+        mensajeErrorUsuario.style.color = "red";
         return false;
     } else {
         mensajeErrorUsuario.textContent = "";
@@ -59,6 +62,7 @@ function validarClave() {
 
     if (!claveRegExp.test(claveInput.value)) {
         mensajeErrorClave.textContent = "La contraseña debe tener entre 8 y 16 caracteres, al menos una letra mayúscula, una minúscula, un número y un caracter especial";
+        mensajeErrorClave.style.color = "red";
         return false;
     } else {
         mensajeErrorClave.textContent = "";

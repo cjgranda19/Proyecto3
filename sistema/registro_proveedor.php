@@ -37,36 +37,30 @@ include "../conexion.php";
 			</div>
 			<form id="registroForm" action="process/process_register_supplier.php" method="post">
 				<label for="proveedor">Proveedor: </label>
-				<input type="text" name="proveedor" id="proveedor" placeholder="Nombre del proveedor"
-					onchange="validar()">
+				<input type="text" name="proveedor" id="proveedor" placeholder="Nombre del proveedor" onchange="validar()">
 				<div id="mensajeErrorProveedor" class="mensaje-error"></div>
 
 
-				<label for="cedula">DNI: </label>
-				<input type="text" name="cedula" id="cedula" placeholder="Número de CI" onchange="validar()"
-					required>
-				<div id="validationMessage" class="mensaje-error"></div>
+				<label for="cedula">Cédula: </label>
+				<input type="text" name="cedula" id="cedula" placeholder="Número de cédula" onchange="validar()" required>
+				<div id="mensajeErrorCedula" class="mensaje-error"></div>
 
 
-				<label for="contacto">Nombre: </label>
-				<input type="text" id="contacto" name="contacto" onchange="validar()" placeholder="Nombre Apellido"
-					title="El formato debe ser 'Nombre Apellido'" required>
+				<label for="contacto">Nombre y Apellido: </label>
+				<input type="text" id="contacto" name="contacto" onchange="validar()" placeholder="Nombre Apellido" required>
 				<div id="mensajeErrorNombre" class="mensaje-error"></div>
 
 				<label for="telefono">Teléfono: </label>
-				<input type="text" name="telefono" id="telefono" onchange="validar()" placeholder="Teléfono" required>
+				<input type="text" name="telefono" id="telefono" onchange="validar()" placeholder="0981515127" required>
 				<div id="mensajeErrorTelefono" class="mensaje-error"></div>
 
 
 				<label for="correo">Correo electrónico: </label>
-				<input type="email" name="correo" id="correo" placeholder="texto@dominio.com" onchange="validar()"
-					title="Ingresa un correo con dominio .com o .net válido" required>
-
+				<input type="email" name="correo" id="correo" placeholder="texto@dominio.com" onchange="validar()" required>
 				<div id="mensajeErrorCorreo" class="mensaje-error"></div>
 
 				<label for="direccion">Dirección: </label>
-				<input type="text" name="direccion" id="direccion" onchange="validar()"
-					placeholder="Dirección completa">
+				<input type="text" name="direccion" id="direccion" onchange="validar()" placeholder="Dirección completa">
 				<div id="mensajeErrorDireccion" class="mensaje-error"></div>
 
 

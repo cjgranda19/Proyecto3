@@ -1,39 +1,40 @@
 <?php
-	session_start();
-	include "../conexion.php";
-	include "includes/session_timeout.php";
-	if (!isset($_SESSION['permisos']['permiso_crear_proveedor']) || $_SESSION['permisos']['permiso_crear_proveedor'] != 1) {
-		header("location: index.php");
-		exit();
-	}
+session_start();
+include "../conexion.php";
+include "includes/session_timeout.php";
+if (!isset($_SESSION['permisos']['permiso_crear_proveedor']) || $_SESSION['permisos']['permiso_crear_proveedor'] != 1) {
+	header("location: index.php");
+	exit();
+}
 
-	if(!empty($_POST)){
+if (!empty($_POST)) {
 
-		$alert = '';
+	$alert = '';
 
-		if(empty($_POST['proveedor']) || empty($_POST['telefono']) || empty($_POST['direccion']) || empty($_POST['contacto'])){
-			$alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
-		}else{
-			include "../conexion.php";
+	if (empty($_POST['proveedor']) || empty($_POST['telefono']) || empty($_POST['direccion']) || empty($_POST['contacto'])) {
+		$alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
+	} else {
+		include "../conexion.php";
 
-			$idproveedor = $_POST['id'];
-			$proveedor = $_POST['proveedor'];
-			$contacto = $_POST['contacto'];
-			$telefono = $_POST['telefono'];
-			$direccion = $_POST['direccion'];
+		$idproveedor = $_POST['id'];
+		$proveedor = $_POST['proveedor'];
+		$contacto = $_POST['contacto'];
+		$telefono = $_POST['telefono'];
+		$direccion = $_POST['direccion'];
+		$cedula = $_POST['cedula'];
 
-				$sql_update = mysqli_query($conection, "UPDATE proveedor SET proveedor = '$proveedor', contacto='$contacto', telefono='$telefono', direccion='$direccion' WHERE id_supplier=$idproveedor ");
-				
-				if($sql_update){
-					$alert = '<p class="msg_save">Proveedor actualizado correctamente.</p>';
-				}else{
-					$alert = '<p class="msg_error">Error al actualizar el proveedor.</p>';
-				}
+		$sql_update = mysqli_query($conection, "UPDATE proveedor SET proveedor = '$proveedor', contacto='$contacto', telefono='$telefono', direccion='$direccion', cedula = '$cedula' WHERE id_supplier=$idproveedor ");
+
+		if ($sql_update) {
+			$alert = '<p class="msg_save">Proveedor actualizado correctamente.</p>';
+		} else {
+			$alert = '<p class="msg_error">Error al actualizar el proveedor.</p>';
 		}
 	}
+}
 
 //mostrar datos
-if(empty($_REQUEST['id'])){
+if (empty($_REQUEST['id'])) {
 	header('Location: lista_proveedor.php');
 	mysqli_close($conection);
 }
@@ -43,17 +44,18 @@ $sql = mysqli_query($conection, "SELECT * FROM proveedor WHERE id_supplier = $id
 
 $result_sql = mysqli_num_rows($sql);
 
-if($result_sql == 0){
+if ($result_sql == 0) {
 	header('Location: lista_proveedor.php');
-}else{
+} else {
 	$option = '';
-	while ($data = mysqli_fetch_array($sql)){
+	while ($data = mysqli_fetch_array($sql)) {
 		$idproveedor = $data['id_supplier'];
 		$proveedor = $data['proveedor'];
 		$correo = $data['correo'];
 		$contacto = $data['contacto'];
 		$telefono = $data['telefono'];
 		$direccion = $data['direccion'];
+		$cedula = $data['cedula'];
 	}
 }
 
@@ -62,6 +64,7 @@ if($result_sql == 0){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
@@ -70,16 +73,16 @@ if($result_sql == 0){
 </head>
 
 <style>
-	.form_register{
+	.form_register {
 		width: 450px;
 		margin: auto;
 	}
 
-	.form_register h1{
+	.form_register h1 {
 		color: #3c93b0;
 	}
 
-	hr{
+	hr {
 		border: 0;
 		background: #ccc;
 		height: 1px;
@@ -87,21 +90,22 @@ if($result_sql == 0){
 		display: block;
 	}
 
-	form{
+	form {
 		background: #fff;
 		margin: auto;
 		padding: 20px 50px;
 		border: 1px solid #d1d1d1;
 	}
 
-	label{
+	label {
 		display: block;
 		font-size: 12pt;
 		font-family: 'Roboto', sans-serif;
 		margin: 15px auto 5px auto;
 	}
 
-	input, select{
+	input,
+	select {
 		display: block;
 		width: 100%;
 		font-size: 13pt;
@@ -110,7 +114,7 @@ if($result_sql == 0){
 		border-radius: 5px;
 	}
 
-	.btn_save{
+	.btn_save {
 		font-size: 12pt;
 		background: #12a4c6;
 		padding: 10px;
@@ -120,22 +124,22 @@ if($result_sql == 0){
 		margin: 15px auto;
 	}
 
-	.alert{
+	.alert {
 		width: 100%;
 		background: #66e07d66;
 		border-radius: 6px;
 		margin: 20px auto;
 	}
 
-	.msg_error{
+	.msg_error {
 		color: #e65656;
 	}
 
-	.msg_save{
+	.msg_save {
 		color: #126e00;
 	}
 
-	.alert p{
+	.alert p {
 		padding: 10px;
 	}
 </style>
@@ -145,29 +149,42 @@ if($result_sql == 0){
 <body>
 	<?php include "includes/header.php"; ?>
 	<section id="container">
-		
+
 		<div class="form_register">
 			<h1>Actualizar proveedor</h1>
 			<hr>
 			<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 
 			<form action="" method="post">
-				<input type="hidden" name="id"  value="<?php echo $idproveedor; ?>">
+				<input type="hidden" name="id" value="<?php echo $idproveedor; ?>">
 				<label for="proveedor">Proveedor: </label>
-				<input type="text" name="proveedor" id="proveedor" placeholder="Nombre del proveedor" onkeyup="this.value=Letras(this.value)" value="<?php echo $proveedor; ?>">
-				<label for="contacto">Contacto: </label>
-				<input type="text" name="contacto" id="contacto"placeholder="Nombre completo del contacto" onkeyup="this.value=Letras(this.value)"  value="<?php echo $contacto; ?>">
-				<label for="email">Email: </label>
-				<input type="email" name="correo" id="correo" placeholder="texto@dominio.com" value="<?php echo $correo; ?>"
-					pattern="[a-zA-Z0-9!#$%&'*\/=?^_`\{\|\}~\+\-]([\.]?[a-zA-Z0-9!#$%&'*\/=?^_`\{\|\}~\+\-])+@[a-zA-Z0-9]([^@&%$\/\(\)=?¿!\.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?"
-					title="Ingresa un correo con dominio .com o .net válido" required>
+				<input type="text" name="proveedor" id="proveedor" placeholder="Nombre del proveedor"  value="<?php echo $proveedor; ?>">
+				<div id="mensajeErrorProveedor" class="mensaje-error"></div>
+
+				<label for="contacto">Nombre y Apellido: </label>
+				<input type="text" name="contacto" id="contacto" onchange="validar()" placeholder="Nombre Apellido" value="<?php echo $contacto; ?>">
+				<div id="mensajeErrorNombre" class="mensaje-error"></div>
+
+				<label for="cedula">Cédula: </label>
+				<input type="text" name="cedula" id="cedula" placeholder="Número de cédula" onchange="validar()" required value="<?php echo $cedula; ?>">
+				<div id="mensajeErrorCedula" class="mensaje-error"></div>
+
+				<label for="email">Correo electrónico: </label>
+				<input type="email" name="correo" id="correo" placeholder="texto@dominio.com" onchange="validar()" value="<?php echo $correo; ?>" required>
+				<div id="mensajeErrorCorreo" class="mensaje-error"></div>
+
 				<label for="telefono">Teléfono: </label>
-				<input type="text" name="telefono" id="telefono" placeholder="Teléfono" maxlength="10" minlength="10" onkeyup="this.value=Numeros(this.value)"  value="<?php echo $telefono; ?>">
+				<input type="text" name="telefono" id="telefono" onchange="validar()" placeholder="0981515127" value="<?php echo $telefono; ?>">
+				<div id="mensajeErrorTelefono" class="mensaje-error"></div>
+
 				<label for="direccion">Dirección: </label>
-				<input type="text" name="direccion" id="direccion" placeholder="Dirección completa"  value="<?php echo $direccion; ?>">
+				<input type="text" name="direccion" id="direccion" onchange="validar()" placeholder="Dirección completa" value="<?php echo $direccion; ?>">
+				<div id="mensajeErrorDireccion" class="mensaje-error"></div>
+
 				<input type="submit" value="Actualizar proveedor" class="btn_save">
 			</form>
 
 	</section>
 </body>
+
 </html>
