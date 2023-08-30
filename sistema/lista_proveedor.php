@@ -18,8 +18,10 @@ include "../conexion.php";
 	<link rel="stylesheet" type="text/css" href="css/popup.css">
 	<link rel="stylesheet" type="text/css" href="css/style_tables.css">
 	<link rel="icon" type="image/jpg" href="img/favicon.png" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 	<script src="js/validacion_proveedor.js">
-	
+
 
 	</script>
 </head>
@@ -49,7 +51,8 @@ include "../conexion.php";
 
 			<a href="registro_proveedor.php" class="btn_new"
 				onclick="loadPopupContentFromLink(this.href); return false;">Nuevo Proveedor</a>
-
+			<a href="edit_supplier.php" class="btn_new" onclick="loadPopupContentFromLink(this.href); return false;">Editar
+				Usuario</a>
 		<?php } ?>
 
 		<form action="buscar_proveedor.php" method="get" class="form_search">

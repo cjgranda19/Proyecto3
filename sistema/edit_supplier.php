@@ -53,7 +53,7 @@ mysqli_close($conection);
                     <option value="" disabled selected>Selecciona un proveedor</option>
                     <?php
                     while ($proveedor = mysqli_fetch_array($query_cliente)) {
-                        echo '<option value="' . $proveedor['idusuario'] . '">' . $proveedor['proveedor'] . '</option>';
+                        echo '<option value="' . $proveedor['id_supplier'] . '">' . $proveedor['proveedor'] . '</option>';
                     }
                     ?>
                 </select>

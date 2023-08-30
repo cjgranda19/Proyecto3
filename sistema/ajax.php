@@ -125,6 +125,25 @@ if (!empty($_POST)) {
 		}
 	}
 
+	if($_POST['action'] == 'getSupplier') {
+		if (!empty($_POST['id_supplier'])) {
+
+			$id_supplier = $_POST['id_supplier'];
+
+			$query = mysqli_query($conection, "SELECT * FROM proveedor " . ($id_supplier > 0 ? "WHERE id_supplier = $id_supplier" : ""));
+			$result = mysqli_num_rows($query);
+
+			if ($result > 0) {
+				$data = mysqli_fetch_assoc($query);
+				echo json_encode($data, JSON_UNESCAPED_UNICODE);
+			} else {
+				echo json_encode(0);
+			}
+
+			mysqli_close($conection);
+		}
+	}
+
 }
 
 exit;

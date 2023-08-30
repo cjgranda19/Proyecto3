@@ -141,19 +141,19 @@ function populateFieldsSupplier(){
     $.ajax({
         type: "POST",
         url: "ajax.php", // Ruta real hacia tu archivo ajax.php
-        data: { action: "getSupplier", idproveedor: selectedProveedorId },
+        data: { action: "getSupplier", id_supplier : selectedProveedorId },
         dataType: "json",
         success: function (response) {
     
-
                 var proveedor = response;
         
-
-                $("#idproveedor").val(proveedor.idproveedor);
-                $("#nombre").val(proveedor.nombre);
-                $("#direccion").val(proveedor.direccion);
-                $("#telefono").val(proveedor.telefono);
+                $("#id_supplier ").val(proveedor.id_supplier );
+                $("#cedula").val(proveedor.cedula);
+                $("#proveedor").val(proveedor.proveedor);
+                $("#contacto").val(proveedor.contacto);
                 $("#correo").val(proveedor.correo);
+                $("#telefono").val(proveedor.telefono);
+                $("#direccion").val(proveedor.direccion);
             
         },
         error: function (error) {

@@ -59,7 +59,7 @@ mysqli_close($conection);
 
                 
                 <label for="nombre">Nombre y Apellido </label>
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre Apellido" title="El formato debe ser 'Nombre Apellido'" onchange="validar()" 
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre Apellido" title="El formato debe ser 'Nombre Apellido'" onchange="validar()" required>
                 <div id="mensajeErrorNombre" class="mensaje-error"></div>
 
                 <label for="correo">Correo electrónico: </label>
