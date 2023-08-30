@@ -16,7 +16,8 @@ include "../conexion.php";
 	<title>Registro Producto</title>
 	<link rel="stylesheet" href="css/popup.css">
 	<link rel="icon" type="image/jpg" href="img/favicon.png" />
-
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body>
@@ -54,15 +55,16 @@ include "../conexion.php";
 					required>
 
 				<label for="contenedores">Cantidad de Contenedores</label>
-				<input type="number" name="contenedores" id="contenedores" placeholder="Contenedores" min="1" value="1" required >
+				<input type="number" name="contenedores" id="contenedores" placeholder="Contenedores" min="1" value="1"
+					required>
 
 				<label for="cajasPorContenedor">Cajas por Contenedor</label>
 				<input type="number" name="cajasPorContenedor" id="cajasPorContenedor"
 					placeholder="Cajas por Contenedor" min="1" value="1" required>
 
 				<label for="unidadesPorCaja">Unidades por Caja</label>
-				<input type="number" name="unidadesPorCaja" id="unidadesPorCaja" placeholder="Unidades por Caja" value="1" min="1"
-					required>
+				<input type="number" name="unidadesPorCaja" id="unidadesPorCaja" placeholder="Unidades por Caja"
+					value="1" min="1" required>
 
 				<div class="button-container">
 					<input type="submit" name="submit" value="Registrar" class="btn_save">
@@ -70,7 +72,11 @@ include "../conexion.php";
 			</form>
 		</div>
 	</section>
-
+	<script>
+		$(document).ready(function () {
+			$('.select2').select2();
+		});
+	</script>
 </body>
 
 </html>

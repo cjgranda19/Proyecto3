@@ -3,8 +3,8 @@ session_start();
 
 include('../conexion.php');
 if (!isset($_SESSION['permisos']['permiso_crear_ordenes']) || $_SESSION['permisos']['permiso_crear_ordenes'] != 1) {
-	header("location: index.php");
-	exit();
+    header("location: index.php");
+    exit();
 }
 
 global $conection;
@@ -36,7 +36,9 @@ while ($row = $query->fetch_assoc()) {
     <title>Crear orden</title>
     <link rel="stylesheet" href="./css/crear_orden.css">
     <link rel="icon" type="image/jpg" href="img/favicon.png" />
-
+    <script src="js/popup.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body>
@@ -68,7 +70,7 @@ while ($row = $query->fetch_assoc()) {
                     <div class="ui-form-group compound">
                         <div class="ui-form-group">
                             <label for="recipe-item">Receta</label>
-                            <select class="form-control" name="recipes" id="recipe-item">
+                            <select class="select2" name="recipes">
                                 <?php foreach ($recipes as $recipe): ?>
                                     <option value="<?php echo $recipe['id']; ?>">
                                         <?php echo $recipe['name']; ?>
@@ -121,121 +123,121 @@ while ($row = $query->fetch_assoc()) {
         crossorigin="anonymous"></script>
     <script
         src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
-   <script>
-    const recipes = <?php echo json_encode($recipes); ?>;
-    const addedRecipes = [];
-    let currentRecipe = null;
+    <script>
+        const recipes = <?php echo json_encode($recipes); ?>;
+        const addedRecipes = [];
+        let currentRecipe = null;
 
-    $('#recipe-item').autoComplete({
-        resolver: 'custom',
-        events: {
-            search: function (qry, callback) {
-                const filtered = recipes
-                    .filter(recipe => recipe.name.toLowerCase().includes(qry.toLowerCase()))
-                    .map(recipe => ({
-                        value: recipe.id,
-                        text: recipe.name
-                    }));
-                callback(filtered);
+        $('#recipe-item').autoComplete({
+            resolver: 'custom',
+            events: {
+                search: function (qry, callback) {
+                    const filtered = recipes
+                        .filter(recipe => recipe.name.toLowerCase().includes(qry.toLowerCase()))
+                        .map(recipe => ({
+                            value: recipe.id,
+                            text: recipe.name
+                        }));
+                    callback(filtered);
+                }
             }
-        }
-    });
+        });
 
-    $('#recipe-item').on('autocomplete.select', function (evt, item) {
-        currentRecipe = item;
-        return false;
-    });
+        $('#recipe-item').on('autocomplete.select', function (evt, item) {
+            currentRecipe = item;
+            return false;
+        });
 
-    const addRecipeButton = document.querySelector('#add-recipe');
+        const addRecipeButton = document.querySelector('#add-recipe');
 
-    addRecipeButton.addEventListener('click', () => {
-        if (currentRecipe === null) {
-            return;
-        }
-
-        const quantity = parseInt(document.querySelector('#recipe-quantity').value);
-
-        if (quantity <= 0) {
-            return;
-        }
-
-        const recipe = addedRecipes.find(recipe => recipe.id === currentRecipe.value);
-
-        if (recipe) {
-            const index = addedRecipes.findIndex(addedRecipe => addedRecipe.id === recipe.id);
-            addedRecipes[index].quantity += quantity;
-        } else {
-            const materialsAvailable = checkMaterialAvailability(currentRecipe.value, quantity);
-            
-            if (materialsAvailable) {
-                addedRecipes.push({
-                    id: currentRecipe.value,
-                    name: currentRecipe.text,
-                    quantity: quantity
-                });
-            } else {
-                const errorDiv = document.querySelector('.ui-alert.error');
-                errorDiv.textContent = 'No hay suficientes materiales disponibles para esta receta.';
+        addRecipeButton.addEventListener('click', () => {
+            if (currentRecipe === null) {
                 return;
             }
+
+            const quantity = parseInt(document.querySelector('#recipe-quantity').value);
+
+            if (quantity <= 0) {
+                return;
+            }
+
+            const recipe = addedRecipes.find(recipe => recipe.id === currentRecipe.value);
+
+            if (recipe) {
+                const index = addedRecipes.findIndex(addedRecipe => addedRecipe.id === recipe.id);
+                addedRecipes[index].quantity += quantity;
+            } else {
+                const materialsAvailable = checkMaterialAvailability(currentRecipe.value, quantity);
+
+                if (materialsAvailable) {
+                    addedRecipes.push({
+                        id: currentRecipe.value,
+                        name: currentRecipe.text,
+                        quantity: quantity
+                    });
+                } else {
+                    const errorDiv = document.querySelector('.ui-alert.error');
+                    errorDiv.textContent = 'No hay suficientes materiales disponibles para esta receta.';
+                    return;
+                }
+            }
+
+            updateRecipesFields();
+            updateRecipeItems();
+        });
+
+        function checkMaterialAvailability(recipeId, quantity) {
+            return true;
         }
 
-        updateRecipesFields();
-        updateRecipeItems();
-    });
+        function updateRecipesFields() {
+            const recipesFields = document.querySelector('#recipes-fields');
+            let index = 0;
 
-    function checkMaterialAvailability(recipeId, quantity) {
-        return true; 
-    }
+            recipesFields.innerHTML = '';
 
-    function updateRecipesFields() {
-        const recipesFields = document.querySelector('#recipes-fields');
-        let index = 0;
+            addedRecipes.forEach(recipe => {
+                const inputId = document.createElement('input');
+                const inputQuantity = document.createElement('input');
 
-        recipesFields.innerHTML = '';
+                inputId.type = 'hidden';
+                inputId.name = `recipes[${index}][id]`;
+                inputId.value = recipe.id;
 
-        addedRecipes.forEach(recipe => {
-            const inputId = document.createElement('input');
-            const inputQuantity = document.createElement('input');
+                inputQuantity.type = 'hidden';
+                inputQuantity.name = `recipes[${index}][quantity]`;
+                inputQuantity.value = recipe.quantity;
 
-            inputId.type = 'hidden';
-            inputId.name = `recipes[${index}][id]`;
-            inputId.value = recipe.id;
-
-            inputQuantity.type = 'hidden';
-            inputQuantity.name = `recipes[${index}][quantity]`;
-            inputQuantity.value = recipe.quantity;
-
-            recipesFields.appendChild(inputId);
-            recipesFields.appendChild(inputQuantity);
-            index++;
-        });
-    }
-
-    function updateRecipeItems() {
-        const table = document.querySelector('.ui-table.recipes-added');
-
-        const rows = table.querySelectorAll('.row:not(.header)');
-        rows.forEach(row => row.remove());
-
-        for (const recipe of addedRecipes) {
-            const template = document.querySelector('#added-recipes-table-template');
-            const clone = template.content.cloneNode(true);
-
-            clone.querySelector('.name').textContent = recipe.name;
-            clone.querySelector('.quantity').textContent = recipe.quantity;
-            table.appendChild(clone);
-
-            const deleteButton = table.querySelector('.delete:last-child');
-            deleteButton.addEventListener('click', () => {
-                const index = addedRecipes.findIndex(addedRecipe => addedRecipe.id === recipe.id);
-                addedRecipes.splice(index, 1);
-                updateRecipesFields();
-                updateRecipeItems();
+                recipesFields.appendChild(inputId);
+                recipesFields.appendChild(inputQuantity);
+                index++;
             });
         }
-    }
-</script>
+
+        function updateRecipeItems() {
+            const table = document.querySelector('.ui-table.recipes-added');
+
+            const rows = table.querySelectorAll('.row:not(.header)');
+            rows.forEach(row => row.remove());
+
+            for (const recipe of addedRecipes) {
+                const template = document.querySelector('#added-recipes-table-template');
+                const clone = template.content.cloneNode(true);
+
+                clone.querySelector('.name').textContent = recipe.name;
+                clone.querySelector('.quantity').textContent = recipe.quantity;
+                table.appendChild(clone);
+
+                const deleteButton = table.querySelector('.delete:last-child');
+                deleteButton.addEventListener('click', () => {
+                    const index = addedRecipes.findIndex(addedRecipe => addedRecipe.id === recipe.id);
+                    addedRecipes.splice(index, 1);
+                    updateRecipesFields();
+                    updateRecipeItems();
+                });
+            }
+        }
+    </script>
 
 </body>
 
