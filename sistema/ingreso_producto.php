@@ -74,7 +74,7 @@ mysqli_close($conection);
 
                 <label for="unidadesPorCaja">Unidades por Caja</label>
                 <input type="number" name="unidadesPorCaja" id="unidadesPorCaja" placeholder="Unidades por Caja"
-                    value="1" min="1" required>
+                    value="0" min="0" required>
 
                 <div class="button-container">
                     <input type="submit" name="submit" value="Enviar" class="btn_save">

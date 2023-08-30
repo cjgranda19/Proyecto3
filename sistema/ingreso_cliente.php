@@ -51,9 +51,7 @@ mysqli_close($conection);
                 <input type="text" id="nombre" name="nombre" placeholder="Dos nombres y dos apellidos" required onchange="validarCliente()">
 				<div id="mensajeErrorNombre" class="mensaje-error"></div>
 
-                <label for="cedula">Cédula: </label>
-                <input type="text" name="cedula" id="cedula" placeholder="Ingrese su número de cédula" onchange="validarCliente()">
-				<div id="mensajeErrorCedula" class="mensaje-error"></div>
+                <input type="hidden" name="cedula" id="cedula" placeholder="Ingrese su número de cédula" onchange="validarCliente()">
 
                 <label for="telefono">Teléfono: </label>
                 <input type="text" name="telefono" id="telefono" placeholder="Ingrese su número celular" onchange="validarCliente()">
