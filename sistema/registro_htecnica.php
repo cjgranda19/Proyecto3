@@ -58,8 +58,8 @@ if ($update_id) {
     </title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" type="image/jpg" href="img/favicon.png" />
-    <link href="ruta-a-select2.css" rel="stylesheet">
-    <script src="ruta-a-select2.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <style>
         .ingredients-list {
@@ -206,6 +206,10 @@ if ($update_id) {
         </form>
     </main>
     <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+
         const products = <?php echo json_encode($products); ?>;
         const addIngredientBtn = document.querySelector('#add-ingredient');
         const ingredients = <?php
