@@ -32,39 +32,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($cargo === 'Superadmin') {
                 $selectedRoles = array("Crear usuarios", "Ver usuarios", "Ver proveedores", "Crear proveedor", "Ver productos", "Crear productos", "Agregar productos", "Crear hoja técnica", "Ver hojas técnicas", "Ver órdenes", "Crear órdenes", "Ver clientes", "Crear clientes", "Ver reportes");
-            } else {
-                $selectedRoles = array();
-            }
-
-            if ($cargo === 'Gerente') {
-                $selectedRoles = array("Ver usuarios", "Ver reportes");
-            } else {
-                $selectedRoles = array();
-            }
-
-            if ($cargo === 'Vendedor') {
+            } elseif ($cargo === 'Gerente') {
+                $selectedRoles = array("Ver usuarios", "Ver reportes", "Ver proveedores", "Ver hojas Técnicas", "Ver órdenes");
+            } elseif ($cargo === 'Vendedor') {
                 $selectedRoles = array("Ver clientes", "Crear clientes", "Ver reportes");
-            } else {
-                $selectedRoles = array();
-            }
-
-            if ($cargo === 'Contador') {
+            } elseif ($cargo === 'Almacenero'){
+                $selectedRoles = array("Ver productos", "Crear productos", "Agregar productos");
+            }elseif ($cargo === 'Contador') {
                 $selectedRoles = array("Ver reportes");
-            } else {
-                $selectedRoles = array();
-            }
-
-            if ($cargo === 'Cliente') {
+            } elseif ($cargo === 'Cliente') {
                 $selectedRoles = array("Ver reportes");
             } else {
                 $selectedRoles = array();
             }
 
             if ($cargo === "") {
-                $_SESSION['popup_message'] = 'Error al crear usuario, no se recibio el cargo.';
+                $_SESSION['popup_message'] = 'Error al crear usuario, no se recibió el cargo.';
                 header("location: ../lista_usuarios.php");
                 exit();
             }
+
 
             $permiso_crear_usuarios = in_array("Crear usuarios", $selectedRoles) ? 1 : 0;
             $permiso_ver_usuarios = in_array("Ver usuarios", $selectedRoles) ? 1 : 0;

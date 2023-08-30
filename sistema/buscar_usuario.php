@@ -54,20 +54,15 @@ if (
 				<th>Nombre</th>
 				<th>Correo</th>
 				<th>Usuario</th>
-				<th>Rol</th>
-				<th>Acciones</th>
+				<th>Cargo</th>
+				<?php if (isset($_SESSION['permisos']['permiso_crear_usuarios']) && $_SESSION['permisos']['permiso_crear_usuarios'] == 1) { ?>
+
+					<th>Acciones</th>
+
+				<?php } ?>
 			</tr>
 			<?php
 
-
-			$rol = '';
-			if ($busqueda == 'administrador') {
-				$rol = "OR rol LIKE '%1%'";
-			} else if ($busqueda == 'supervisor') {
-				$rol = "OR rol LIKE '%2%'";
-			} else if ($busqueda == 'vendedor') {
-				$rol = "OR rol LIKE '%3%'";
-			}
 
 			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM usuario WHERE (idusuario LIKE '%busqueda%' OR nombre LIKE '%busqueda%' OR correo LIKE '%busqueda%' OR usuario LIKE '%busqueda%' $rol) AND estatus = 1 ");
 			$result_registre = mysqli_fetch_array($sql_registre);
@@ -112,16 +107,12 @@ if (
 							<?php echo $data['usuario']; ?>
 						</td>
 						<td>
-							<?php echo $data['rol']; ?>
+							<?php echo $data['cargo']; ?>
 						</td>
 						<td>
-							<a class="link_edit" href="editar_usuario.php?id=<?php echo $data['idusuario']; ?>">Editar</a>
-
-							<?php if ($data["idusuario"] != 1) { ?>
-								<a class="link_delete"
-									href="eliminar_confirmar_usuario.php?id=<?php echo $data['idusuario']; ?>">Eliminar</a>
-							<?php } ?>
+							<?php echo $data['cargo'] ?>
 						</td>
+					
 					</tr>
 
 					<?php

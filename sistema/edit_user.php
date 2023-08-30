@@ -79,7 +79,7 @@ mysqli_close($conection);
                     <option value="Vendedor">Vendedor</option>
                     <option value="Almacenero">Almacenero</option>
                     <option value="Contador">Contador</option>
-                    <option value="Cliente">Cliente</option>
+                    <option value="Vendedor>">Vendedor</option>
                 </select>
 
                 <label for="clave">Clave: </label>
