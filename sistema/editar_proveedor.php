@@ -165,9 +165,7 @@ if ($result_sql == 0) {
 				<input type="text" name="contacto" id="contacto" onchange="validar()" placeholder="Nombre Apellido" value="<?php echo $contacto; ?>">
 				<div id="mensajeErrorNombre" class="mensaje-error"></div>
 
-				<label for="cedula">Cédula: </label>
-				<input type="text" name="cedula" id="cedula" placeholder="Número de cédula" onchange="validar()" required value="<?php echo $cedula; ?>">
-				<div id="mensajeErrorCedula" class="mensaje-error"></div>
+				<input type="hidden" name="cedula" id="cedula" placeholder="Número de cédula" onchange="validar()" required value="<?php echo $cedula; ?>">
 
 				<label for="email">Correo electrónico: </label>
 				<input type="email" name="correo" id="correo" placeholder="texto@dominio.com" onchange="validar()" value="<?php echo $correo; ?>" required>
