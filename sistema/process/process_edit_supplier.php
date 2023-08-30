@@ -20,12 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	echo "<script>console.log('Se recibio el update :D');</script>";
 
 
-	$query_check = "SELECT * FROM proveedor WHERE cedula ='$cedula' AND contacto = '$contacto' AND telefono = '$telefono'";
+	$query_check = "SELECT * FROM proveedor WHERE cedula ='$cedula' AND contacto = '$contacto' AND telefono = '$telefono' AND correo='$correo'";
 	$result_check = mysqli_query($conection, $query_check);
 
 	if (mysqli_num_rows($result_check) > 0) {
 		$_SESSION['popup_message'] = 'Ya existe un registro con el mismo proveedor, contacto y número de teléfono.';
-	} else {
+	} else { 
 		$sql_update = mysqli_query($conection, "UPDATE proveedor SET proveedor = '$proveedor', correo = '$correo'
 	, contacto='$contacto', telefono='$telefono', direccion='$direccion', cedula = '$cedula' WHERE id_supplier = $id_supplier ");
 

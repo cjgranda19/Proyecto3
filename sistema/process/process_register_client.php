@@ -13,7 +13,8 @@ if (!empty($_POST)) {
     $alert = '';
 
     if (empty($_POST['cedula']) || empty($_POST['nombre']) || empty($_POST['telefono']) || empty($_POST['direccion'])) {
-        $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
+        $_SESSION['popup_message'] = 'Complete todos los campos';
+        header("location: ../lista_clientes.php");
     } else {
 
         $cedula = $_POST['cedula'];
@@ -23,7 +24,9 @@ if (!empty($_POST)) {
         $usuario_id = $_SESSION['idUser'];
 
         if (!isValidCI($cedula)) {
-            $alert = '<p class="msg_error">El número de cédula no es válido. Debe ser un número real</p>';
+            $_SESSION['popup_message'] = 'El numero de cedula no es valido.';
+            header("location: ../lista_clientes.php");
+
         } else {
 
             $query = mysqli_query($conection, "SELECT * FROM cliente WHERE cedula = '$cedula' ");
@@ -31,13 +34,20 @@ if (!empty($_POST)) {
 
             if ($result > 0) {
                 $_SESSION['popup_message'] = 'El usuario ya existe.';
+                header("location: ../lista_clientes.php");
+
+                
             } else {
                 $query_insert = mysqli_query($conection, "INSERT INTO cliente(cedula,nombre,telefono,direccion,usuario_id) VALUES('$cedula','$nombre','$telefono','$direccion','$usuario_id')");
 
                 if ($query_insert) {
                     $_SESSION['popup_message'] = 'Insercion exitosa';
+                    header("location: ../lista_clientes.php");
+
                 } else {
                     $_SESSION['popup_message'] = 'Error al guardar';
+                    header("location: ../lista_clientes.php");
+
                 }
                 header("location: ../lista_clientes.php");
 

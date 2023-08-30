@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['popup_message'] = 'Complete todos los campos';
         header("location: ../lista_proveedor.php");
     } else {
-        $query_check = "SELECT * FROM proveedor WHERE cedula ='$cedula' AND contacto = '$contacto' AND telefono = '$telefono'";
+        $query_check = "SELECT * FROM proveedor WHERE cedula ='$cedula' AND contacto = '$contacto' AND telefono = '$telefono' AND correo='$correo'";
         $result_check = mysqli_query($conection, $query_check);
 
         if (mysqli_num_rows($result_check) > 0) {
