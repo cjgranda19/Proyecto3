@@ -47,7 +47,8 @@ if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permiso
 
             <a href="registro_producto.php" class="btn_new"
                 onclick="loadPopupContentFromLink(this.href); return false;">Nuevo Producto</a>
-            <a href="ingreso_producto.php" class="btn_new" onclick="loadPopupContentFromLink(this.href); return false;">Ingreso
+            <a href="ingreso_producto.php" class="btn_new"
+                onclick="loadPopupContentFromLink(this.href); return false;">Ingreso
                 Producto</a>
 
         <?php } ?>
@@ -65,8 +66,8 @@ if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permiso
                 <th>Proveedor</th>
                 <th>Precio</th>
                 <th>Stock</th>
-                             <?php if (($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1) {?>
-                        ?>
+                <?php if (($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1) { ?>
+
                     <th>Acciones</th>
                 <?php } ?>
             </tr>
@@ -104,7 +105,7 @@ if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permiso
                         <?php echo $data['descripcion']; ?>
                     </td>
                     <td>
-                        <?php echo $data['medida'];?>
+                        <?php echo $data['medida']; ?>
                     </td>
                     <td>
                         <?php echo $data['proveedor']; ?>
@@ -116,8 +117,8 @@ if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permiso
                         <?php echo $data['existencia'] . " Unidades"; ?>
                     </td>
 
-                    
-                    <?php if (($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1) {?>
+
+                    <?php if (($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1) { ?>
                         <td>
                             <a class="link_delete"
                                 href="eliminar_confirmar_producto.php?id=<?php echo $data['codproducto']; ?>"><i
