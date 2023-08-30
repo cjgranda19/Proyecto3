@@ -88,9 +88,8 @@ mysqli_close($conection);
                 <div id="mensajeErrorClave" class="mensaje-error"></div>
 
                 <label for="estatus">Activar/Desactivar:</label>
-                <input type="checkbox" name="estatus" id="estatus">
+                <input type="checkbox" name="estatus" id="estatus" checked>
 
-                
                 <div class="button-container">
                     <input type="submit" name="submit" value="Guardar Cambios" id="btn_sb" class="btn_save">
                 </div>
