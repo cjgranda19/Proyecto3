@@ -65,9 +65,8 @@ if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permiso
                 <th>Proveedor</th>
                 <th>Precio</th>
                 <th>Stock</th>
-                <?php
-                if ($_SESSION['rol'] == 1) {
-                    ?>
+                             <?php if (($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1) {?>
+                        ?>
                     <th>Acciones</th>
                 <?php } ?>
             </tr>
@@ -117,11 +116,9 @@ if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permiso
                         <?php echo $data['existencia'] . " Unidades"; ?>
                     </td>
 
-                    <?php if ($_SESSION['rol'] == 1) { ?>
+                    
+                    <?php if (($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1) {?>
                         <td>
-                            <a class="link_edit" href="editar_producto.php?id=<?php echo $data['codproducto']; ?>"><i
-                                    class="fa-solid fa-pen-to-square"></i> Editar</a>
-
                             <a class="link_delete"
                                 href="eliminar_confirmar_producto.php?id=<?php echo $data['codproducto']; ?>"><i
                                     class="fa-solid fa-trash"></i> Eliminar</a>

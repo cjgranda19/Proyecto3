@@ -120,9 +120,6 @@ include "../conexion.php";
 							<?php echo $fecha->format('d-m-Y'); ?>
 						</td>
 						<td>
-							<a class="link_edit" href="editar_proveedor.php?id=<?php echo $data['id_supplier']; ?>"><i
-									class="fa-solid fa-pen-to-square"></i> Editar</a>
-
 							<a class="link_delete"
 								href="eliminar_confirmar_proveedor.php?id=<?php echo $data['id_supplier']; ?>"><i
 									class="fa-solid fa-trash"></i> Eliminar</a>
