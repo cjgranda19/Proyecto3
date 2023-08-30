@@ -54,14 +54,14 @@ include "../conexion.php";
 					required>
 
 				<label for="contenedores">Cantidad de Contenedores</label>
-				<input type="number" name="contenedores" id="contenedores" placeholder="Contenedores" min="0" >
+				<input type="number" name="contenedores" id="contenedores" placeholder="Contenedores" min="1" value="1" required >
 
 				<label for="cajasPorContenedor">Cajas por Contenedor</label>
 				<input type="number" name="cajasPorContenedor" id="cajasPorContenedor"
-					placeholder="Cajas por Contenedor" min="0" >
+					placeholder="Cajas por Contenedor" min="1" value="1" required>
 
 				<label for="unidadesPorCaja">Unidades por Caja</label>
-				<input type="number" name="unidadesPorCaja" id="unidadesPorCaja" placeholder="Unidades por Caja" min="0"
+				<input type="number" name="unidadesPorCaja" id="unidadesPorCaja" placeholder="Unidades por Caja" value="1" min="1"
 					required>
 
 				<div class="button-container">

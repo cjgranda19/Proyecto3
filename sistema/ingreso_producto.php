@@ -51,7 +51,7 @@ mysqli_close($conection);
 
                 <label for="medida">Medida </label>
                 <input type="text" name="medida" id="medida" placeholder="Medida del producto" required>
-                
+
                 <label for="proveedor">Proveedor</label>
                 <select name="proveedor" id="proveedor" required>
                     <option value="" disabled selected>Selecciona un proveedor</option>
@@ -62,17 +62,19 @@ mysqli_close($conection);
                     ?>
                 </select>
                 <label for="precio">Precio: </label>
-                <input type="number" name="precio" id="precio" step="0.01" min="0">
+                <input type="number" name="precio" id="precio" step="0.01" min="0" required>
+                
                 <label for="contenedores">Cantidad de Contenedores</label>
-                <input type="number" name="contenedores" id="contenedores" placeholder="Contenedores" min="0">
+                <input type="number" name="contenedores" id="contenedores" placeholder="Contenedores" min="1" value="1"
+                    required>
 
                 <label for="cajasPorContenedor">Cajas por Contenedor</label>
                 <input type="number" name="cajasPorContenedor" id="cajasPorContenedor"
-                    placeholder="Cajas por Contenedor" min="0">
+                    placeholder="Cajas por Contenedor" min="1" value="1" required>
 
                 <label for="unidadesPorCaja">Unidades por Caja</label>
-                <input type="number" name="unidadesPorCaja" id="unidadesPorCaja" placeholder="Unidades por Caja" min="0"
-                    required>
+                <input type="number" name="unidadesPorCaja" id="unidadesPorCaja" placeholder="Unidades por Caja"
+                    value="1" min="0" required>
 
                 <div class="button-container">
                     <input type="submit" name="submit" value="Enviar" class="btn_save">

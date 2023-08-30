@@ -99,23 +99,30 @@ if (!empty($_POST)) {
         );
     }
 
-    if (!empty($changes)) {
-        $changes_json = json_encode($changes);
+    $query = mysqli_query($conection, "SELECT * FROM cliente WHERE cedula = '$cedula' ");
+    $result = mysqli_fetch_array($query);
 
-        $query_audit = mysqli_query($conection, "INSERT INTO client_log_update (id_client, old_cedula, new_cedula, old_name, new_name, old_tel, new_tel, old_dir, new_dir, usuario_id) VALUES ('$id_cliente', '{$values['old_cedula']}', '{$values['new_cedula']}', '{$values['old_nombre']}', '{$values['new_nombre']}', '{$values['old_telefono']}', '{$values['new_telefono']}', '{$values['old_direccion']}', '{$values['new_direccion']}', '$usuario_id')");
-
-        if (!$query_audit) {
-            $alert = '<p class="msg_save">Producto editado correctamente.</p>';
-        }
-    }
-
-    $query_update = mysqli_query($conection, "UPDATE cliente SET cedula='$cedula', nombre='$nombre', telefono='$telefono', direccion='$direccion', usuario_id='$usuario_id' WHERE id_cliente = $id_cliente");
-
-    if ($query_update) {
-        $alert = '<p class="msg_save">Cliente editado correctamente.</p>';
+    if ($result > 0) {
+        $_SESSION['popup_message'] = 'El usuario ya existe.';
         header("location: ../lista_clientes.php");
     } else {
-        $alert = '<p class="msg_error">Error al editar cliente.</p>';
+        if (!empty($changes)) {
+            $changes_json = json_encode($changes);
+
+            $query_audit = mysqli_query($conection, "INSERT INTO client_log_update (id_client, old_cedula, new_cedula, old_name, new_name, old_tel, new_tel, old_dir, new_dir, usuario_id) VALUES ('$id_cliente', '{$values['old_cedula']}', '{$values['new_cedula']}', '{$values['old_nombre']}', '{$values['new_nombre']}', '{$values['old_telefono']}', '{$values['new_telefono']}', '{$values['old_direccion']}', '{$values['new_direccion']}', '$usuario_id')");
+
+         
+        }
+
+        $query_update = mysqli_query($conection, "UPDATE cliente SET cedula='$cedula', nombre='$nombre', telefono='$telefono', direccion='$direccion', usuario_id='$usuario_id' WHERE id_cliente = $id_cliente");
+
+        if ($query_update) {
+            $_SESSION['popup_message'] = 'El cliente editado exitosamente.';
+            header("location: ../lista_clientes.php");
+        } else {
+            $_SESSION['popup_message'] = 'Error al editar el cliente, intente de nuevo o contacte al administrador del sistema';
+            header("location: ../lista_clientes.php");
+        }
     }
 }
 ?>

@@ -75,6 +75,7 @@ function populateFieldsProductos() {
                 var product = response[0];
                 $("#codproducto").val(product.codproducto);
                 $("#proveedor").val(product.proveedor);
+                $("#medida").val(product.medida);
                 $("#precio").val(product.precio);
                 $("#cantidad").val(product.cantidad);
             }

@@ -8,13 +8,13 @@ if (!isset($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permi
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+
 
     $producto = $_POST['producto'];
-    
+
 
     $id_measurement = $_POST['id_measurement'];
-    
+
     $medida = $_POST['medida'];
     $proveedor = $_POST['proveedor'];
     $precio = $_POST['precio'];
@@ -39,17 +39,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $inserted_measurement_id = $id_measurement;
     }
 
-    if (empty($producto) || empty($medida) || empty($proveedor) || empty($precio) || empty($contenedores) || empty($cajasPorContenedor) || empty($unidadesPorCaja) || $precio <= 0 || $contenedores <= 0 || $cajasPorContenedor <= 0 || $unidadesPorCaja <= 0) {
+    if (empty($producto) || empty($medida) || empty($proveedor) || empty($precio) || empty($unidadesPorCaja) || $precio <= 0 || $unidadesPorCaja <= 0) {
         $_SESSION['popup_message'] = 'Todos los campos son necesarios.';
+        header("location: ../lista_producto.php");
+
     } else {
         $totalUnidades = $contenedores * $cajasPorContenedor * $unidadesPorCaja;
         $query_insert = "INSERT INTO producto (descripcion, medida, proveedor, precio, existencia, usuario_id) VALUES ('$producto', '$medida', '$proveedor', '$precio', '$totalUnidades', '$usuario_id')";
         $result = mysqli_query($conection, $query_insert);
-    
+
         if ($result) {
             $_SESSION['popup_message'] = 'Inserción exitosa.';
+            header("location: ../lista_producto.php");
+
         } else {
-            $_SESSION['popup_message'] = 'Error al guardar producto: ' . mysqli_error($conection);
+            $_SESSION['popup_message'] = 'Error al guardar el producto, intente de nuevo o contacte al administrador del sistema';
+            header("location: ../lista_producto.php");
+
         }
     }
 
