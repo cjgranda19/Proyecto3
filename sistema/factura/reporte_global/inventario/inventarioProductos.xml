@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <products>
   <product>
-    <id_producto>3</id_producto>
+    <id_producto>1</id_producto>
     <name>Madera</name>
     <supplier>1</supplier>
-    <price>1.00</price>
-    <stock>1</stock>
-    <date_add>2023-08-29 07:56:29</date_add>
+    <price>34.56</price>
+    <stock>160</stock>
+    <date_add>2023-08-30 01:42:48</date_add>
     <id_user>1</id_user>
-    <average_price/>
-    <tendencia>0</tendencia>
+    <average_price>34.560000</average_price>
+    <tendencia>1</tendencia>
   </product>
   <product>
-    <id_producto>4</id_producto>
-    <name>Triplex222</name>
+    <id_producto>2</id_producto>
+    <name>Triplex</name>
     <supplier>1</supplier>
-    <price>34.56</price>
-    <stock>2</stock>
-    <date_add>2023-08-29 12:18:06</date_add>
+    <price>40.00</price>
+    <stock>80</stock>
+    <date_add>2023-08-30 01:43:50</date_add>
     <id_user>1</id_user>
     <average_price/>
-    <tendencia>0</tendencia>
+    <tendencia>1</tendencia>
   </product>
 </products>
