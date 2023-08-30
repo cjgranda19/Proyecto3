@@ -22,4 +22,15 @@
     <average_price/>
     <tendencia>1</tendencia>
   </product>
+  <product>
+    <id_producto>3</id_producto>
+    <name>Laca</name>
+    <supplier>1</supplier>
+    <price>4.00</price>
+    <stock>108</stock>
+    <date_add>2023-08-30 01:47:48</date_add>
+    <id_user>1</id_user>
+    <average_price>9.000000</average_price>
+    <tendencia>0</tendencia>
+  </product>
 </products>
