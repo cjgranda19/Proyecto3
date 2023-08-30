@@ -30,14 +30,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($cargo === 'Superadmin') {
         $selectedRoles = array("Crear usuarios", "Ver usuarios", "Ver proveedores", "Crear proveedor", "Ver productos", "Crear productos", "Agregar productos", "Crear hoja técnica", "Ver hojas técnicas", "Ver órdenes", "Crear órdenes", "Ver clientes", "Crear clientes", "Ver reportes");
     } elseif ($cargo === 'Gerente') {
-        $selectedRoles = array("Ver usuarios", "Ver reportes","Ver proveedores", "Ver productos","Ver órdenes", "Ver clientes");
+        $selectedRoles = array("Ver usuarios", "Ver reportes", "Ver proveedores", "Ver productos", "Ver órdenes", "Ver clientes");
     } elseif ($cargo === 'Vendedor') {
-        $selectedRoles = array("Ver clientes", "Ver productos", "Crear clientes", "Ver reportes", "Ver hojas técnicas", "Crear hoja técnica", "Ver órdenes", "Crear órdenes"  );
+        $selectedRoles = array("Ver clientes", "Ver productos", "Crear clientes", "Ver reportes", "Ver hojas técnicas", "Crear hoja técnica", "Ver órdenes", "Crear órdenes");
     } elseif ($cargo === 'Almacenero') {
         $selectedRoles = array("Ver productos", "Crear productos", "Agregar productos");
     } elseif ($cargo === 'Contador') {
-        $selectedRoles = array("Ver reportes", "Ver órdenes" );
-    } elseif ($cargo === 'Cliente') {
         $selectedRoles = array("Ver reportes");
     } else {
         $selectedRoles = array();
@@ -48,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("location: ../lista_usuarios.php");
         exit();
     }
+
     $permiso_crear_usuarios = in_array("Crear usuarios", $selectedRoles) ? 1 : 0;
     $permiso_ver_usuarios = in_array("Ver usuarios", $selectedRoles) ? 1 : 0;
     $permiso_ver_proveedores = in_array("Ver proveedores", $selectedRoles) ? 1 : 0;
