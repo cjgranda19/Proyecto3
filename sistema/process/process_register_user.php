@@ -83,11 +83,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['popup_message'] = 'Inserción exitosa.';
                     header("location: ../lista_usuarios.php");
                 } else {
-                    $_SESSION['popup_message'] = 'Error al guardar usuario: ' . mysqli_error($conection);
+                    $_SESSION['popup_message'] = 'Error al guardar usuario: ';
                     header("location: ../lista_usuarios.php");
                 }
             } else {
-                $_SESSION['popup_message'] = 'Error al guardar rol: ' . mysqli_error($conection);
+                $_SESSION['popup_message'] = 'Error al guardar rol: ';
                 header("location: ../lista_usuarios.php");
             }
 

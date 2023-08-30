@@ -4,14 +4,14 @@ session_start();
 global $conection;
 
 if (!isset($_SESSION['permisos']['permiso_ver_ordenes']) || $_SESSION['permisos']['permiso_ver_ordenes'] != 1) {
-	header("location: index.php");
-	exit();
+    header("location: index.php");
+    exit();
 }
 include "../conexion.php";
 
 $orders = [];
 
-$stmt = mysqli_query($conection, "SELECT * FROM ordenes");
+$stmt = mysqli_query($conection, "SELECT * FROM ordenes where estatus = 1");
 
 if (!$stmt) {
     $error = mysqli_error($conection);
@@ -87,12 +87,21 @@ while ($row = mysqli_fetch_assoc($stmt)) {
 </head>
 
 <body>
+
+    <div class="alert">
+        <?php
+        echo isset($alert) ? $alert : '';
+        echo isset($_SESSION['popup_message']) ? '<p class="msg_info" id="popupMessage">' . $_SESSION['popup_message'] . '</p>' : '';
+        unset($_SESSION['popup_message']);
+        ?>
+    </div>
     <?php include(__DIR__ . '/includes/header.php'); ?>
     <main id="container" class="ui-container">
         <div class="RT">
-            <a class="BT_RT" target="_blank" href="factura/generate_invoice.php?order_id=<?php echo $order['id']; ?>">Reporte General</a>
+            <a class="BT_RT" target="_blank"
+                href="factura/generate_invoice.php?order_id=<?php echo $order['id']; ?>">Reporte General</a>
         </div>
-        <?php foreach ($orders as $order) : ?>
+        <?php foreach ($orders as $order): ?>
             <div class="ui-box order-container">
                 <h3 class="ui-box-title">Orden #
                     <?php echo str_pad($order['id'], 7, "0", STR_PAD_LEFT) ?>
@@ -114,7 +123,7 @@ while ($row = mysqli_fetch_assoc($stmt)) {
                                 <div class="column min-width">Total</div>
                             </div>
                             <?php $subtotal = 0; ?>
-                            <?php foreach ($order['recipes'] as $recipe) : ?>
+                            <?php foreach ($order['recipes'] as $recipe): ?>
                                 <div class="row">
                                     <div class="column name">
                                         <?php echo $recipe['name']; ?>
@@ -128,7 +137,8 @@ while ($row = mysqli_fetch_assoc($stmt)) {
                                         <?php echo $recipe['quantity']; ?>
                                     </div>
                                     <div class="column total">
-                                        <strong>$<?php echo $recipe['total']; ?>
+                                        <strong>$
+                                            <?php echo $recipe['total']; ?>
                                         </strong>
                                     </div>
                                 </div>
@@ -144,7 +154,11 @@ while ($row = mysqli_fetch_assoc($stmt)) {
                     <span>$
                         <?php echo $subtotal; ?>
                     </span>
-                    <a target="_blank" href="factura/generate_invoice_individual.php?order_id=<?php echo $order['id']; ?>" class="button">Reporte</a>
+                    <a target="_blank" href="factura/generate_invoice_individual.php?order_id=<?php echo $order['id']; ?>"
+                        class="ui-button ui-button green">Reporte</a>
+                    <a href="process/process_delete_order.php?order_id=<?php echo $order['id']; ?>"
+                        class="ui-button ui-button green">Reversar Orden</a>
+
                 </div>
             </div>
 

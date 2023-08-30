@@ -70,17 +70,24 @@ while ($row = $query->fetch_assoc()) {
                     <div class="ui-form-group compound">
                         <div class="ui-form-group">
                             <label for="recipe-item">Receta</label>
-                            <select class="select2" name="recipes">
+
+
+
+                            <select class="form-control" name="recipes" id="recipe-item">
                                 <?php foreach ($recipes as $recipe): ?>
                                     <option value="<?php echo $recipe['id']; ?>">
                                         <?php echo $recipe['name']; ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
+
+
+
+                            
                         </div>
                         <div class="ui-form-group">
                             <label for="quantity">Cantidad</label>
-                            <input type="number" name="quantity" id="recipe-quantity" placeholder="Cantidad" step="1"
+                            <input type="number" name="quantity" id="recipe-quantity" placeholder="Cantidad" min="1" step="1"
                                 value="1">
                         </div>
                         <div class="ui-form-group button">

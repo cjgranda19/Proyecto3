@@ -131,6 +131,8 @@ if ($update_id) {
                         <div class="ui-form-group">
                             <label for="ingredient-item">Producto</label>
 
+
+                            
                             <select name="products" id="ingredient-item" class="select2">
                                 <?php foreach ($products as $product): ?>
                                     <option value="<?php echo $product['codproducto']; ?>"
@@ -147,7 +149,7 @@ if ($update_id) {
                         <div class="ui-form-group">
                             <label for="quantity">Cantidad</label>
                             <input type="number" name="quantity" id="ingredient-quantity" placeholder="Cantidad"
-                                step="0.01" value="1">
+                                 value="1">
                         </div>
                         <div class="ui-form-group button">
                             <button type="button" class="ui-button ui-button blue" id="add-ingredient"
