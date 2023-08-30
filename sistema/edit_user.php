@@ -53,19 +53,17 @@ mysqli_close($conection);
                 </select>
 
                 <label for="usuario">Usuario: </label>
-                <input type="text" name="usuario" id="usuario" placeholder="usuario" pattern="^[a-z]+$" title="Ingresa un usuario válido con solo minúsculas" onchange="validar()" required>
+                <input type="text" name="usuario" id="usuario" placeholder="usuario" pattern="^[a-z]+$" onchange="validar()" required>
                 <div id="mensajeErrorUsuario" class="mensaje-error"></div>
 
 
                 
                 <label for="nombre">Nombre y Apellido </label>
                 <input type="text" id="nombre" name="nombre" placeholder="Nombre Apellido" title="El formato debe ser 'Nombre Apellido'" onchange="validar()" 
-                    title="El formato debe ser 'Nombre Apellido'" required>
                 <div id="mensajeErrorNombre" class="mensaje-error"></div>
 
                 <label for="correo">Correo electrónico: </label>
-                <input type="email" name="correo" id="correo" placeholder="texto@dominio.com" onchange="validar()"
-                    title="Ingresa un correo con dominio .com o .net válido" required>
+                <input type="email" name="correo" id="correo" placeholder="texto@dominio.com" onchange="validar()" required>
                 <div id="mensajeErrorCorreo" class="mensaje-error"></div>
 
                 <label for="cargo">Cargo: </label>
@@ -82,8 +80,7 @@ mysqli_close($conection);
                 </select>
 
                 <label for="clave">Clave: </label>
-                <input type="password" name="clave" id="clave" placeholder="Clave de acceso" onchange="validar()"
-                    title="La clave debe tener al menos 8 caracteres, incluir una mayúscula y un carácter especial">
+                <input type="password" name="clave" id="clave" placeholder="Clave de acceso" onchange="validar()" title="La clave debe tener al menos 8 caracteres, incluir una mayúscula y un carácter especial">
                 <div id="mensajeErrorClave" class="mensaje-error"></div>
 
                 <div class="button-container">
