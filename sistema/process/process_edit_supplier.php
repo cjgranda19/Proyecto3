@@ -20,21 +20,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	echo "<script>console.log('Se recibio el update :D');</script>";
 
 
+	$query_check = "SELECT * FROM proveedor WHERE cedula ='$cedula' AND contacto = '$contacto' AND telefono = '$telefono'";
+	$result_check = mysqli_query($conection, $query_check);
 
-	$sql_update = mysqli_query($conection, "UPDATE proveedor SET proveedor = '$proveedor', correo = '$correo'
+	if (mysqli_num_rows($result_check) > 0) {
+		$_SESSION['popup_message'] = 'Ya existe un registro con el mismo proveedor, contacto y número de teléfono.';
+	} else {
+		$sql_update = mysqli_query($conection, "UPDATE proveedor SET proveedor = '$proveedor', correo = '$correo'
 	, contacto='$contacto', telefono='$telefono', direccion='$direccion', cedula = '$cedula' WHERE id_supplier = $id_supplier ");
 
-	if ($sql_update) {
-		$_SESSION['popup_message'] = 'Actualización exitosa.';
-		header("location: ../lista_proveedor.php");
+		if ($sql_update) {
+			$_SESSION['popup_message'] = 'Actualización exitosa.';
+			header("location: ../lista_proveedor.php");
 
-	} else {
-		$_SESSION['popup_message'] = 'Error, intente de nuevo o contacte al administrador.' . mysqli_error($conection);
-		header("location: ../lista_proveedor.php");
+		} else {
+			$_SESSION['popup_message'] = 'Error, intente de nuevo o contacte al administrador.' . mysqli_error($conection);
+			header("location: ../lista_proveedor.php");
+		}
+		mysqli_close($conection);
+
 	}
-	mysqli_close($conection);
-	
-
 	echo $alert;
 
 }
