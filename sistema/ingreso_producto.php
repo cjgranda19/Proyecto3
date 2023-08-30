@@ -25,6 +25,11 @@ mysqli_close($conection);
     <title>Ingreso a Bodega</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="icon" type="image/jpg" href="img/favicon.png" />
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+    </script>
 
 </head>
 
@@ -40,7 +45,7 @@ mysqli_close($conection);
             <form id="entryForm" action="process/process_entry_product.php" method="post">
                 <input type="hidden" name="codproducto" id="codproducto" value="">
                 <label for="producto">Producto: </label>
-                <select name="producto" id="producto" required onchange="populateFieldsProductos()">
+                <select name="producto" id="producto" class="select2" required onchange="populateFieldsProductos()">
                     <option value="" disabled selected>Selecciona un producto</option>
                     <?php
                     while ($producto = mysqli_fetch_array($query_producto)) {
@@ -63,7 +68,7 @@ mysqli_close($conection);
                 </select>
                 <label for="precio">Precio: </label>
                 <input type="number" name="precio" id="precio" step="0.01" min="0" required>
-                
+
                 <label for="contenedores">Cantidad de Contenedores</label>
                 <input type="number" name="contenedores" id="contenedores" placeholder="Contenedores" min="1" value="1"
                     required>

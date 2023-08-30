@@ -18,6 +18,8 @@ if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permiso
     <link rel="stylesheet" type="text/css" href="css/popup.css">
     <link rel="icon" type="image/jpg" href="img/favicon.png" />
     <link rel="stylesheet" type="text/css" href="css/style_tables.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 </head>
 

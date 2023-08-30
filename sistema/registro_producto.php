@@ -39,7 +39,7 @@ include "../conexion.php";
 				<input type="text" name="medida" id="medida" placeholder="Medida del producto" required>
 
 				<label for="proveedor">Proveedor</label>
-				<select name="proveedor" id="proveedor" required>
+				<select name="proveedor" id="proveedor" class="select2" required>
 					<?php
 					$query_proveedor = mysqli_query($conection, "SELECT id_supplier, proveedor FROM proveedor WHERE estatus = 1 ORDER BY proveedor ASC");
 					while ($proveedor = mysqli_fetch_array($query_proveedor)) {

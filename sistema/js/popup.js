@@ -115,50 +115,50 @@ function populateFieldsUsers() {
         data: { action: "getUsers", idusuario: selectedUsuarioId },
         dataType: "json",
         success: function (response) {
-    
 
-                var usuario = response;
-        
 
-                $("#idusuario").val(usuario.idusuario);
-                $("#usuario").val(usuario.usuario);
-                $("#usuario_input").val(usuario.usuario);
-                $("#nombre").val(usuario.nombre);
-                $("#correo").val(usuario.correo);
-                $("#cargo").val(usuario.cargo);
-                $("#rol").val(usuario.rol);
-            
+            var usuario = response;
+
+
+            $("#idusuario").val(usuario.idusuario);
+            $("#usuario").val(usuario.usuario);
+            $("#usuario_input").val(usuario.usuario);
+            $("#nombre").val(usuario.nombre);
+            $("#correo").val(usuario.correo);
+            $("#cargo").val(usuario.cargo);
+            $("#rol").val(usuario.rol);
+
         },
         error: function (error) {
-    
+
         }
     });
 }
 
-function populateFieldsSupplier(){
+function populateFieldsSupplier() {
 
     var selectedProveedorId = $("#selectedProveedorId").val();
 
     $.ajax({
         type: "POST",
         url: "ajax.php", // Ruta real hacia tu archivo ajax.php
-        data: { action: "getSupplier", id_supplier : selectedProveedorId },
+        data: { action: "getSupplier", id_supplier: selectedProveedorId },
         dataType: "json",
         success: function (response) {
-    
-                var proveedor = response;
-        
-                $("#id_supplier ").val(proveedor.id_supplier );
-                $("#cedula").val(proveedor.cedula);
-                $("#proveedor").val(proveedor.proveedor);
-                $("#contacto").val(proveedor.contacto);
-                $("#correo").val(proveedor.correo);
-                $("#telefono").val(proveedor.telefono);
-                $("#direccion").val(proveedor.direccion);
-            
+
+            var proveedor = response;
+
+            $("#id_supplier ").val(proveedor.id_supplier);
+            $("#cedula").val(proveedor.cedula);
+            $("#proveedor").val(proveedor.proveedor);
+            $("#contacto").val(proveedor.contacto);
+            $("#correo").val(proveedor.correo);
+            $("#telefono").val(proveedor.telefono);
+            $("#direccion").val(proveedor.direccion);
+
         },
         error: function (error) {
-    
+
         }
     });
 
