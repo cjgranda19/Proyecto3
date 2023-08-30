@@ -113,7 +113,7 @@ if (!empty($_POST)) {
     }
     $totalUnidades = $contenedores * $cajasPorContenedor * $unidadesPorCaja;
 
-    $query_update = mysqli_query($conection, "UPDATE producto SET medida='$proveedor', precio ='$precio', usuario_id= '$usuario_id', existencia = existencia + '$totalUnidades'  WHERE  codproducto = $codproducto");
+    $query_update = mysqli_query($conection, "UPDATE producto SET medida='$medida', proveedor='$proveedor', precio ='$precio', usuario_id= '$usuario_id', existencia = existencia + '$totalUnidades'  WHERE  codproducto = $codproducto");
 
     if ($query_update) {
         $_SESSION['popup_message'] = 'Inserción exitosa.';
