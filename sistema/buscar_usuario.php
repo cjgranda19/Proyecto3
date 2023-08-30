@@ -64,7 +64,7 @@ if (
 			<?php
 
 
-			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM usuario WHERE (idusuario LIKE '%busqueda%' OR nombre LIKE '%busqueda%' OR correo LIKE '%busqueda%' OR usuario LIKE '%busqueda%' $rol) AND estatus = 1 ");
+			$sql_registre = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM usuario WHERE (idusuario LIKE '%busqueda%' OR nombre LIKE '%busqueda%' OR correo LIKE '%busqueda%' OR usuario LIKE '%busqueda%') AND estatus = 1 ");
 			$result_registre = mysqli_fetch_array($sql_registre);
 			$total_registro = $result_registre['total_registro'];
 

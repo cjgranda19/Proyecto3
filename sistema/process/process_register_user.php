@@ -40,8 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $selectedRoles = array("Ver productos", "Crear productos", "Agregar productos");
             }elseif ($cargo === 'Contador') {
                 $selectedRoles = array("Ver reportes");
-            } elseif ($cargo === 'Cliente') {
-                $selectedRoles = array("Ver reportes");
             } else {
                 $selectedRoles = array();
             }
