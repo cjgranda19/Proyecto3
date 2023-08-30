@@ -15,7 +15,7 @@ if (!isset($_SESSION['permisos']['permiso_crear_clientes']) || $_SESSION['permis
 <head>
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
-	<title>Registro Destinatario</title>
+	<title>Registro Cliente</title>
 	<link rel="icon" type="image/jpg" href="img/favicon.png" />
 
 </head>
@@ -25,7 +25,7 @@ if (!isset($_SESSION['permisos']['permiso_crear_clientes']) || $_SESSION['permis
 		<span class="close-button" onclick="closePopup()">&times;</span>
 
 		<div class="form_register">
-			<h1>Registro destinatario</h1>
+			<h1>Registro Cliente</h1>
 			<hr>
 			<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 			<form id="registroForm" action="process/process_register_client.php" method="post">
@@ -47,7 +47,7 @@ if (!isset($_SESSION['permisos']['permiso_crear_clientes']) || $_SESSION['permis
 				<div id="mensajeErrorDireccion" class="mensaje-error"></div>
 				<div class="button-container">
 
-					<input type="submit" value="Guardar destinatario" class="btn_save" id="btn_sb">
+					<input type="submit" value="Guardar Cliente" class="btn_save" id="btn_sb">
 				</div>
 			</form>
 		</div>
