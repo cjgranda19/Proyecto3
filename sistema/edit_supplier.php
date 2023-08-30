@@ -67,10 +67,8 @@ mysqli_close($conection);
                 <input type="text" name="contacto" id="contacto" onchange="validar()" placeholder="Nombre Apellido">
                 <div id="mensajeErrorNombre" class="mensaje-error"></div>
 
-                <label for="cedula">Cédula: </label>
-                <input type="text" name="cedula" id="cedula" placeholder="Número de cédula" onchange="validar()"
+                <input type="hidden" name="cedula" id="cedula" placeholder="Número de cédula" onchange="validar()"
                     required>
-                <div id="mensajeErrorCedula" class="mensaje-error"></div>
 
                 <label for="email">Correo electrónico: </label>
                 <input type="email" name="correo" id="correo" placeholder="texto@dominio.com" onchange="validar()">
