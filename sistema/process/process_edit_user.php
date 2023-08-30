@@ -18,7 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $clave = md5($_POST['clave']);
     $cargo = $_POST['cargo'];
     $rol = $_POST['rol'];
-   
+    $estatus = $_POST['estatus'];
+    if (isset($_POST['estatus'])) {
+        $estatus = true;
+    } else {
+        $estatus = false;
+    }
+
     $selectedRoles = array();
 
     if ($cargo === 'Superadmin') {
@@ -63,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result_update_rol) {
 
-        $query_update_usuario = "UPDATE usuario SET nombre = '$nombre', correo = '$email', usuario = '$user', clave = '$clave', cargo = '$cargo' WHERE idusuario = $usuario_id";
+        $query_update_usuario = "UPDATE usuario SET nombre = '$nombre', correo = '$email', usuario = '$user', clave = '$clave', cargo = '$cargo', estatus = '$estatus' WHERE idusuario = $usuario_id";
         $result_update_usuario = mysqli_query($conection, $query_update_usuario);
 
         if ($result_update_usuario) {
