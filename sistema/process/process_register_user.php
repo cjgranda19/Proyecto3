@@ -21,13 +21,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
 
     } else {
-        $query = mysqli_query($conection, "SELECT * FROM usuario WHERE correo = '$correo' AND usuario = '$user'");
+        $query = mysqli_query($conection, "SELECT * FROM usuario WHERE correo = '$email' AND usuario = '$user'");
         $result = mysqli_fetch_array($query);
 
         if ($result > 0) {
             $_SESSION['popup_message'] = 'El usuario ya existe.';
             header("location: ../lista_usuarios.php");
         } else {
+
             $cargo = $_POST['cargo'];
 
             if ($cargo === 'Superadmin') {

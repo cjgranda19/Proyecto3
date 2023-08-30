@@ -165,7 +165,6 @@ while ($row = $query->fetch_assoc()) {
             const index = addedRecipes.findIndex(addedRecipe => addedRecipe.id === recipe.id);
             addedRecipes[index].quantity += quantity;
         } else {
-            // Check material availability before adding the recipe
             const materialsAvailable = checkMaterialAvailability(currentRecipe.value, quantity);
             
             if (materialsAvailable) {
@@ -186,11 +185,7 @@ while ($row = $query->fetch_assoc()) {
     });
 
     function checkMaterialAvailability(recipeId, quantity) {
-        // Implement the logic to check material availability for the given recipe and quantity
-        // Retrieve recipe materials and available quantities from the database
-        // Compare required material quantities with available quantities
-        // Return true if materials are available, false otherwise
-        return true; // Replace with your actual logic
+        return true; 
     }
 
     function updateRecipesFields() {

@@ -4,8 +4,8 @@ session_start();
 include('../conexion.php');
 global $conection;
 if (!isset($_SESSION['permisos']['permiso_crear_hoja_tecnica']) || $_SESSION['permisos']['permiso_crear_hoja_tecnica'] != 1) {
-	header("location: index.php");
-	exit();
+    header("location: index.php");
+    exit();
 }
 
 
@@ -58,6 +58,8 @@ if ($update_id) {
     </title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" type="image/jpg" href="img/favicon.png" />
+    <link href="ruta-a-select2.css" rel="stylesheet">
+    <script src="ruta-a-select2.js"></script>
 
     <style>
         .ingredients-list {
@@ -128,15 +130,19 @@ if ($update_id) {
                     <div class="ui-form-group compound">
                         <div class="ui-form-group">
                             <label for="ingredient-item">Producto</label>
-                            <select name="products" id="ingredient-item">
+
+                            <select name="products" id="ingredient-item" class="select2">
                                 <?php foreach ($products as $product): ?>
                                     <option value="<?php echo $product['codproducto']; ?>"
                                         data-name="<?php echo $product['descripcion']; ?>"
                                         data-precio="<?php echo $product['precio']; ?>">
-                                        <?php echo $product['descripcion']; ?>
+                                        <?php echo $product['descripcion'] . " " . $product['medida']; ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
+
+
+
                         </div>
                         <div class="ui-form-group">
                             <label for="quantity">Cantidad</label>
@@ -200,9 +206,9 @@ if ($update_id) {
         </form>
     </main>
     <script>
-    const products = <?php echo json_encode($products); ?>;
-    const addIngredientBtn = document.querySelector('#add-ingredient');
-    const ingredients = <?php
+        const products = <?php echo json_encode($products); ?>;
+        const addIngredientBtn = document.querySelector('#add-ingredient');
+        const ingredients = <?php
         if (isset($update_recipe)) {
             $ingredients = [];
 
@@ -219,103 +225,103 @@ if ($update_id) {
         } else {
             echo '[]';
         }
-    ?>;
+        ?>;
 
-    addIngredientBtn.addEventListener('click', () => {
-        const id = document.querySelector('#ingredient-item').value;
-        const quantity = parseFloat(document.querySelector('#ingredient-quantity').value);
+        addIngredientBtn.addEventListener('click', () => {
+            const id = document.querySelector('#ingredient-item').value;
+            const quantity = parseFloat(document.querySelector('#ingredient-quantity').value);
 
-        if (!id) {
-            alert('No se ha seleccionado un ingrediente');
-            return;
-        }
+            if (!id) {
+                alert('No se ha seleccionado un ingrediente');
+                return;
+            }
 
-        if (isNaN(quantity) || quantity <= 0) {
-            alert('La cantidad debe ser mayor a 0');
-            return;
-        }
+            if (isNaN(quantity) || quantity <= 0) {
+                alert('La cantidad debe ser mayor a 0');
+                return;
+            }
 
-        const name = document.querySelector('#ingredient-item')
-            .options[document.querySelector('#ingredient-item').selectedIndex].dataset.name;
+            const name = document.querySelector('#ingredient-item')
+                .options[document.querySelector('#ingredient-item').selectedIndex].dataset.name;
 
-        const price = parseFloat(document.querySelector('#ingredient-item')
-            .options[document.querySelector('#ingredient-item').selectedIndex].dataset.precio);
+            const price = parseFloat(document.querySelector('#ingredient-item')
+                .options[document.querySelector('#ingredient-item').selectedIndex].dataset.precio);
 
-        const ingredient = {
-            id,
-            quantity,
-            name,
-            price
-        };
+            const ingredient = {
+                id,
+                quantity,
+                name,
+                price
+            };
 
-        const exists = ingredients.find(ingredient => ingredient.id === id);
+            const exists = ingredients.find(ingredient => ingredient.id === id);
 
-        if (exists) {
-            const index = ingredients.indexOf(exists);
-            ingredients[index].quantity += quantity;
+            if (exists) {
+                const index = ingredients.indexOf(exists);
+                ingredients[index].quantity += quantity;
+                updateHiddenFields();
+                updateIngredientsList();
+                return;
+            }
+
+            ingredients.push(ingredient);
             updateHiddenFields();
             updateIngredientsList();
-            return;
-        }
+        });
 
-        ingredients.push(ingredient);
-        updateHiddenFields();
-        updateIngredientsList();
-    });
+        function updateIngredientsList() {
+            const ingredientsList = document.querySelector('#ingredients-list');
+            ingredientsList.innerHTML = '';
 
-    function updateIngredientsList() {
-        const ingredientsList = document.querySelector('#ingredients-list');
-        ingredientsList.innerHTML = '';
+            let finalPrice = 0.0;
 
-        let finalPrice = 0.0;
+            ingredients.forEach(ingredient => {
+                const row = document.createElement('div');
+                row.classList.add('row');
 
-        ingredients.forEach(ingredient => {
-            const row = document.createElement('div');
-            row.classList.add('row');
-
-            row.innerHTML = `
+                row.innerHTML = `
                 <div class="column quantity">${ingredient.quantity}</div>
                 <div class="column name">${ingredient.name}</div>
                 <div class="column options">
                     <a href="javascript:void(0)" onclick="deleteIngredient(${ingredient.id})"><i class="fa-solid fa-trash"></i></a>
                 </div>
             `;
-            ingredientsList.appendChild(row);
+                ingredientsList.appendChild(row);
 
-            finalPrice += ingredient.quantity * ingredient.price;
-        });
+                finalPrice += ingredient.quantity * ingredient.price;
+            });
 
-        document.querySelector('#final-price').innerHTML = finalPrice.toFixed(2);
-    }
+            document.querySelector('#final-price').innerHTML = finalPrice.toFixed(2);
+        }
 
-    function deleteIngredient(id) {
-        const ingredient = ingredients.find(ingredient => ingredient.id === id);
-        const index = ingredients.indexOf(ingredient);
-        ingredients.splice(index, 1);
-        updateHiddenFields();
-        updateIngredientsList();
-    }
+        function deleteIngredient(id) {
+            const ingredient = ingredients.find(ingredient => ingredient.id === id);
+            const index = ingredients.indexOf(ingredient);
+            ingredients.splice(index, 1);
+            updateHiddenFields();
+            updateIngredientsList();
+        }
 
-    function updateHiddenFields() {
-        const ingredientsFields = document.querySelector('#ingredients-fields');
-        ingredientsFields.innerHTML = '';
+        function updateHiddenFields() {
+            const ingredientsFields = document.querySelector('#ingredients-fields');
+            ingredientsFields.innerHTML = '';
 
-        ingredients.forEach((ingredient, index) => {
-            const idField = document.createElement('input');
-            idField.type = 'hidden';
-            idField.name = `ingredients[${index}][id]`;
-            idField.value = ingredient.id;
+            ingredients.forEach((ingredient, index) => {
+                const idField = document.createElement('input');
+                idField.type = 'hidden';
+                idField.name = `ingredients[${index}][id]`;
+                idField.value = ingredient.id;
 
-            const quantityField = document.createElement('input');
-            quantityField.type = 'hidden';
-            quantityField.name = `ingredients[${index}][quantity]`;
-            quantityField.value = ingredient.quantity;
+                const quantityField = document.createElement('input');
+                quantityField.type = 'hidden';
+                quantityField.name = `ingredients[${index}][quantity]`;
+                quantityField.value = ingredient.quantity;
 
-            ingredientsFields.appendChild(idField);
-            ingredientsFields.appendChild(quantityField);
-        });
-    }
-</script>
+                ingredientsFields.appendChild(idField);
+                ingredientsFields.appendChild(quantityField);
+            });
+        }
+    </script>
 
 </body>
 
