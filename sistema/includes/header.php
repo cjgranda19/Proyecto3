@@ -23,7 +23,6 @@ if (empty($_SESSION['active'])) {
 		padding: 10px;
 		z-index: 1000;
 		display: none;
-		/* Inicialmente oculto */
 	}
 
 	.user-image-container {

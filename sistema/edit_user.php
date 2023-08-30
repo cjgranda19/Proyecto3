@@ -8,9 +8,9 @@ if (!isset($_SESSION['permisos']['permiso_crear_usuarios']) || $_SESSION['permis
 $query_cliente = mysqli_query($conection, "SELECT * FROM usuario");
 $cliente_info = array();
 
-$query_info = mysqli_query($conection, "SELECT idusuario, nombre, correo, usuario, cargo FROM usuario");
+$query_info = mysqli_query($conection, "SELECT idusuario, nombre, correo, usuario, cargo, rol FROM usuario");
 while ($info = mysqli_fetch_assoc($query_info)) {
-    $cliente_info[$info['idusuario']] = array('nombre' => $info['nombre'], 'correo' => $info['correo'], 'usuario' => $info['usuario'], 'cargo' => $info['cargo']);
+    $cliente_info[$info['idusuario']] = array('nombre' => $info['nombre'], 'correo' => $info['correo'], 'usuario' => $info['usuario'], 'cargo' => $info['cargo'], 'rol' => $info['rol']);
 }
 
 mysqli_close($conection);
@@ -39,6 +39,8 @@ mysqli_close($conection);
 
             <form id="entryForm" action="process/process_edit_user.php" method="post">
                 <input type="hidden" name="idusuario" id="idusuario" value="">
+                <input type="hidden" name="rol" id="rol" value="">
+
 
                 <label for="usuario">Selecciona un usuario: </label>
                 <select name="selectedUsuarioId" id="selectedUsuarioId" required onchange="populateFieldsUsers()">
@@ -54,8 +56,10 @@ mysqli_close($conection);
                 <input type="text" name="usuario" id="usuario" placeholder="usuario" pattern="^[a-z]+$" title="Ingresa un usuario válido con solo minúsculas" onchange="validar()" required>
                 <div id="mensajeErrorUsuario" class="mensaje-error"></div>
 
+
+                
                 <label for="nombre">Nombre y Apellido </label>
-                <input type="text" id="nombre" placeholder="Nombre Apellido" title="El formato debe ser 'Nombre Apellido'" onchange="validar()" 
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre Apellido" title="El formato debe ser 'Nombre Apellido'" onchange="validar()" 
                     title="El formato debe ser 'Nombre Apellido'" required>
                 <div id="mensajeErrorNombre" class="mensaje-error"></div>
 

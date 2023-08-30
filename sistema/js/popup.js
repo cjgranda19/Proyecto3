@@ -105,10 +105,8 @@ function populateFieldsClientes() {
 
 
 function populateFieldsUsers() {
-    console.log("populateFieldsUsers() called");
 
     var selectedUsuarioId = $("#selectedUsuarioId").val();
-    console.log("Selected Usuario ID:", selectedUsuarioId);
 
     $.ajax({
         type: "POST",
@@ -116,10 +114,10 @@ function populateFieldsUsers() {
         data: { action: "getUsers", idusuario: selectedUsuarioId },
         dataType: "json",
         success: function (response) {
-            console.log("AJAX Success:", response);
+    
 
                 var usuario = response;
-                console.log("Usuario Data:", usuario);
+        
 
                 $("#idusuario").val(usuario.idusuario);
                 $("#usuario").val(usuario.usuario);
@@ -127,11 +125,41 @@ function populateFieldsUsers() {
                 $("#nombre").val(usuario.nombre);
                 $("#correo").val(usuario.correo);
                 $("#cargo").val(usuario.cargo);
-                
+                $("#rol").val(usuario.rol);
             
         },
         error: function (error) {
-            console.log("AJAX Error:", error);
+    
         }
     });
+}
+
+function populateFieldsSupplier(){
+
+    var selectedProveedorId = $("#selectedProveedorId").val();
+
+    $.ajax({
+        type: "POST",
+        url: "ajax.php", // Ruta real hacia tu archivo ajax.php
+        data: { action: "getSupplier", idproveedor: selectedProveedorId },
+        dataType: "json",
+        success: function (response) {
+    
+
+                var proveedor = response;
+        
+
+                $("#idproveedor").val(proveedor.idproveedor);
+                $("#nombre").val(proveedor.nombre);
+                $("#direccion").val(proveedor.direccion);
+                $("#telefono").val(proveedor.telefono);
+                $("#correo").val(proveedor.correo);
+            
+        },
+        error: function (error) {
+    
+        }
+    });
+
+
 }
