@@ -52,7 +52,7 @@ include "../conexion.php";
 			<a href="registro_proveedor.php" class="btn_new"
 				onclick="loadPopupContentFromLink(this.href); return false;">Nuevo Proveedor</a>
 			<a href="edit_supplier.php" class="btn_new" onclick="loadPopupContentFromLink(this.href); return false;">Editar
-				Usuario</a>
+				Proveedor</a>
 		<?php } ?>
 
 		<form action="buscar_proveedor.php" method="get" class="form_search">

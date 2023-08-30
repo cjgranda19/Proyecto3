@@ -18,11 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $clave = md5($_POST['clave']);
     $cargo = $_POST['cargo'];
     $rol = $_POST['rol'];
-    echo "<script>console.log('Valor de rol:', " . json_encode($rol) . ");</script>";
-    echo "<script>console.log('Valor de rol:', " . json_encode($usuario_id) . ");</script>";
-    echo "<script>console.log('Valor de rol:', " . json_encode($nombre) . ");</script>";
-    echo "<script>console.log('Valor de rol:', " . json_encode($email) . ");</script>";
-
+   
     $selectedRoles = array();
 
     if ($cargo === 'Superadmin') {
