@@ -153,7 +153,6 @@ if ($result_sql == 0) {
 
 		<div class="form_register">
 			<h1>Editar cliente</h1>
-			<hr>
 			<div class="alert">
 				<?php echo isset($alert) ? $alert : ''; ?>
 			</div>
@@ -177,7 +176,7 @@ if ($result_sql == 0) {
 				<input type="text" name="direccion" id="direccion" placeholder="Dirección completa" onchange="validarCliente()" value="<?php echo $direccion; ?>">
 				<div id="mensajeErrorDireccion" class="mensaje-error"></div>
 
-				<input type="submit" value="Actualizar cliente" class="btn_save">
+				<input type="submit" value="Actualizar cliente" id="btn_sb" class="btn_save">
 			</form>
 
 	</section>

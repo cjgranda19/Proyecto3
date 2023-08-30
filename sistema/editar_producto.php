@@ -71,7 +71,6 @@ if (empty($_REQUEST['id'])) {
     <section id="container">
         <div class="form_register">
             <h1>Actualizar Producto</h1>
-            <hr>
             <div class="alert">
                 <?php echo isset($alert) ? $alert : ''; ?>
             </div>

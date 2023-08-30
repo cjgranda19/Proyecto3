@@ -3,9 +3,7 @@ session_start();
 include "../conexion.php";
 include "includes/session_timeout.php";
 if (
-	!isset($_SESSION['permisos']['permiso_ver_clientes']) || $_SESSION['permisos']['permiso_ver_clientes'] != 1 ||
-	!isset($_SESSION['permisos']['permiso_crear_clientes']) || $_SESSION['permisos']['permiso_crear_clientes'] != 1
-) {
+	!isset($_SESSION['permisos']['permiso_ver_clientes']) || $_SESSION['permisos']['permiso_ver_clientes'] != 1) {
 	header("location: index.php");
 	exit();
 }
@@ -38,8 +36,8 @@ if (
 		?>
 
 
-		<h1>Lista de clientes</h1>
-		<a href="registro_cliente.php" class="btn_new">Crear cliente</a>
+		<h1>Lista de cliente</h1>
+		<a href="lista_clientes.php" class="btn_new">Volver</a>
 
 		<form action="buscar_cliente.php" method="get" class="form_search">
 			<input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda; ?>">
@@ -53,7 +51,6 @@ if (
 				<th>Nombre</th>
 				<th>Teléfono</th>
 				<th>Dirección</th>
-				<th>Acciones</th>
 			</tr>
 			<?php
 
@@ -101,14 +98,7 @@ if (
 						<td>
 							<?php echo $data['direccion']; ?>
 						</td>
-						<td>
-							<a class="link_edit" href="editar_cliente.php?id=<?php echo $data['id_cliente']; ?>">Editar</a>
-
-							<?php if ($_SESSION['rol'] == 1) { ?>
-								<a class="link_delete"
-									href="eliminar_confirmar_cliente.php?id=<?php echo $data['id_cliente']; ?>">Eliminar</a>
-							<?php } ?>
-						</td>
+						
 					</tr>
 
 					<?php

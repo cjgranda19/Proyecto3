@@ -26,7 +26,6 @@ if (!isset($_SESSION['permisos']['permiso_crear_clientes']) || $_SESSION['permis
 
 		<div class="form_register">
 			<h1>Registro Cliente</h1>
-			<hr>
 			<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 			<form id="registroForm" action="process/process_register_client.php" method="post">
 

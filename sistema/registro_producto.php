@@ -38,42 +38,6 @@ include "../conexion.php";
 				<label for="medida">Medida </label>
 				<input type="text" name="medida" id="medida" placeholder="Medida del producto" required>
 
-				<label for="medida-test">Medida Test </label>
-				<select name="medida-test" id="medida-test">
-					<option value="" disabled selected>Selecciona una medida</option>
-					<?php
-					$query_medida = mysqli_query($conection, "SELECT id_measurement, measurement FROM product_measurement ORDER BY measurement ASC");
-					while ($medida = mysqli_fetch_array($query_medida)) {
-						echo '<option value="' . $medida['id_measurement'] . '">' . $medida['measurement'] . '</option>';
-					}
-					?>
-					<option value="nueva_medida">Crear Nueva Medida</option>
-				</select>
-
-				<label for="nueva_medida" id="label-nueva-medida" style="display: none;">Registre la medida necesitada
-				</label>
-				<input type="text" name="nueva_medida" id="nueva_medida" placeholder="Nueva Medida"
-					style="display: none;">
-				<script>
-					const labelNuevaMedida = document.getElementById("label-nueva-medida");
-					const nuevaMedidaInput = document.getElementById("nueva_medida");
-
-					document.getElementById("medida-test").addEventListener("change", function () {
-						if (this.value === "nueva_medida") {
-							labelNuevaMedida.style.display = "block";
-							nuevaMedidaInput.style.display = "block";
-							nuevaMedidaInput.setAttribute("required", "required");
-						} else {
-							labelNuevaMedida.style.display = "none";
-							nuevaMedidaInput.style.display = "none";
-							nuevaMedidaInput.removeAttribute("required");
-						}
-					});
-				</script>
-
-
-
-
 				<label for="proveedor">Proveedor</label>
 				<select name="proveedor" id="proveedor" required>
 					<?php

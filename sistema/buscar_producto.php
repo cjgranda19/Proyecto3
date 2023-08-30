@@ -4,8 +4,7 @@ include "../conexion.php";
 include "includes/session_timeout.php";
 
 if (
-	!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permisos']['permiso_ver_productos'] != 1 ||
-	!isset($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1
+	!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permisos']['permiso_ver_productos'] != 1
 ) {
 	header("location: index.php");
 	exit();
@@ -40,7 +39,7 @@ if (
 		?>
 
 		<h1>Lista de productos</h1>
-		<a href="registro_producto.php" class="btn_new">Nuevo producto</a>
+		<a href="lista_producto.php" class="btn_new">Volver</a>
 
 		<form action="buscar_producto.php" method="get" class="form_search">
 			<input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda; ?>">
@@ -54,7 +53,7 @@ if (
 				<th>Proveedor</th>
 				<th>Precio</th>
 				<th>Stock</th>
-				<th>Acciones</th>
+
 			</tr>
 			<?php
 
@@ -104,17 +103,7 @@ if (
 						</td>
 						<td>
 							<?php echo $data['existencia']; ?>
-						</td>
 
-
-
-						<?php if ($_SESSION['rol'] == 1) { ?>
-							<td>
-								<a class="link_edit" href="editar_producto.php?id=<?php echo $data['codproducto']; ?>">Editar</a>
-								<a class="link_delete"
-									href="eliminar_confirmar_producto.php?id=<?php echo $data['codproducto']; ?>"> Eliminar</a>
-							</td>
-						<?php } ?>
 					</tr>
 
 					<?php

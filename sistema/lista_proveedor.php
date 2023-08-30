@@ -69,7 +69,11 @@ include "../conexion.php";
 				<th>Teléfono</th>
 				<th>Dirección</th>
 				<th>Fecha</th>
+				<?php if (isset($_SESSION['permisos']['permiso_crear_proveedor']) && $_SESSION['permisos']['permiso_crear_proveedor'] == 1) { ?>
+
 				<th>Acciones</th>
+
+				<?php } ?>
 			</tr>
 			<?php
 
@@ -119,11 +123,14 @@ include "../conexion.php";
 						<td>
 							<?php echo $fecha->format('d-m-Y'); ?>
 						</td>
+						<?php if (isset($_SESSION['permisos']['permiso_crear_proveedor']) && $_SESSION['permisos']['permiso_crear_proveedor'] == 1) { ?>
+
 						<td>
 							<a class="link_delete"
 								href="eliminar_confirmar_proveedor.php?id=<?php echo $data['id_supplier']; ?>"><i
 									class="fa-solid fa-trash"></i> Eliminar</a>
 						</td>
+						<?php } ?>
 					</tr>
 
 					<?php

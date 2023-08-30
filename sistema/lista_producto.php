@@ -66,7 +66,7 @@ if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permiso
                 <th>Proveedor</th>
                 <th>Precio</th>
                 <th>Stock</th>
-                <?php if (($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1) { ?>
+                <?php if (isset($_SESSION['permisos']['permiso_crear_productos']) && $_SESSION['permisos']['permiso_crear_productos'] == 1) { ?>
 
                     <th>Acciones</th>
                 <?php } ?>
@@ -118,7 +118,7 @@ if (!isset($_SESSION['permisos']['permiso_ver_productos']) || $_SESSION['permiso
                     </td>
 
 
-                    <?php if (($_SESSION['permisos']['permiso_crear_productos']) || $_SESSION['permisos']['permiso_crear_productos'] != 1) { ?>
+                    <?php if (isset($_SESSION['permisos']['permiso_crear_productos']) && $_SESSION['permisos']['permiso_crear_productos'] == 1) { ?>
                         <td>
                             <a class="link_delete"
                                 href="eliminar_confirmar_producto.php?id=<?php echo $data['codproducto']; ?>"><i

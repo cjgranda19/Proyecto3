@@ -44,7 +44,7 @@ foreach ($recipes as $recipe) {
     foreach ($rows as $ingredient) {
         $newQuantity = floatval($ingredient['existencia']) - (floatval($ingredient['cantidad']) * $quantity);
 
-        if ($newQuantity <= 0) {
+        if ($newQuantity <= -1) {
             $error = "No hay suficientes ingredientes para la receta<br>"
                 . "se intento usar {$ingredient['cantidad']} de {$ingredient['descripcion']}";
             include(__DIR__ . '/crear_orden.php');

@@ -55,7 +55,9 @@ if (!isset($_SESSION['permisos']['permiso_ver_clientes']) || $_SESSION['permisos
 				<th>Nombre</th>
 				<th>Teléfono</th>
 				<th>Dirección</th>
+				<?php if (isset($_SESSION['permisos']['permiso_crear_clientes']) && $_SESSION['permisos']['permiso_crear_clientes'] == 1) { ?>
 				<th>Acciones</th>
+				<?php } ?>
 			</tr>
 			<?php
 
@@ -97,14 +99,16 @@ if (!isset($_SESSION['permisos']['permiso_ver_clientes']) || $_SESSION['permisos
 						<td>
 							<?php echo $data['direccion']; ?>
 						</td>
+						<?php if (isset($_SESSION['permisos']['permiso_crear_clientes']) && $_SESSION['permisos']['permiso_crear_clientes'] == 1) { ?>
+
 						<td>
 							
-							<?php if ($_SESSION['rol'] == 1) { ?>
 								<a class="link_delete"
 									href="eliminar_confirmar_cliente.php?id=<?php echo $data['id_cliente']; ?>"><i
 										class="fa-solid fa-trash"></i> Eliminar</a>
-							<?php } ?>
 						</td>
+						<?php } ?>
+
 					</tr>
 
 					<?php

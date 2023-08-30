@@ -58,7 +58,6 @@ include "../conexion.php";
 					<option value="Vendedor">Vendedor</option>
 					<option value="Almacenero">Almacenero</option>
 					<option value="Contador">Contador</option>
-					<option value="Vendedor>">Vendedor</option>
 				</select>
 
 				<div class="button-container">
