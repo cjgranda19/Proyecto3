@@ -30,7 +30,7 @@
 		mysqli_close($conection);
 	}else{
 		$idusuario = $_REQUEST['id'];
-		$query = mysqli_query($conection, "SELECT u.nombre, u.usuario, u.cargo FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.idusuario = $idusuario ");
+		$query = mysqli_query($conection, "SELECT u.nombre, u.usuario, u.cargo, u.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.idusuario = $idusuario ");
 		mysqli_close($conection);
 		$result = mysqli_num_rows($query);
 
@@ -39,6 +39,7 @@
 				$nombre = $data['nombre'];
 				$usuario = $data['usuario'];
 				$cargo = $data['cargo'];
+				$rol = $data['rol'];
 			}
 		}else{
 			header("location: lista_usuarios.php");
