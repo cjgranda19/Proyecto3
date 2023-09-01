@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order>
+  <total>8322</total>
+  <id>2</id>
+  <user_id>1</user_id>
+  <customer_name>Granda Velasquez Nelson Isaac</customer_name>
+  <created_at>2023-08-30 08:11:33</created_at>
+  <updated_at>2023-08-30 08:11:33</updated_at>
+  <estatus>1</estatus>
+  <recipes>
+    <recipe>
+      <id>1</id>
+      <user_id>1</user_id>
+      <name>Mesa</name>
+      <price>162.00</price>
+      <estatus>1</estatus>
+      <created_at>2023-08-30 07:58:11</created_at>
+      <updated_at>2023-08-30 07:58:11</updated_at>
+      <quantity>4</quantity>
+      <total>648.00</total>
+    </recipe>
+    <recipe>
+      <id>3</id>
+      <user_id>1</user_id>
+      <name>Armario</name>
+      <price>2558.00</price>
+      <estatus>1</estatus>
+      <created_at>2023-08-30 08:09:41</created_at>
+      <updated_at>2023-08-30 08:09:41</updated_at>
+      <quantity>3</quantity>
+      <total>7674.00</total>
+    </recipe>
+  </recipes>
+  <totalPrice>8322</totalPrice>
+</order>

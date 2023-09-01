@@ -43,8 +43,11 @@ include "../conexion.php";
 
 			<a href="registro_usuario.php" class="btn_new"
 				onclick="loadPopupContentFromLink(this.href); return false;">Nuevo Usuario</a>
-				<a href="edit_user.php" class="btn_new"
-				onclick="loadPopupContentFromLink(this.href); return false;">Editar Usuario</a>
+			<a href="edit_user.php" class="btn_new" onclick="loadPopupContentFromLink(this.href); return false;">Editar
+				Usuario</a>
+		<?php } ?>
+		<?php if (isset($_SESSION['idUser']) && $_SESSION['idUser'] == 1) { ?>
+				<a href="rol.php" class="btn_new" onclick="loadPopupContentFromLink(this.href); return false;">Rol personalizado</a>
 		<?php } ?>
 
 

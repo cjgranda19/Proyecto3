@@ -94,6 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_close($conection);
         }
     }
+    header("location: ../lista_usuarios.php");
+
 }
 echo $alert;
 ?>

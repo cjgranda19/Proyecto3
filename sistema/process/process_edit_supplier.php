@@ -25,6 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	if (mysqli_num_rows($result_check) > 0) {
 		$_SESSION['popup_message'] = 'Ya existe un registro con el mismo proveedor, contacto y número de teléfono.';
+		header("location: ../lista_proveedor.php");
+
 	} else { 
 		$sql_update = mysqli_query($conection, "UPDATE proveedor SET proveedor = '$proveedor', correo = '$correo'
 	, contacto='$contacto', telefono='$telefono', direccion='$direccion', cedula = '$cedula' WHERE id_supplier = $id_supplier ");

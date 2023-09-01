@@ -3,34 +3,133 @@
   <product>
     <id_producto>1</id_producto>
     <name>Madera</name>
-    <supplier>1</supplier>
-    <price>34.56</price>
-    <stock>160</stock>
-    <date_add>2023-08-30 01:42:48</date_add>
+    <supplier>5</supplier>
+    <price>1.40</price>
+    <stock>1</stock>
+    <date_add>2023-08-30 05:32:58</date_add>
     <id_user>1</id_user>
-    <average_price>34.560000</average_price>
-    <tendencia>1</tendencia>
+    <average_price>24.560000</average_price>
+    <tendencia>15</tendencia>
   </product>
   <product>
     <id_producto>2</id_producto>
+    <name>Tornillo de madera</name>
+    <supplier>5</supplier>
+    <price>0.23</price>
+    <stock>1</stock>
+    <date_add>2023-08-30 05:33:48</date_add>
+    <id_user>1</id_user>
+    <average_price>0.230000</average_price>
+    <tendencia>1</tendencia>
+  </product>
+  <product>
+    <id_producto>3</id_producto>
+    <name>Tornillo de madera</name>
+    <supplier>5</supplier>
+    <price>1.00</price>
+    <stock>1</stock>
+    <date_add>2023-08-30 05:34:41</date_add>
+    <id_user>1</id_user>
+    <average_price>1.000000</average_price>
+    <tendencia>1</tendencia>
+  </product>
+  <product>
+    <id_producto>4</id_producto>
+    <name>Perno</name>
+    <supplier>7</supplier>
+    <price>1.23</price>
+    <stock>1</stock>
+    <date_add>2023-08-30 05:36:26</date_add>
+    <id_user>1</id_user>
+    <average_price>1.230000</average_price>
+    <tendencia>1</tendencia>
+  </product>
+  <product>
+    <id_producto>5</id_producto>
     <name>Triplex</name>
     <supplier>1</supplier>
-    <price>40.00</price>
-    <stock>80</stock>
-    <date_add>2023-08-30 01:43:50</date_add>
+    <price>25.50</price>
+    <stock>180</stock>
+    <date_add>2023-08-30 05:38:28</date_add>
     <id_user>1</id_user>
     <average_price/>
     <tendencia>1</tendencia>
   </product>
   <product>
-    <id_producto>3</id_producto>
+    <id_producto>6</id_producto>
     <name>Laca</name>
-    <supplier>1</supplier>
-    <price>4.00</price>
-    <stock>108</stock>
-    <date_add>2023-08-30 01:47:48</date_add>
+    <supplier>9</supplier>
+    <price>56.90</price>
+    <stock>600</stock>
+    <date_add>2023-08-30 05:49:31</date_add>
     <id_user>1</id_user>
-    <average_price>9.000000</average_price>
+    <average_price/>
+    <tendencia>1</tendencia>
+  </product>
+  <product>
+    <id_producto>7</id_producto>
+    <name>Clavos </name>
+    <supplier>6</supplier>
+    <price>0.50</price>
+    <stock>300</stock>
+    <date_add>2023-08-30 05:51:55</date_add>
+    <id_user>1</id_user>
+    <average_price/>
+    <tendencia>1</tendencia>
+  </product>
+  <product>
+    <id_producto>8</id_producto>
+    <name>Clavos</name>
+    <supplier>4</supplier>
+    <price>0.60</price>
+    <stock>4000</stock>
+    <date_add>2023-08-30 05:52:57</date_add>
+    <id_user>1</id_user>
+    <average_price/>
+    <tendencia>0</tendencia>
+  </product>
+  <product>
+    <id_producto>9</id_producto>
+    <name>Pata goma</name>
+    <supplier>8</supplier>
+    <price>0.30</price>
+    <stock>8000</stock>
+    <date_add>2023-08-30 05:54:37</date_add>
+    <id_user>1</id_user>
+    <average_price/>
+    <tendencia>0</tendencia>
+  </product>
+  <product>
+    <id_producto>10</id_producto>
+    <name>Tornillos</name>
+    <supplier>2</supplier>
+    <price>0.20</price>
+    <stock>4968</stock>
+    <date_add>2023-08-30 05:55:29</date_add>
+    <id_user>1</id_user>
+    <average_price/>
+    <tendencia>0</tendencia>
+  </product>
+  <product>
+    <id_producto>11</id_producto>
+    <name>Pernos</name>
+    <supplier>8</supplier>
+    <price>1.31</price>
+    <stock>160</stock>
+    <date_add>2023-08-30 05:56:19</date_add>
+    <id_user>1</id_user>
+    <average_price>1.310000</average_price>
+    <tendencia>0</tendencia>
+  </product>
+  <product>
+    <id_producto>12</id_producto>
+    <name>Bisagras</name>
+    <supplier>8</supplier>
+    <price>1.50</price>
+    <stock>1150</stock>
+    <date_add>2023-08-30 07:40:32</date_add>
+    <id_user>1</id_user>
+    <average_price/>
     <tendencia>0</tendencia>
   </product>
 </products>

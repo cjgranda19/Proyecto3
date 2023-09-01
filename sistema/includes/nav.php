@@ -52,15 +52,18 @@
 			</li>
 		<?php } ?>
 
-		<li class="principal">
-			<?php if ($_SESSION['permisos']['permiso_ver_reportes']) { ?>
+		<?php if ($_SESSION['permisos']['permiso_ver_reportes']) { ?>
+			<li class="principal">
+
 				<a href="#"><i class="fa-solid fa-person"></i> Reportes</a>
 				<ul>
 					<li><a href="inventario_original.php">Inventario inicial completo</a></li>
 					<li><a href="report_product.php">Reporte Producto</a></li>
 					<li><a href="report_cliente.php">Reporte Cliente</a></li>
 				</ul>
-			<?php } ?>
-		</li>
+			</li>
+
+		<?php } ?>
+
 	</ul>
 </nav>

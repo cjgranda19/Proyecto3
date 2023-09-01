@@ -54,9 +54,11 @@ if (isset($_GET['order_id'])) {
     }
     $stmt->close();
     $_SESSION['popup_message'] = 'Orden reversada.';
-    header("location: ../lista_usuarios.php");
+    header("location: ../lista_ordenes.php");
     exit;
 } else {
-    echo "No order ID provided.";
+    $_SESSION['popup_message'] = 'Error';
+    header("location: ../lista_ordenes.php");
+
 }
 ?>
